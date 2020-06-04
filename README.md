@@ -1,4 +1,5 @@
 # Criminal Appeals Fund
+[![codecov](https://codecov.io/gh/fac19/criminal-appeals-fund/branch/master/graph/badge.svg)](https://codecov.io/gh/fac19/criminal-appeals-fund)
 
 ## Contributors
 

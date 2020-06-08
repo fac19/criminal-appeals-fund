@@ -1,11 +1,11 @@
 import React from "react";
-import "./App.css";
 import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
 	Redirect,
 } from "react-router-dom";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 function App() {
 	return (
@@ -13,7 +13,9 @@ function App() {
 			<Switch>
 				<Route path="/login">{/* <LogInPage/> */}</Route>
 				<Route path="/signup">{/* <SignUpPage/> */}</Route>
-				<Route path="/">{/* <LandingPage/> */}</Route>
+				<Route path="/">
+					<LandingPage />
+				</Route>
 			</Switch>
 		</Router>
 	);

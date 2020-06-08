@@ -33,7 +33,7 @@ const LandingPage = () => {
 				Step 4: If your case is approved, you will need to generate an invoice
 				to receive the funding
 			</p>
-			<Link to="sign-up">
+			<Link to="/sign-up">
 				<Button variant="contained">Sign Up</Button>
 			</Link>
 		</>

@@ -13,8 +13,8 @@ const LogInPage = () => {
 	const [formDetails, updateForm] = React.useState({ email: "", password: "" });
 
 	const handleInputChange = (event) => {
-		const { value, id } = event.target;
-		updateForm({ ...formDetails, [id]: value });
+		const { name, value } = event.target;
+		updateForm({ ...formDetails, [name]: value });
 	};
 
 	const handleSubmit = (event) => {
@@ -28,6 +28,7 @@ const LogInPage = () => {
 			<form onSubmit={handleSubmit}>
 				<TextField
 					id="email"
+					name="name"
 					label="Email"
 					variant="outlined"
 					autoFocus
@@ -37,6 +38,7 @@ const LogInPage = () => {
 				/>
 				<TextField
 					id="password"
+					name="name"
 					type="password"
 					label="Password"
 					variant="outlined"

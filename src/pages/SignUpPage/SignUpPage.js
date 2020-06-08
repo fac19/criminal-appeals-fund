@@ -8,11 +8,13 @@ import {
 	SignUp2,
 } from "../../components/SignUpForm/SignUpForm";
 import { postFile } from "../../utils/cloudinary";
+import { Form } from "./SignUpPage.style";
 
 const useStyles = makeStyles({
 	root: {
-		maxWidth: 400,
-		flexGrow: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "white",
 	},
 });
 
@@ -39,7 +41,7 @@ const SignUpPage = () => {
 		setImage(event.target.files[0]);
 	};
 
-	const handleNext = () => {
+	const handleNext = (event) => {
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	};
 
@@ -66,14 +68,14 @@ const SignUpPage = () => {
 	return (
 		<>
 			<Navbar />
-			<MobileStepper
-				variant="dots"
-				steps={3}
-				position="static"
-				activeStep={activeStep}
-				className={classes.root}
-			/>
-			<form onSubmit={handleSubmit}>
+			<Form onSubmit={handleSubmit}>
+				<MobileStepper
+					variant="dots"
+					steps={3}
+					position="static"
+					activeStep={activeStep}
+					className={classes.root}
+				/>
 				{activeStep === 0 && (
 					<SignUp0 handleOnChange={handleOnChange} form={form} />
 				)}
@@ -107,7 +109,7 @@ const SignUpPage = () => {
 						Sign Up
 					</Button>
 				)}
-			</form>
+			</Form>
 		</>
 	);
 };

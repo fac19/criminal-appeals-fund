@@ -7,6 +7,7 @@ import {
 	SignUp1,
 	SignUp2,
 } from "../../components/SignUpForm/SignUpForm";
+import { postFile } from "../../utils/cloudinary";
 
 const useStyles = makeStyles({
 	root: {
@@ -18,6 +19,7 @@ const useStyles = makeStyles({
 const SignUpPage = () => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
+	const [image, setImage] = React.useState({});
 	const [form, updateForm] = React.useState({
 		first_name: "",
 		last_name: "",
@@ -33,6 +35,10 @@ const SignUpPage = () => {
 		updateForm({ ...form, [name]: value });
 	};
 
+	const handleUpload = (event) => {
+		setImage(event.target.files[0]);
+	};
+
 	const handleNext = () => {
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	};
@@ -41,9 +47,20 @@ const SignUpPage = () => {
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
+	const uploadToCloud = (image) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(image);
+		reader.onloadend = async () => {
+			return await postFile(reader.result).then((data) => {
+				updateForm({ ...form, image_url: data.url });
+			});
+		};
+	};
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log(form);
+		uploadToCloud(image);
+		//post form to airtable
 	};
 
 	return (
@@ -56,7 +73,7 @@ const SignUpPage = () => {
 				activeStep={activeStep}
 				className={classes.root}
 			/>
-			<form>
+			<form onSubmit={handleSubmit}>
 				{activeStep === 0 && (
 					<SignUp0 handleOnChange={handleOnChange} form={form} />
 				)}
@@ -64,7 +81,7 @@ const SignUpPage = () => {
 					<SignUp1 handleOnChange={handleOnChange} form={form} />
 				)}
 				{activeStep === 2 && (
-					<SignUp2 handleOnChange={handleOnChange} form={form} />
+					<SignUp2 handleUpload={handleUpload} form={form} />
 				)}
 				{(activeStep === 1 || activeStep === 2) && (
 					<Button variant="contained" color="primary" onClick={handleBack}>
@@ -86,11 +103,7 @@ const SignUpPage = () => {
 					</Button>
 				)}
 				{activeStep === 2 && (
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={handleSubmit}
-						type="submit">
+					<Button variant="contained" color="primary" type="submit">
 						Sign Up
 					</Button>
 				)}

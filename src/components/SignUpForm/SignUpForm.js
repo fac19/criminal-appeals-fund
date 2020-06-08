@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 
 const SignUp0 = ({ handleOnChange, form }) => {
 	return (
@@ -65,7 +65,7 @@ const SignUp1 = ({ handleOnChange, form }) => {
 			/>
 			<TextField
 				id="repeatPassword"
-				name="password"
+				name="repPassword"
 				value={form.password}
 				label="Repeat Password"
 				variant="outlined"
@@ -77,8 +77,15 @@ const SignUp1 = ({ handleOnChange, form }) => {
 	);
 };
 
-const SignUp2 = ({ handleOnChange }) => {
-	return <h1>3</h1>;
+const SignUp2 = ({ handleUpload, form }) => {
+	return (
+		<>
+			<Button variant="contained" component="label" onChange={handleUpload}>
+				Upload File
+				<input type="file" style={{ display: "none" }} />
+			</Button>
+		</>
+	);
 };
 
 export { SignUp0, SignUp1, SignUp2 };

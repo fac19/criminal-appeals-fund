@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { Button, TextField } from "@material-ui/core";
+import { Form } from "../../StyledComponents/StyledComponents.style";
 
 // import { makeStyles } from "@material-ui/core/styles";
 
@@ -25,7 +26,7 @@ const LogInPage = () => {
 	return (
 		<>
 			<Navbar />
-			<form onSubmit={handleSubmit}>
+			<Form onSubmit={handleSubmit}>
 				<TextField
 					id="email"
 					name="name"
@@ -48,7 +49,7 @@ const LogInPage = () => {
 				<Button variant="contained" color="primary" type="submit">
 					Log In
 				</Button>
-			</form>
+			</Form>
 		</>
 	);
 };

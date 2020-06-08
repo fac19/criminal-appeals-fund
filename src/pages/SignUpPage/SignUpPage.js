@@ -8,7 +8,7 @@ import {
 	SignUp2,
 } from "../../components/SignUpForm/SignUpForm";
 import { postFile } from "../../utils/cloudinary";
-import { Form } from "./SignUpPage.style";
+import { Form } from "../../StyledComponents/StyledComponents.style";
 
 const useStyles = makeStyles({
 	root: {

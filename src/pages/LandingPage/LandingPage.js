@@ -15,9 +15,6 @@ const LandingPage = () => {
 				pacto auctoritatem oratio non habet. Quoniam, si dis placet, ab Epicuro
 				loqui discimus. Duo Reges: constructio interrete.
 			</p>
-			<Link>
-				<Button variant="contained">Sign Up</Button>
-			</Link>
 			<Button variant="contained">How it works</Button>
 			<p>
 				Step 1: Sign up for an account. We will need to verify your account

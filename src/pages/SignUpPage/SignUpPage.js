@@ -22,7 +22,7 @@ const SignUpPage = () => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [errorMessage, setErrorMessage] = React.useState(false);
-	const [image, setImage] = React.useState({});
+	const [image, setImage] = React.useState(null);
 	const [form, updateForm] = React.useState({
 		first_name: "",
 		last_name: "",
@@ -82,11 +82,10 @@ const SignUpPage = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (form.image_url === "") {
-			setErrorMessage(true);
-		} else {
-			setErrorMessage(false);
+		if (image) {
 			uploadToCloud(image);
+		} else {
+			setErrorMessage(true);
 		}
 		//post form to airtable
 	};

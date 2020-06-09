@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, TextField } from "@material-ui/core";
 import { Form } from "../../StyledComponents/StyledComponents.style";
+import { Link } from "react-router-dom";
 
 // import { makeStyles } from "@material-ui/core/styles";
 
@@ -35,10 +36,11 @@ const LogInPage = () => {
 			<Form onSubmit={handleSubmit} noValidate>
 				<TextField
 					id="email"
-					name="name"
+					name="email"
 					label="Email"
 					variant="outlined"
 					autoFocus
+					value={form.email}
 					onChange={handleInputChange}
 					type="email"
 					required
@@ -51,9 +53,10 @@ const LogInPage = () => {
 				/>
 				<TextField
 					id="password"
-					name="name"
+					name="password"
 					type="password"
 					label="Password"
+					value={form.password}
 					variant="outlined"
 					onChange={handleInputChange}
 					required
@@ -61,7 +64,7 @@ const LogInPage = () => {
 					helperText={errorMessage ? "Please fill out this field" : ""}
 				/>
 				<Button variant="contained" color="primary" type="submit">
-					Log In
+					<Link to="/profile">Log In</Link>
 				</Button>
 			</Form>
 		</>

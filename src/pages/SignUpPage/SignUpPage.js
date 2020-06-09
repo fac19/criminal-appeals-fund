@@ -21,6 +21,7 @@ const useStyles = makeStyles({
 const SignUpPage = () => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
+	const [errorMessage, setErrorMessage] = React.useState(false);
 	const [image, setImage] = React.useState({});
 	const [form, updateForm] = React.useState({
 		first_name: "",
@@ -42,7 +43,20 @@ const SignUpPage = () => {
 	};
 
 	const handleNext = (event) => {
-		setActiveStep((prevActiveStep) => prevActiveStep + 1);
+		if (
+			activeStep === 0 &&
+			form.first_name !== "" &&
+			form.last_name !== "" &&
+			form.bar_number !== "" &&
+			form.email !== ""
+			// form.password !== '' &&
+			// form.repeatPassword !== ''
+		) {
+			setErrorMessage(false);
+			setActiveStep((prevActiveStep) => prevActiveStep + 1);
+		} else {
+			setErrorMessage(true);
+		}
 	};
 
 	const handleBack = () => {
@@ -77,7 +91,11 @@ const SignUpPage = () => {
 					className={classes.root}
 				/>
 				{activeStep === 0 && (
-					<SignUp0 handleOnChange={handleOnChange} form={form} />
+					<SignUp0
+						handleOnChange={handleOnChange}
+						form={form}
+						errorMessage={errorMessage}
+					/>
 				)}
 				{activeStep === 1 && (
 					<SignUp1 handleOnChange={handleOnChange} form={form} />

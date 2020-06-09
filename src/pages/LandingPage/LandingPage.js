@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
+import { Navbar } from "../../components/Navbar/Navbar";
 import { Button } from "@material-ui/core";
 
 const LandingPage = () => {

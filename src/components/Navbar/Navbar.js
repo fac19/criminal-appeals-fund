@@ -70,4 +70,33 @@ const Navbar = () => {
 	// );
 };
 
-export default Navbar;
+const NavbarLoggedIn = () => {
+	const classes = useStyles();
+
+	return (
+		<div className={classes.root}>
+			<AppBar className={classes.root} position="static">
+				<Toolbar>
+					<h1 className={classes.heading}>Criminal Appeals Fund</h1>
+					<Link to="/profilepage">
+						<Button className={classes.navButton} color="inherit">
+							My Applications
+						</Button>
+					</Link>
+					<Link to="/apply">
+						<Button className={classes.navButton} color="inherit">
+							Apply
+						</Button>
+					</Link>
+					<Link to="/">
+						<Button className={classes.navButton} color="inherit">
+							Sign Out
+						</Button>
+					</Link>
+				</Toolbar>
+			</AppBar>
+		</div>
+	);
+};
+
+export { Navbar, NavbarLoggedIn };

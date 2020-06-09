@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../../components/Navbar/Navbar";
+import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, TextField } from "@material-ui/core";
 import { Form } from "../../StyledComponents/StyledComponents.style";
 
@@ -20,12 +20,11 @@ const LogInPage = () => {
 	};
 
 	const handleSubmit = (event) => {
+		event.preventDefault();
 		if (form.email !== "" && form.password !== "" && form.email.includes("@")) {
 			setErrorMessage(false);
-			event.preventDefault();
 			console.log(form);
 		} else {
-			event.preventDefault();
 			setErrorMessage(true);
 		}
 	};

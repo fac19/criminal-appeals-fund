@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../../components/Navbar/Navbar";
+import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, MobileStepper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {

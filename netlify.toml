@@ -1,4 +1,4 @@
 [build]
-  functions = "criminal-appeals-fund/lambda-functions/"
-  publish = "criminal-appeals-fund/build-lambda/"
+  functions = "lambda-functions/"
+  publish = "build-lambda/"
   command = "npm run build:lambda"

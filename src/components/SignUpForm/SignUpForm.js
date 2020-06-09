@@ -1,6 +1,8 @@
 import React from "react";
 import { TextField, Button } from "@material-ui/core";
 
+import { ErrorText } from "./SignUpForm.style";
+
 const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 	return (
 		<>
@@ -93,13 +95,16 @@ const SignUp1 = ({ handleOnChange, form, errorMessage }) => {
 	);
 };
 
-const SignUp2 = ({ handleUpload, form }) => {
+const SignUp2 = ({ handleUpload, form, errorMessage }) => {
 	return (
 		<>
 			<Button variant="contained" component="label" onChange={handleUpload}>
 				Upload File
 				<input type="file" style={{ display: "none" }} />
 			</Button>
+			<ErrorText>
+				{errorMessage ? "Please upload a form of identification" : ""}
+			</ErrorText>
 		</>
 	);
 };

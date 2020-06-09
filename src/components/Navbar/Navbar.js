@@ -35,7 +35,9 @@ const Navbar = () => {
 		<div className={classes.root}>
 			<AppBar className={classes.root} position="static">
 				<Toolbar>
-					<h1 className={classes.heading}>Criminal Appeals Fund</h1>
+					<Link to="/">
+						<h1 className={classes.heading}>Criminal Appeals Fund</h1>
+					</Link>
 					<Link to="/login">
 						<Button className={classes.navButton} color="inherit">
 							Login

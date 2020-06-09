@@ -56,7 +56,7 @@ const SignUpPage = () => {
 		} else if (
 			activeStep === 1 &&
 			form.password !== "" &&
-			form.repeat_Password
+			form.repeat_password !== ""
 		) {
 			setErrorMessage(false);
 			setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -82,7 +82,12 @@ const SignUpPage = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		uploadToCloud(image);
+		if (form.image_url === "") {
+			setErrorMessage(true);
+		} else {
+			setErrorMessage(false);
+			uploadToCloud(image);
+		}
 		//post form to airtable
 	};
 
@@ -112,7 +117,11 @@ const SignUpPage = () => {
 					/>
 				)}
 				{activeStep === 2 && (
-					<SignUp2 handleUpload={handleUpload} form={form} />
+					<SignUp2
+						handleUpload={handleUpload}
+						form={form}
+						errorMessage={errorMessage}
+					/>
 				)}
 				{(activeStep === 1 || activeStep === 2) && (
 					<Button variant="contained" color="primary" onClick={handleBack}>

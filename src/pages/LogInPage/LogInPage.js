@@ -11,22 +11,29 @@ import { Form } from "../../StyledComponents/StyledComponents.style";
 
 const LogInPage = () => {
 	// const classes = useStyles();
-	const [formDetails, updateForm] = React.useState({ email: "", password: "" });
+	const [form, updateForm] = React.useState({ email: "", password: "" });
+	const [errorMessage, setErrorMessage] = React.useState(false);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
-		updateForm({ ...formDetails, [name]: value });
+		updateForm({ ...form, [name]: value });
 	};
 
 	const handleSubmit = (event) => {
-		event.preventDefault();
-		console.log(formDetails);
+		if (form.email !== "" && form.password !== "" && form.email.includes("@")) {
+			setErrorMessage(false);
+			event.preventDefault();
+			console.log(form);
+		} else {
+			event.preventDefault();
+			setErrorMessage(true);
+		}
 	};
 
 	return (
 		<>
 			<Navbar />
-			<Form onSubmit={handleSubmit}>
+			<Form onSubmit={handleSubmit} noValidate>
 				<TextField
 					id="email"
 					name="name"
@@ -36,6 +43,12 @@ const LogInPage = () => {
 					onChange={handleInputChange}
 					type="email"
 					required
+					error={errorMessage}
+					helperText={
+						errorMessage
+							? "Please fill out this field wiht a valid email address"
+							: ""
+					}
 				/>
 				<TextField
 					id="password"
@@ -45,6 +58,8 @@ const LogInPage = () => {
 					variant="outlined"
 					onChange={handleInputChange}
 					required
+					error={errorMessage}
+					helperText={errorMessage ? "Please fill out this field" : ""}
 				/>
 				<Button variant="contained" color="primary" type="submit">
 					Log In

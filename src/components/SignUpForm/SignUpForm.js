@@ -1,6 +1,8 @@
 import React from "react";
 import { TextField, Button } from "@material-ui/core";
 
+import { ErrorText } from "./SignUpForm.style";
+
 const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 	return (
 		<>
@@ -36,7 +38,11 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 				value={form.email}
 				label="Email"
 				variant="outlined"
-				helperText={errorMessage ? "Please fill out this field" : ""}
+				helperText={
+					errorMessage
+						? "Please fill out this field with a valid email address"
+						: ""
+				}
 				onChange={handleOnChange}
 				type="email"
 				required
@@ -57,10 +63,12 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 	);
 };
 
-const SignUp1 = ({ handleOnChange, form }) => {
+const SignUp1 = ({ handleOnChange, form, errorMessage }) => {
 	return (
 		<>
 			<TextField
+				error={errorMessage}
+				helperText={errorMessage ? "Please fill out this field" : ""}
 				id="password"
 				name="password"
 				value={form.password}
@@ -73,8 +81,10 @@ const SignUp1 = ({ handleOnChange, form }) => {
 			/>
 			<TextField
 				id="repeatPassword"
-				name="repPassword"
-				value={form.password}
+				name="repeat_password"
+				error={errorMessage}
+				helperText={errorMessage ? "Please fill out this field" : ""}
+				value={form.repeat_password}
 				label="Repeat Password"
 				variant="outlined"
 				onChange={handleOnChange}
@@ -85,13 +95,16 @@ const SignUp1 = ({ handleOnChange, form }) => {
 	);
 };
 
-const SignUp2 = ({ handleUpload, form }) => {
+const SignUp2 = ({ handleUpload, form, errorMessage }) => {
 	return (
 		<>
 			<Button variant="contained" component="label" onChange={handleUpload}>
 				Upload File
 				<input type="file" style={{ display: "none" }} />
 			</Button>
+			<ErrorText>
+				{errorMessage ? "Please upload a form of identification" : ""}
+			</ErrorText>
 		</>
 	);
 };

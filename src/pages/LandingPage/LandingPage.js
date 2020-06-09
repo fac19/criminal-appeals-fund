@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
+import { Navbar } from "../../components/Navbar/Navbar";
 import { Button } from "@material-ui/core";
 
 const LandingPage = () => {
@@ -33,7 +33,7 @@ const LandingPage = () => {
 				Step 4: If your case is approved, you will need to generate an invoice
 				to receive the funding
 			</p>
-			<Link to="/sign-up">
+			<Link to="/signup">
 				<Button variant="contained">Sign Up</Button>
 			</Link>
 		</>

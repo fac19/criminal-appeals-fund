@@ -30,7 +30,7 @@ const SignUpPage = () => {
 		bar_number: "",
 		image_url: "",
 		password: "",
-		repeatPassword: "",
+		repeat_password: "",
 	});
 
 	const handleOnChange = (event) => {
@@ -48,9 +48,15 @@ const SignUpPage = () => {
 			form.first_name !== "" &&
 			form.last_name !== "" &&
 			form.bar_number !== "" &&
-			form.email !== ""
-			// form.password !== '' &&
-			// form.repeatPassword !== ''
+			form.email !== "" &&
+			form.email.includes("@")
+		) {
+			setErrorMessage(false);
+			setActiveStep((prevActiveStep) => prevActiveStep + 1);
+		} else if (
+			activeStep === 1 &&
+			form.password !== "" &&
+			form.repeat_Password
 		) {
 			setErrorMessage(false);
 			setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -60,6 +66,7 @@ const SignUpPage = () => {
 	};
 
 	const handleBack = () => {
+		setErrorMessage(false);
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
@@ -98,7 +105,11 @@ const SignUpPage = () => {
 					/>
 				)}
 				{activeStep === 1 && (
-					<SignUp1 handleOnChange={handleOnChange} form={form} />
+					<SignUp1
+						handleOnChange={handleOnChange}
+						form={form}
+						errorMessage={errorMessage}
+					/>
 				)}
 				{activeStep === 2 && (
 					<SignUp2 handleUpload={handleUpload} form={form} />

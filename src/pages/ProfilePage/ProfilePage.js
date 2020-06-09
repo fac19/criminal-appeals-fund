@@ -8,7 +8,7 @@ const ProfilePage = () => {
 			<NavbarLoggedIn />
 			<h1>Applicant's profile page</h1>
 			<h2>Larry Bird</h2>
-			<Button href="/ApplyPage.js">Apply for funding</Button>
+			<Button href="/apply">Apply for funding</Button>
 		</div>
 	);
 };

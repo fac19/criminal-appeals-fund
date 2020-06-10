@@ -10,7 +10,7 @@ const fetch = (method, table, request) => {
 			"https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Sarah_Bolger_%2848484781976%29_%28cropped%29.jpg/800px-Sarah_Bolger_%2848484781976%29_%28cropped%29.jpg",
 	};
 	const response = fetch(
-		"../../.netlify/lambda-functions/airtable.js?table=" + fakeTable,
+		"../../.netlify/build-lambda/airtable.js?table=" + fakeTable,
 		{
 			method: fakeMethod,
 			headers: {

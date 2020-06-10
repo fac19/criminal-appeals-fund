@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../../components/Navbar/Navbar";
+import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, MobileStepper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -21,7 +21,8 @@ const useStyles = makeStyles({
 const SignUpPage = () => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
-	const [image, setImage] = React.useState({});
+	const [errorMessage, setErrorMessage] = React.useState(false);
+	const [image, setImage] = React.useState(null);
 	const [form, updateForm] = React.useState({
 		first_name: "",
 		last_name: "",
@@ -29,7 +30,7 @@ const SignUpPage = () => {
 		bar_number: "",
 		image_url: "",
 		password: "",
-		repeatPassword: "",
+		repeat_password: "",
 	});
 
 	const handleOnChange = (event) => {
@@ -42,10 +43,30 @@ const SignUpPage = () => {
 	};
 
 	const handleNext = (event) => {
-		setActiveStep((prevActiveStep) => prevActiveStep + 1);
+		if (
+			activeStep === 0 &&
+			form.first_name !== "" &&
+			form.last_name !== "" &&
+			form.bar_number !== "" &&
+			form.email !== "" &&
+			form.email.includes("@")
+		) {
+			setErrorMessage(false);
+			setActiveStep((prevActiveStep) => prevActiveStep + 1);
+		} else if (
+			activeStep === 1 &&
+			form.password !== "" &&
+			form.repeat_password !== ""
+		) {
+			setErrorMessage(false);
+			setActiveStep((prevActiveStep) => prevActiveStep + 1);
+		} else {
+			setErrorMessage(true);
+		}
 	};
 
 	const handleBack = () => {
+		setErrorMessage(false);
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
@@ -61,7 +82,11 @@ const SignUpPage = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		uploadToCloud(image);
+		if (image) {
+			uploadToCloud(image);
+		} else {
+			setErrorMessage(true);
+		}
 		//post form to airtable
 	};
 
@@ -77,13 +102,25 @@ const SignUpPage = () => {
 					className={classes.root}
 				/>
 				{activeStep === 0 && (
-					<SignUp0 handleOnChange={handleOnChange} form={form} />
+					<SignUp0
+						handleOnChange={handleOnChange}
+						form={form}
+						errorMessage={errorMessage}
+					/>
 				)}
 				{activeStep === 1 && (
-					<SignUp1 handleOnChange={handleOnChange} form={form} />
+					<SignUp1
+						handleOnChange={handleOnChange}
+						form={form}
+						errorMessage={errorMessage}
+					/>
 				)}
 				{activeStep === 2 && (
-					<SignUp2 handleUpload={handleUpload} form={form} />
+					<SignUp2
+						handleUpload={handleUpload}
+						form={form}
+						errorMessage={errorMessage}
+					/>
 				)}
 				{(activeStep === 1 || activeStep === 2) && (
 					<Button variant="contained" color="primary" onClick={handleBack}>

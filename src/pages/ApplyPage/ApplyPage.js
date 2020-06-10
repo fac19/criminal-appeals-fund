@@ -21,7 +21,7 @@ const ApplyPage = () => {
 	const [form, updateForm] = React.useState({ application_url: "" });
 	const [checked, setChecked] = React.useState(false);
 	const [errorMessage, setErrorMessage] = React.useState("");
-	const [image, setImage] = React.useState(null);
+	const [file, setFile] = React.useState(null);
 
 	const handleNext = (event) => {
 		if (activeStep === 1 && checked === false) {
@@ -40,12 +40,12 @@ const ApplyPage = () => {
 	};
 
 	const handleUpload = (event) => {
-		setImage(event.target.files[0]);
+		setFile(event.target.files[0]);
 	};
 
-	const uploadToCloud = (image) => {
+	const uploadToCloud = (file) => {
 		const reader = new FileReader();
-		reader.readAsDataURL(image);
+		reader.readAsDataURL(file);
 		reader.onloadend = async () => {
 			return await postFile(reader.result).then((data) => {
 				updateForm({ ...form, application_url: data.url });
@@ -55,8 +55,8 @@ const ApplyPage = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (image) {
-			uploadToCloud(image);
+		if (file) {
+			uploadToCloud(file);
 		} else {
 			setErrorMessage("Please upload your application document");
 		}

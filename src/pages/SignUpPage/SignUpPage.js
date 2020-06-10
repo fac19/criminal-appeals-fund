@@ -80,6 +80,10 @@ const SignUpPage = () => {
 		};
 	};
 
+	React.useEffect(() => {
+		console.log(form);
+	}, [form]);
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (image) {

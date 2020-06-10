@@ -36,6 +36,9 @@ const LandingPage = () => {
 			<Link to="/signup">
 				<Button variant="contained">Sign Up</Button>
 			</Link>
+			<Link to="/fakepage">
+				<Button variant="contained">Go to fake page</Button>
+			</Link>
 		</>
 	);
 };

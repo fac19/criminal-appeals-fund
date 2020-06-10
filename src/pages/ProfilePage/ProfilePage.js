@@ -10,10 +10,10 @@ const ProfilePage = () => {
 			<NavbarLoggedIn />
 			<h1>Applicant's profile page</h1>
 			<h2>Larry Bird</h2>
-			<ApplicationCard />
 			<Button>
 				<Link to="/apply">Apply for funding</Link>
 			</Button>
+			<ApplicationCard />
 		</div>
 	);
 };

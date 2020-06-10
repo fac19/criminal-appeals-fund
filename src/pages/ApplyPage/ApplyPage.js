@@ -3,7 +3,6 @@ import { NavbarLoggedIn } from "../../components/Navbar/Navbar";
 import { Button, MobileStepper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Apply0, Apply1, Apply2 } from "../../components/Apply/Apply";
-// import { postFile } from "../../utils/cloudinary";
 import { Form } from "../../StyledComponents/StyledComponents.style";
 import { postFile } from "../../utils/cloudinary";
 

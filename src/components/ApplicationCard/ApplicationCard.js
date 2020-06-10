@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: theme.spacing(1),
 		marginBottom: theme.spacing(1),
 	},
+
+	li: {
+		listStyleType: "none",
+	},
 }));
 
 const ApplicationCard = () => {
@@ -40,7 +44,7 @@ const ApplicationCard = () => {
 					</Step>
 				))}
 			</Stepper>
-			<ul>
+			<ul className={classes.li}>
 				<li>Stage 1: Your application satisfies the criteria</li>
 				<li>Stage 2: Your application has been selected for funding</li>
 				<li>
@@ -54,7 +58,11 @@ const ApplicationCard = () => {
 				className={classes.backButton}>
 				Back
 			</Button>
-			<Button variant="contained" color="primary" onClick={handleNext}>
+			<Button
+				disabled={activeStep === 4}
+				variant="contained"
+				color="primary"
+				onClick={handleNext}>
 				{activeStep === steps.length - 1 ? "Finish" : "Next"}
 			</Button>
 			{activeStep === 2 && (

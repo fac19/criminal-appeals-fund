@@ -45,9 +45,13 @@ const StepsText = styled.section`
 `;
 
 const StepsImg = styled.img`
-	max-width: 10rem;
+	width: 15rem;
 `;
 
+const StepWrapper = styled.section`
+display: grid;
+grid
+`;
 export {
 	StyledLanding,
 	BodyWrapper,
@@ -58,4 +62,5 @@ export {
 	StepsText,
 	GlobalStyle,
 	StepsImg,
+	StepWrapper,
 };

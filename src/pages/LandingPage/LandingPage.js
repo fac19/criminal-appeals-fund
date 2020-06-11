@@ -12,8 +12,9 @@ import {
 	StyledLanding,
 	GlobalStyle,
 	StepsImg,
+	StepWrapper,
 } from "./LandingPage.style";
-import step1 from "./step1.svg";
+import step1 from "./assets/step1.svg";
 
 const useMountEffect = (fun) => useEffect(fun, []);
 const useScroll = () => {
@@ -63,38 +64,48 @@ const LandingPage = () => {
 					</Button>
 				</HeaderWrapper>
 				<StepsWrapper ref={htmlElRef}>
-					<StepsImg src={step1} alt="step1" />
+					<StepWrapper>
+						<StepsImg src={step1} alt="step1" />
 
-					<StepsText>
-						<StepHeading>Step 1:</StepHeading>
-						<p>
-							Sign up for an account. We will need to verify your account before
-							you can start appyling for funding - this may take up to 24 hours.
-						</p>
-					</StepsText>
+						<StepsText>
+							<StepHeading>Step 1:</StepHeading>
+							<p>
+								Sign up for an account. We will need to verify your account
+								before you can start appyling for funding - this may take up to
+								24 hours.
+							</p>
+						</StepsText>
+					</StepWrapper>
 
-					<StepsText>
-						<StepHeading>Step 2:</StepHeading>
-						<p>
-							Once your account is verified you may apply for funding on a case.
-						</p>
-					</StepsText>
+					<StepWrapper>
+						<StepsText>
+							<StepHeading>Step 2:</StepHeading>
+							<p>
+								Once your account is verified you may apply for funding on a
+								case.
+							</p>
+						</StepsText>
+					</StepWrapper>
 
-					<StepsText>
-						<StepHeading>Step 3:</StepHeading>
-						<p>
-							Your case will be assessed against a number of criteria and may be
-							approved for funding
-						</p>
-					</StepsText>
+					<StepWrapper>
+						<StepsText>
+							<StepHeading>Step 3:</StepHeading>
+							<p>
+								Your case will be assessed against a number of criteria and may
+								be approved for funding
+							</p>
+						</StepsText>
+					</StepWrapper>
 
-					<StepsText>
-						<StepHeading>Step 4:</StepHeading>
-						<p>
-							If your case is approved, you will need to generate an invoice to
-							receive the funding
-						</p>
-					</StepsText>
+					<StepWrapper>
+						<StepsText>
+							<StepHeading>Step 4:</StepHeading>
+							<p>
+								If your case is approved, you will need to generate an invoice
+								to receive the funding
+							</p>
+						</StepsText>
+					</StepWrapper>
 				</StepsWrapper>
 				<Link to="/signup">
 					<Button variant="contained">Sign Up</Button>

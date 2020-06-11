@@ -13,33 +13,32 @@ import {
 	GlobalStyle,
 	StepsImg,
 } from "./LandingPage.style";
+import step1 from "./passport.png";
 
 const useMountEffect = (fun) => useEffect(fun, []);
 const useScroll = () => {
 	const htmlElRef = useRef(null);
-	const executeScroll = () =>
+	const executeScroll = () => {
 		window.scrollTo({
 			top: htmlElRef.current.offsetTop,
 			left: 0,
 			behavior: "smooth",
 		});
+
+		// if (window.location.href == "http://localhost:3000/"){
+		// 	return;
+		// } else {
+		// 	window.scrollTo({
+		// 		top: htmlElRef.current.offsetTop,
+		// 		left: 0,
+		// 		behavior: "smooth",
+		// 	});
+		// }
+	};
 	return [executeScroll, htmlElRef];
 };
 
 const LandingPage = () => {
-	// const ref = React.createRef();
-	// const handleClick = () => {
-	// 	console.log("hello")
-	// 	ref.current.scrollIntoView({
-	// 		behavior: "smooth",
-	// 		block: "start",
-	// 	});
-
-	// const inputEl = React.useRef(null);
-	// const onButtonClick = () => {
-	// 	inputEl.current.focus();
-	// };
-
 	const [executeScroll, htmlElRef] = useScroll();
 	useMountEffect(executeScroll); // Runs after component mounts
 
@@ -64,9 +63,8 @@ const LandingPage = () => {
 					</Button>
 				</HeaderWrapper>
 				<StepsWrapper ref={htmlElRef}>
-					<StepsImg>
-						<img src="../../components/assets/step1.svg" />
-					</StepsImg>
+					<StepsImg src={step1} alt="step1" />
+
 					<StepsText>
 						<StepHeading>Step 1:</StepHeading>
 						<p>

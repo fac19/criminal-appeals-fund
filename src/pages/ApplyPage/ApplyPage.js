@@ -6,7 +6,7 @@ import { Apply0, Apply1, Apply2 } from "../../components/Apply/Apply";
 import { Form } from "../../StyledComponents/StyledComponents.style";
 import { postFile } from "../../utils/cloudinary";
 import { useHistory } from "react-router-dom";
-import fetchAirtable from "../../utils/fetch";
+import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
 
 const useStyles = makeStyles({
@@ -71,7 +71,6 @@ const ApplyPage = () => {
 	const uploadToCloud = async (pdf) => {
 		return readFileAsDataURL(pdf).then(async (file) => {
 			const upload = await postFile(file);
-			console.log(upload.url);
 			updateForm({ ...form, application_url: upload.url });
 			// return upload.url;
 		});
@@ -88,7 +87,7 @@ const ApplyPage = () => {
 
 	React.useEffect(() => {
 		if (form.application_url !== "") {
-			fetchAirtable("POST", "applications", form).then((response) => {
+			postAirtable("POST", "applications", form).then((response) => {
 				console.log(response);
 				history.push("/profile");
 			});

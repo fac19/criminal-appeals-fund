@@ -10,7 +10,7 @@ import {
 } from "../../components/SignUpForm/SignUpForm";
 import { postFile } from "../../utils/cloudinary";
 import { Form } from "../../StyledComponents/StyledComponents.style";
-import fetchAirtable from "../../utils/fetch";
+import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
 
 const useStyles = makeStyles({
@@ -28,8 +28,6 @@ const SignUpPage = () => {
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [errorMessage, setErrorMessage] = React.useState(false);
 	const [image, setImage] = React.useState(null);
-	const d = new Date();
-	const date = d.toLocaleString("en-GB", { timeZone: "UTC" });
 	const [form, updateForm] = React.useState({
 		first_name: "",
 		last_name: "",
@@ -37,7 +35,6 @@ const SignUpPage = () => {
 		bar_number: "",
 		image_url: "",
 		isVerified: "no",
-		date_submitted: date,
 		password: "",
 	});
 
@@ -106,7 +103,7 @@ const SignUpPage = () => {
 
 	React.useEffect(() => {
 		if (form.image_url !== "") {
-			fetchAirtable("POST", "applicants", form).then((response) => {
+			postAirtable("POST", "applicants", form).then((response) => {
 				const userObj = response.response[0];
 				const user = { id: userObj.id, name: userObj.name };
 				setUser(user);

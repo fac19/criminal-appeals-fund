@@ -4,9 +4,17 @@ import { ApplicationCard } from "../../components/ApplicationCard/ApplicationCar
 import { UserContext } from "../../Context";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { getAirtable } from "../../utils/fetch";
 
 const ProfilePage = () => {
 	const [user, setUser] = React.useContext(UserContext);
+	const dummyUser = { id: ["recazQW1JnmB6CxAy"] };
+
+	React.useEffect(() => {
+		if (user) {
+			getAirtable("GET", "applications", dummyUser.id);
+		}
+	}, [user, dummyUser]);
 	return (
 		<div>
 			<NavbarLoggedIn />

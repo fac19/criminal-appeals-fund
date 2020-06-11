@@ -14353,33 +14353,44 @@
 				const { AIRTABLE_KEY: a } = process.env,
 					o = e.queryStringParameters.table,
 					i = JSON.parse(e.body),
-					n = new r({
-						endpointUrl: "https://api.airtable.com",
-						apiKey: a,
-					}).base("app7xH8ItDsTvcPhg");
-				console.log("in", i);
-				let s = [];
-				return (
-					await n(o)
-						.create(i)
-						.then((e) => {
-							console.log(e),
+					n = e.httpMethod,
+					s = e.queryStringParameters.user;
+				console.log("hello", s);
+				const c = new r({ apiKey: a }).base("app7xH8ItDsTvcPhg");
+				let u = [];
+				if ("POST" === n)
+					return (
+						await c(o)
+							.create(i)
+							.then((e) => {
 								"applicants" === o
-									? s.push({ id: e.fields.id, name: e.fields.first_name })
-									: s.push({ name: e.fields.case_name });
+									? u.push({ id: e.fields.id, name: e.fields.first_name })
+									: u.push({ name: e.fields.case_name });
+							})
+							.catch(console.error),
+						{
+							statusCode: 201,
+							body: JSON.stringify({
+								message:
+									"The response data has been successfully added to " +
+									o +
+									" table.",
+								response: u,
+							}),
+						}
+					);
+				"GET" === n &&
+					(await c(o)
+						.select({ maxRecords: 100, view: "Grid view" })
+						.firstPage()
+						.then((e) => {
+							e.forEach((e) => {
+								u.push(e.fields);
+							});
 						})
-						.catch(console.error),
-					{
-						statusCode: 201,
-						body: JSON.stringify({
-							message:
-								"The response data has been successfully added to " +
-								o +
-								" table.",
-							response: s,
-						}),
-					}
-				);
+						.catch((e) => {
+							console.log(e.status);
+						}));
 			};
 		},
 		function (e, t, a) {

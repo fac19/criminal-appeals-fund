@@ -11,15 +11,20 @@ import {
 	StepsText,
 	StyledLanding,
 	GlobalStyle,
+	StepsImg,
 } from "./LandingPage.style";
 
-// const useMountEffect = (fun) => useEffect(fun, [])
-// const useScroll = () => {
-// 	const htmlElRef = useRef(null)
-// 	const executeScroll = () => window.scrollTo({top:0, htmlElRef.current.offsetTop, behavior: 'smooth'});
-
-// 	return [executeScroll, htmlElRef]
-//   }
+const useMountEffect = (fun) => useEffect(fun, []);
+const useScroll = () => {
+	const htmlElRef = useRef(null);
+	const executeScroll = () =>
+		window.scrollTo({
+			top: htmlElRef.current.offsetTop,
+			left: 0,
+			behavior: "smooth",
+		});
+	return [executeScroll, htmlElRef];
+};
 
 const LandingPage = () => {
 	// const ref = React.createRef();
@@ -35,8 +40,8 @@ const LandingPage = () => {
 	// 	inputEl.current.focus();
 	// };
 
-	// const [executeScroll, htmlElRef] = useScroll()
-	// useMountEffect(executeScroll) // Runs after component mounts
+	const [executeScroll, htmlElRef] = useScroll();
+	useMountEffect(executeScroll); // Runs after component mounts
 
 	return (
 		<StyledLanding>
@@ -54,25 +59,38 @@ const LandingPage = () => {
 						interrete.
 					</p>
 
-					<Button variant="contained">How it works</Button>
+					<Button variant="contained" onClick={executeScroll}>
+						How it works
+					</Button>
 				</HeaderWrapper>
-				<StepsWrapper>
+				<StepsWrapper ref={htmlElRef}>
+					<StepsImg>
+						<img src="../../components/assets/step1.svg" />
+					</StepsImg>
 					<StepsText>
 						<StepHeading>Step 1:</StepHeading>
 						<p>
 							Sign up for an account. We will need to verify your account before
 							you can start appyling for funding - this may take up to 24 hours.
 						</p>
+					</StepsText>
 
+					<StepsText>
 						<StepHeading>Step 2:</StepHeading>
 						<p>
 							Once your account is verified you may apply for funding on a case.
 						</p>
+					</StepsText>
+
+					<StepsText>
 						<StepHeading>Step 3:</StepHeading>
 						<p>
 							Your case will be assessed against a number of criteria and may be
 							approved for funding
 						</p>
+					</StepsText>
+
+					<StepsText>
 						<StepHeading>Step 4:</StepHeading>
 						<p>
 							If your case is approved, you will need to generate an invoice to

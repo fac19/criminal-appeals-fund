@@ -1,15 +1,11 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 require("typeface-ibm-plex-serif");
-// const StepsContainer = styled.section`
-// 	background-color: "grey";
-// `;
 
 const GlobalStyle = createGlobalStyle`
   body {
 	padding: 0;
 	margin: 0;
-	background-color: orange;
   }
 `;
 
@@ -48,6 +44,8 @@ const StepsText = styled.section`
 	font-size: 1.25rem;
 `;
 
+const StepsImg = styled.section``;
+
 export {
 	StyledLanding,
 	BodyWrapper,
@@ -57,4 +55,5 @@ export {
 	StepsSubContainer,
 	StepsText,
 	GlobalStyle,
+	StepsImg,
 };

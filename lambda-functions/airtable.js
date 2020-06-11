@@ -13,8 +13,6 @@ exports.handler = async (request, context) => {
 		apiKey: AIRTABLE_KEY, // secret on Netlify
 	}).base("app7xH8ItDsTvcPhg"); // database
 
-	console.log("incoming", requestBody);
-
 	let data = [];
 	await base(table)
 		.create(requestBody)
@@ -24,11 +22,11 @@ exports.handler = async (request, context) => {
 		.catch(console.error);
 
 	return {
-		statusCode: 201, // conditional
+		statusCode: 201,
 		body: JSON.stringify({
 			message:
 				"The response data has been successfully added to " + table + " table.",
-			response: data, // needs to be modified before sending
+			response: data,
 		}),
 	};
 };

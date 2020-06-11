@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, MobileStepper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory, Redirect } from "react-router-dom";
 import {
 	SignUp0,
 	SignUp1,
@@ -9,7 +10,6 @@ import {
 } from "../../components/SignUpForm/SignUpForm";
 import { postFile } from "../../utils/cloudinary";
 import { Form } from "../../StyledComponents/StyledComponents.style";
-import { useHistory } from "react-router-dom";
 import fetchAirtable from "../../utils/fetch";
 import { UserContext } from "../../Context";
 

@@ -14357,7 +14357,6 @@
 						endpointUrl: "https://api.airtable.com",
 						apiKey: a,
 					}).base("app7xH8ItDsTvcPhg");
-				console.log("incoming", i);
 				let s = [];
 				return (
 					await n(o)

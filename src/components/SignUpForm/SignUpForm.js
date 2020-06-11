@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Button } from "@material-ui/core";
 
-import { ErrorText } from "./SignUpForm.style";
+import { ErrorText } from "../../StyledComponents/StyledComponents.style";
 
 const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 	return (

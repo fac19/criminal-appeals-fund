@@ -8,4 +8,8 @@ const Form = styled.form`
 	margin: 0 auto;
 `;
 
-export { Form };
+const ErrorText = styled.p`
+	color: red;
+`;
+
+export { Form, ErrorText };

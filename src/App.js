@@ -1,20 +1,15 @@
 import React from "react";
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
 	LandingPage,
 	LogInPage,
 	SignUpPage,
 	ProfilePage,
 	ApplyPage,
-	FakePage,
 } from "./Pages";
 import { UserContext } from "./Context.js";
 import { MainWrapper } from "./StyledComponents/PageStyles.style";
+// import { GlobalStyle } from "./pages/LandingPage/LandingPage.style";
 
 function App() {
 	const [user, setUser] = React.useState({ id: "", name: "" });
@@ -31,7 +26,6 @@ function App() {
 						<Route path="/signup">{<SignUpPage />}</Route>
 						<Route path="/profile">{<ProfilePage />}</Route>
 						<Route path="/apply">{<ApplyPage />}</Route>
-						<Route path="/fakepage">{<FakePage />}</Route>
 						<Route exact path="/">
 							<LandingPage />
 						</Route>

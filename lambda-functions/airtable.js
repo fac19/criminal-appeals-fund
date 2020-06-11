@@ -9,14 +9,17 @@ exports.handler = async (request, context) => {
 	const table = request.queryStringParameters.table; //e.g. "Applications%20for%20funding"
 	const requestBody = JSON.parse(request.body); // what we sent from front end
 	const base = new Airtable({
+		endpointUrl: "https://api.airtable.com",
 		apiKey: AIRTABLE_KEY, // secret on Netlify
 	}).base("app7xH8ItDsTvcPhg"); // database
+
+	console.log("incoming", requestBody);
 
 	let data = [];
 	await base(table)
 		.create(requestBody)
-		.then((records) => {
-			records.forEach((record) => data.push(record.fields)); // could be multiple records e.g. live applications
+		.then((record) => {
+			data.push(record.fields); // could be multiple records e.g. live applications
 		})
 		.catch(console.error);
 

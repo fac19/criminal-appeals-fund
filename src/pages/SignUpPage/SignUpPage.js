@@ -9,6 +9,9 @@ import {
 } from "../../components/SignUpForm/SignUpForm";
 import { postFile } from "../../utils/cloudinary";
 import { Form } from "../../StyledComponents/StyledComponents.style";
+import { useHistory } from "react-router-dom";
+import fetchAirtable from "../../utils/fetch";
+import { UserContext } from "../../App";
 
 const useStyles = makeStyles({
 	root: {
@@ -19,18 +22,22 @@ const useStyles = makeStyles({
 });
 
 const SignUpPage = () => {
+	const history = useHistory();
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [errorMessage, setErrorMessage] = React.useState(false);
 	const [image, setImage] = React.useState(null);
+	const d = new Date();
+	const date = d.toLocaleString("en-GB", { timeZone: "UTC" });
 	const [form, updateForm] = React.useState({
 		first_name: "",
 		last_name: "",
 		email: "",
 		bar_number: "",
 		image_url: "",
+		isVerified: "no",
+		date_submitted: date,
 		password: "",
-		repeat_password: "",
 	});
 
 	const handleOnChange = (event) => {
@@ -70,25 +77,40 @@ const SignUpPage = () => {
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
-	const uploadToCloud = (image) => {
-		const reader = new FileReader();
-		reader.readAsDataURL(image);
-		reader.onloadend = async () => {
-			return await postFile(reader.result).then((data) => {
-				updateForm({ ...form, image_url: data.url });
+	async function readFileAsDataURL(file) {
+		let convertedFile = await new Promise((resolve) => {
+			let fileReader = new FileReader();
+			fileReader.onloadend = (e) => resolve(fileReader.result);
+			fileReader.readAsDataURL(file);
+		});
+
+		return convertedFile;
+	}
+
+	const uploadToCloud = async (image) => {
+		return readFileAsDataURL(image).then((file) => {
+			return postFile(file).then((upload) => {
+				updateForm({ ...form, image_url: upload.url });
+				return upload.url;
 			});
-		};
+		});
 	};
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
 		if (image) {
-			uploadToCloud(image);
+			await uploadToCloud(image).catch(console.error);
+			history.push("/profile");
 		} else {
 			setErrorMessage(true);
 		}
-		//post form to airtable
 	};
+
+	React.useEffect(() => {
+		if (form.image_url !== "") {
+			fetchAirtable("POST", "Applicants", form);
+		}
+	}, [form]);
 
 	return (
 		<>

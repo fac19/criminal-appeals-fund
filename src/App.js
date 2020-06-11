@@ -13,23 +13,26 @@ import ApplyPage from "./pages/ApplyPage/ApplyPage";
 import FakePage from "./pages/FakePage";
 
 import { MainWrapper } from "./StyledComponents/PageStyles.style";
+export const UserContext = React.createContext();
 
 function App() {
 	return (
-		<MainWrapper>
-			<Router>
-				<Switch>
-					<Route path="/login">{<LogInPage />}</Route>
-					<Route path="/signup">{<SignUpPage />}</Route>
-					<Route path="/profile">{<ProfilePage />}</Route>
-					<Route path="/apply">{<ApplyPage />}</Route>
-					<Route path="/fakepage">{<FakePage />}</Route>
-					<Route exact path="/">
-						<LandingPage />
-					</Route>
-				</Switch>
-			</Router>
-		</MainWrapper>
+		<UserContext.Provider value={""}>
+			<MainWrapper>
+				<Router>
+					<Switch>
+						<Route path="/login">{<LogInPage />}</Route>
+						<Route path="/signup">{<SignUpPage />}</Route>
+						<Route path="/profile">{<ProfilePage />}</Route>
+						<Route path="/apply">{<ApplyPage />}</Route>
+						<Route path="/fakepage">{<FakePage />}</Route>
+						<Route exact path="/">
+							<LandingPage />
+						</Route>
+					</Switch>
+				</Router>
+			</MainWrapper>
+		</UserContext.Provider>
 	);
 }
 

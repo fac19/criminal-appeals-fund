@@ -79,7 +79,7 @@ const SignUp1 = ({ handleOnChange, form, errorMessage }) => {
 				autoFocus
 				required
 			/>
-			<TextField
+			{/* <TextField
 				id="repeatPassword"
 				name="repeat_password"
 				error={errorMessage}
@@ -90,7 +90,7 @@ const SignUp1 = ({ handleOnChange, form, errorMessage }) => {
 				onChange={handleOnChange}
 				type="Password"
 				required
-			/>
+			/> */}
 		</>
 	);
 };

@@ -14357,12 +14357,16 @@
 						endpointUrl: "https://api.airtable.com",
 						apiKey: a,
 					}).base("app7xH8ItDsTvcPhg");
+				console.log("in", i);
 				let s = [];
 				return (
 					await n(o)
 						.create(i)
 						.then((e) => {
-							s.push({ id: e.fields.id, name: e.fields.first_name });
+							console.log(e),
+								"applicants" === o
+									? s.push({ id: e.fields.id, name: e.fields.first_name })
+									: s.push({ name: e.fields.case_name });
 						})
 						.catch(console.error),
 					{

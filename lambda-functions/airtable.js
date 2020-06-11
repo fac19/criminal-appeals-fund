@@ -13,11 +13,16 @@ exports.handler = async (request, context) => {
 		apiKey: AIRTABLE_KEY, // secret on Netlify
 	}).base("app7xH8ItDsTvcPhg"); // database
 
+	console.log("in", requestBody);
+
 	let data = [];
 	await base(table)
 		.create(requestBody)
 		.then((record) => {
-			data.push({ id: record.fields.id, name: record.fields.first_name }); // could be multiple records e.g. live applications
+			console.log(record);
+			table === "applicants"
+				? data.push({ id: record.fields.id, name: record.fields.first_name })
+				: data.push({ name: record.fields.case_name });
 		})
 		.catch(console.error);
 

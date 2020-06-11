@@ -89,11 +89,9 @@ const SignUpPage = () => {
 	}
 
 	const uploadToCloud = async (image) => {
-		return readFileAsDataURL(image).then((file) => {
-			return postFile(file).then((upload) => {
-				updateForm({ ...form, image_url: upload.url });
-				return upload.url;
-			});
+		return readFileAsDataURL(image).then(async (file) => {
+			const upload = await postFile(file);
+			updateForm({ ...form, image_url: upload.url });
 		});
 	};
 
@@ -101,7 +99,6 @@ const SignUpPage = () => {
 		event.preventDefault();
 		if (image) {
 			await uploadToCloud(image).catch(console.error);
-			history.push("/profile");
 		} else {
 			setErrorMessage(true);
 		}
@@ -109,13 +106,14 @@ const SignUpPage = () => {
 
 	React.useEffect(() => {
 		if (form.image_url !== "") {
-			fetchAirtable("POST", "Applicants", form).then((response) => {
+			fetchAirtable("POST", "applicants", form).then((response) => {
 				const userObj = response.response[0];
-				const user = { id: userObj.id, name: userObj.first_name };
+				const user = { id: userObj.id, name: userObj.name };
 				setUser(user);
+				history.push("/profile");
 			});
 		}
-	}, [form, setUser]);
+	}, [form, setUser, history]);
 
 	return (
 		<>

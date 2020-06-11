@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, MobileStepper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory, Redirect } from "react-router-dom";
 import {
 	SignUp0,
 	SignUp1,
@@ -19,6 +20,7 @@ const useStyles = makeStyles({
 });
 
 const SignUpPage = () => {
+	const history = useHistory();
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [errorMessage, setErrorMessage] = React.useState(false);
@@ -84,6 +86,7 @@ const SignUpPage = () => {
 		event.preventDefault();
 		if (image) {
 			uploadToCloud(image);
+			history.push("/profile");
 		} else {
 			setErrorMessage(true);
 		}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button } from "@material-ui/core";
@@ -10,23 +10,37 @@ import {
 	StepsSubContainer,
 	StepsText,
 	StyledLanding,
+	GlobalStyle,
 } from "./LandingPage.style";
 
+// const useMountEffect = (fun) => useEffect(fun, [])
+// const useScroll = () => {
+// 	const htmlElRef = useRef(null)
+// 	const executeScroll = () => window.scrollTo({top:0, htmlElRef.current.offsetTop, behavior: 'smooth'});
+
+// 	return [executeScroll, htmlElRef]
+//   }
+
 const LandingPage = () => {
-	const ref = React.createRef();
-	const handleClick = () => {
-		// ref.current.scrollIntoView({
-		// 	behavior: "smooth",
-		// });
-	};
+	// const ref = React.createRef();
+	// const handleClick = () => {
+	// 	console.log("hello")
+	// 	ref.current.scrollIntoView({
+	// 		behavior: "smooth",
+	// 		block: "start",
+	// 	});
 
 	// const inputEl = React.useRef(null);
 	// const onButtonClick = () => {
 	// 	inputEl.current.focus();
 	// };
 
+	// const [executeScroll, htmlElRef] = useScroll()
+	// useMountEffect(executeScroll) // Runs after component mounts
+
 	return (
 		<StyledLanding>
+			<GlobalStyle />
 			<Navbar />
 			<BodyWrapper>
 				<HeaderWrapper>
@@ -40,9 +54,7 @@ const LandingPage = () => {
 						interrete.
 					</p>
 
-					<Button ref={handleClick} variant="contained">
-						How it works
-					</Button>
+					<Button variant="contained">How it works</Button>
 				</HeaderWrapper>
 				<StepsWrapper>
 					<StepsText>
@@ -51,29 +63,25 @@ const LandingPage = () => {
 							Sign up for an account. We will need to verify your account before
 							you can start appyling for funding - this may take up to 24 hours.
 						</p>
+
+						<StepHeading>Step 2:</StepHeading>
+						<p>
+							Once your account is verified you may apply for funding on a case.
+						</p>
+						<StepHeading>Step 3:</StepHeading>
+						<p>
+							Your case will be assessed against a number of criteria and may be
+							approved for funding
+						</p>
+						<StepHeading>Step 4:</StepHeading>
+						<p>
+							If your case is approved, you will need to generate an invoice to
+							receive the funding
+						</p>
 					</StepsText>
-
-					<StepHeading>Step 2:</StepHeading>
-					<p>
-						Once your account is verified you may apply for funding on a case.
-					</p>
-
-					<StepHeading>Step 3:</StepHeading>
-					<p>
-						Your case will be assessed against a number of criteria and may be
-						approved for funding
-					</p>
-
-					<StepHeading>Step 4:</StepHeading>
-					<p>
-						If your case is approved, you will need to generate an invoice to
-						receive the funding
-					</p>
 				</StepsWrapper>
 				<Link to="/signup">
-					<Button variant="contained" onClick={handleClick}>
-						Sign Up
-					</Button>
+					<Button variant="contained">Sign Up</Button>
 				</Link>
 			</BodyWrapper>
 		</StyledLanding>

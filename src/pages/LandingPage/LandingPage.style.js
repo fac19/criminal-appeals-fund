@@ -1,32 +1,39 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 require("typeface-ibm-plex-serif");
 // const StepsContainer = styled.section`
 // 	background-color: "grey";
 // `;
 
+const GlobalStyle = createGlobalStyle`
+  body {
+	padding: 0;
+	margin: 0;
+	background-color: orange;
+  }
+`;
+
 const StyledLanding = styled.section`
 	font-family: "ibm plex serif";
 	text-decoration: none;
 `;
 
-const BodyWrapper = styled.section`
-	padding: 0;
-	margin: 0;
-`;
+const BodyWrapper = styled.section``;
 
 const HeaderWrapper = styled.section`
 	min-height: 100vh;
 `;
 const StepsWrapper = styled.section`
 	padding: 4em;
-	background: papayawhip;
-	margin: 0;
-	padding: 0;
+	background-color: #79bac1;
+	margin: 2rem 0;
+	padding: none;
 `;
 
 const StepHeading = styled.h1`
 	font-weight: bold;
+	font-size: 2rem;
+	margin-bottom: 0;
 `;
 
 const StepsSubContainer = styled.section`
@@ -38,6 +45,7 @@ const StepsText = styled.section`
 	display: flex;
 	flex-direction: column;
 	text-align: left;
+	font-size: 1.25rem;
 `;
 
 export {
@@ -48,4 +56,5 @@ export {
 	StepHeading,
 	StepsSubContainer,
 	StepsText,
+	GlobalStyle,
 };

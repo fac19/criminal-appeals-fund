@@ -12,6 +12,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ApplyPage from "./pages/ApplyPage/ApplyPage";
 
 import { MainWrapper } from "./StyledComponents/PageStyles.style";
+// import { GlobalStyle } from "./pages/LandingPage/LandingPage.style";
 
 function App() {
 	return (

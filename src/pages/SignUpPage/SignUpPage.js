@@ -12,6 +12,14 @@ import { postFile } from "../../utils/cloudinary";
 import { Form } from "../../StyledComponents/StyledComponents.style";
 import fetchAirtable from "../../utils/fetch";
 import { UserContext } from "../../Context";
+import GoTrue from "gotrue-js";
+
+//Netlify Go True
+const auth = new GoTrue({
+	APIUrl: "https://criminal-appeals-fund.netlify.app/.netlify/identity",
+	audience: "",
+	setCookie: false,
+});
 
 const useStyles = makeStyles({
 	root: {
@@ -105,6 +113,11 @@ const SignUpPage = () => {
 		} else {
 			setErrorMessage(true);
 		}
+		//Netlify verification
+		auth
+			.signup(form.email, form.password)
+			.then((response) => console.log("Success! Check your inbox ", response))
+			.catch((error) => console.log("It's an error", error));
 	};
 
 	React.useEffect(() => {

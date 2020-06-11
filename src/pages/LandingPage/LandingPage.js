@@ -13,8 +13,12 @@ import {
 	GlobalStyle,
 	StepsImg,
 	StepWrapper,
+	HeaderText,
 } from "./LandingPage.style";
 import step1 from "./assets/step1.svg";
+import step2 from "./assets/step2.svg";
+import step3 from "./assets/step3.svg";
+import step4 from "./assets/step4.svg";
 
 const useMountEffect = (fun) => useEffect(fun, []);
 const useScroll = () => {
@@ -49,15 +53,17 @@ const LandingPage = () => {
 			<Navbar />
 			<BodyWrapper>
 				<HeaderWrapper>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Qualis ista
-						philosophia est, quae non interitum afferat pravitatis, sed sit
-						contenta mediocritate vitiorum? Sed id ne cogitari quidem potest
-						quale sit, ut non repugnet ipsum sibi. Scripta sane et multa et
-						polita, sed nescio quo pacto auctoritatem oratio non habet. Quoniam,
-						si dis placet, ab Epicuro loqui discimus. Duo Reges: constructio
-						interrete.
-					</p>
+					<HeaderText>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Qualis
+							ista philosophia est, quae non interitum afferat pravitatis, sed
+							sit contenta mediocritate vitiorum? Sed id ne cogitari quidem
+							potest quale sit, ut non repugnet ipsum sibi. Scripta sane et
+							multa et polita, sed nescio quo pacto auctoritatem oratio non
+							habet. Quoniam, si dis placet, ab Epicuro loqui discimus. Duo
+							Reges: constructio interrete.
+						</p>
+					</HeaderText>
 
 					<Button variant="contained" onClick={executeScroll}>
 						How it works
@@ -65,8 +71,6 @@ const LandingPage = () => {
 				</HeaderWrapper>
 				<StepsWrapper ref={htmlElRef}>
 					<StepWrapper>
-						<StepsImg src={step1} alt="step1" />
-
 						<StepsText>
 							<StepHeading>Step 1:</StepHeading>
 							<p>
@@ -75,9 +79,11 @@ const LandingPage = () => {
 								24 hours.
 							</p>
 						</StepsText>
+						<StepsImg src={step1} alt="step1" />
 					</StepWrapper>
 
 					<StepWrapper>
+						<StepsImg src={step2} alt="step2" />
 						<StepsText>
 							<StepHeading>Step 2:</StepHeading>
 							<p>
@@ -95,9 +101,11 @@ const LandingPage = () => {
 								be approved for funding
 							</p>
 						</StepsText>
+						<StepsImg src={step3} alt="step3" />
 					</StepWrapper>
 
 					<StepWrapper>
+						<StepsImg src={step4} alt="step4" />
 						<StepsText>
 							<StepHeading>Step 4:</StepHeading>
 							<p>

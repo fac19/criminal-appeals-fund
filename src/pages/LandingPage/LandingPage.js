@@ -13,7 +13,7 @@ import {
 	GlobalStyle,
 	StepsImg,
 } from "./LandingPage.style";
-import step1 from "./passport.png";
+import step1 from "./step1.svg";
 
 const useMountEffect = (fun) => useEffect(fun, []);
 const useScroll = () => {

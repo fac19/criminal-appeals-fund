@@ -44,7 +44,9 @@ const StepsText = styled.section`
 	font-size: 1.25rem;
 `;
 
-const StepsImg = styled.section``;
+const StepsImg = styled.img`
+	max-width: 10rem;
+`;
 
 export {
 	StyledLanding,

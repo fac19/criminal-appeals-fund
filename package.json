@@ -17,7 +17,8 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "^3.4.1",
 		"serve": "^11.3.2",
-		"styled-components": "^5.1.1"
+		"styled-components": "^5.1.1",
+		"typeface-ibm-plex-serif": "0.0.75"
 	},
 	"scripts": {
 		"test": "react-scripts test -u --coverage --watchAll=false",

@@ -10,6 +10,7 @@
 - [Tech stack](#tech-stack)
   - [API docs](#api-docs)
 - [Learnings](#learnings)
+- [What next](#what-next)
 
 ---
 
@@ -85,6 +86,17 @@ Applicant withdraws application
 - Context can make State available Anywhere
 - Having two versions of Webpack regularly breaks everything 
 - Material UI has a very narrow range usefulness over styled components (i.e. our beautiful stepper)
+
+---
+
+## What next
+
+- Airtable UI for PO
+- Finishing API routes to database
+- Accessing PDFs
+- Ensuring we/PO can update application stages
+- Styling for finished MVP
+- PO handover
 
 ---
 

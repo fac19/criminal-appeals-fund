@@ -5,7 +5,7 @@ const fetchAirtable = (method, table, request) => {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify(request),
-	}).then((response) => console.log("hey", response.json()));
+	}).then((response) => response.json());
 };
 
 export default fetchAirtable;

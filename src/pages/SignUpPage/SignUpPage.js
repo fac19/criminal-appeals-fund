@@ -11,7 +11,7 @@ import { postFile } from "../../utils/cloudinary";
 import { Form } from "../../StyledComponents/StyledComponents.style";
 import { useHistory } from "react-router-dom";
 import fetchAirtable from "../../utils/fetch";
-import { UserContext } from "../../App";
+import { UserContext } from "../../Context";
 
 const useStyles = makeStyles({
 	root: {
@@ -22,6 +22,7 @@ const useStyles = makeStyles({
 });
 
 const SignUpPage = () => {
+	const [user, setUser] = React.useContext(UserContext);
 	const history = useHistory();
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
@@ -108,9 +109,13 @@ const SignUpPage = () => {
 
 	React.useEffect(() => {
 		if (form.image_url !== "") {
-			fetchAirtable("POST", "Applicants", form);
+			fetchAirtable("POST", "Applicants", form).then((response) => {
+				const userObj = response.response[0];
+				const user = { id: userObj.id, name: userObj.first_name };
+				setUser(user);
+			});
 		}
-	}, [form]);
+	}, [form, setUser]);
 
 	return (
 		<>

@@ -19,7 +19,7 @@ exports.handler = async (request, context) => {
 	await base(table)
 		.create(requestBody)
 		.then((record) => {
-			data.push(record.fields); // could be multiple records e.g. live applications
+			data.push({ id: record.fields.id, name: record.fields.first_name }); // could be multiple records e.g. live applications
 		})
 		.catch(console.error);
 

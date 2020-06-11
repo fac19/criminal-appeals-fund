@@ -5,19 +5,25 @@ import {
 	Route,
 	Redirect,
 } from "react-router-dom";
-import LandingPage from "./pages/LandingPage/LandingPage";
-import LogInPage from "./pages/LogInPage/LogInPage";
-import SignUpPage from "./pages/SignUpPage/SignUpPage";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import ApplyPage from "./pages/ApplyPage/ApplyPage";
-import FakePage from "./pages/FakePage";
-
+import {
+	LandingPage,
+	LogInPage,
+	SignUpPage,
+	ProfilePage,
+	ApplyPage,
+	FakePage,
+} from "./Pages";
+import { UserContext } from "./Context.js";
 import { MainWrapper } from "./StyledComponents/PageStyles.style";
-export const UserContext = React.createContext();
 
 function App() {
+	const [user, setUser] = React.useState({ id: "", name: "" });
+
+	React.useEffect(() => {
+		console.log(user);
+	}, [user]);
 	return (
-		<UserContext.Provider value={""}>
+		<UserContext.Provider value={[user, setUser]}>
 			<MainWrapper>
 				<Router>
 					<Switch>

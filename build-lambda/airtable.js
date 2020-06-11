@@ -14363,7 +14363,7 @@
 					await n(o)
 						.create(i)
 						.then((e) => {
-							s.push(e.fields);
+							s.push({ id: e.fields.id, name: e.fields.first_name });
 						})
 						.catch(console.error),
 					{

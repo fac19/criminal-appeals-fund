@@ -10,7 +10,6 @@ import LogInPage from "./pages/LogInPage/LogInPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ApplyPage from "./pages/ApplyPage/ApplyPage";
-import FakePage from "./pages/FakePage";
 
 import { MainWrapper } from "./StyledComponents/PageStyles.style";
 
@@ -23,7 +22,6 @@ function App() {
 					<Route path="/signup">{<SignUpPage />}</Route>
 					<Route path="/profile">{<ProfilePage />}</Route>
 					<Route path="/apply">{<ApplyPage />}</Route>
-					<Route path="/fakepage">{<FakePage />}</Route>
 					<Route exact path="/">
 						<LandingPage />
 					</Route>

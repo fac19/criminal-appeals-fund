@@ -5,6 +5,12 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/6f240a7b-1593-4f83-97d5-97b4d2618b9d/deploy-status)](https://app.netlify.com/sites/criminal-appeals-fund/deploys) :small_airplane:
 
+## The team
+- [Lizzy](https://github.com/lizzy-j) - DevOps / Developer 
+- [Ina](https://github.com/itsina96) - Quality assurance / Developer
+- [Campbell](https://github.com/CampbellDocherty) - Scrum master / Developer
+- [Jack](https://github.com/jackherizsmith) - User Experience / Developer
+
 ## Contents
 - [Our project](#our-project)
 - [Tech stack](#tech-stack)

@@ -78,7 +78,7 @@ const NavbarLoggedIn = () => {
 			<AppBar className={classes.root} position="static">
 				<Toolbar>
 					<h1 className={classes.heading}>Criminal Appeals Fund</h1>
-					<Link to="/profilepage">
+					<Link to="/profile">
 						<Button className={classes.navButton} color="inherit">
 							My Applications
 						</Button>

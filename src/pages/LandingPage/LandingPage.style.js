@@ -14,6 +14,9 @@ const StyledLanding = styled.section`
 	text-decoration: none;
 `;
 
+const HeaderText = styled.p`
+	font-size: 2rem;
+`;
 const BodyWrapper = styled.section``;
 
 const HeaderWrapper = styled.section`
@@ -21,7 +24,7 @@ const HeaderWrapper = styled.section`
 `;
 const StepsWrapper = styled.section`
 	padding: 4em;
-	background-color: #79bac1;
+	background-color: #e8e8e8;
 	margin: 2rem 0;
 	padding: none;
 `;
@@ -45,17 +48,35 @@ const StepsText = styled.section`
 `;
 
 const StepsImg = styled.img`
-	max-width: 10rem;
+	width: 15rem;
+	margin: 0 auto;
+`;
+
+const StepWrapper = styled.section`
+	padding: 2rem 0;
+	@media (min-width: 768px) {
+		display: grid;
+		&:nth-child(1),
+		&:nth-child(3) {
+			grid-template-columns: 2fr 1fr;
+		}
+		&:nth-child(2),
+		&:nth-child(4) {
+			grid-template-columns: 1fr 2fr;
+		}
+	}
 `;
 
 export {
 	StyledLanding,
 	BodyWrapper,
 	HeaderWrapper,
+	HeaderText,
 	StepsWrapper,
 	StepHeading,
 	StepsSubContainer,
 	StepsText,
 	GlobalStyle,
 	StepsImg,
+	StepWrapper,
 };

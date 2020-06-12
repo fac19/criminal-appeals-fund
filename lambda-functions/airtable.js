@@ -1,41 +1,32 @@
 const Airtable = require("airtable");
 
-Airtable.configure({
-	endpointUrl: "https://api.airtable.com",
-	apiKey: process.env.AIRTABLE_KEY,
-});
+// Airtable.configure({
+// 	endpointUrl: "https://api.airtable.com",
+// 	apiKey: process.env.AIRTABLE_KEY,
+// });
+exports.handler = async (request, context) => {
+	const { AIRTABLE_KEY } = process.env;
+	const table = request.queryStringParameters.table; //e.g. "Applications%20for%20funding"
+	const requestBody = JSON.parse(request.body); // what we sent from front end
+	const base = new Airtable({
+		endpointUrl: "https://api.airtable.com",
+		apiKey: AIRTABLE_KEY, // secret on Netlify
+	}).base("app7xH8ItDsTvcPhg"); // database
 
-const base = Airtable.base("appNtnZ99fkL1cByn");
-
-exports.handler = function (event, context, callback) {
-	const allRecords = [];
-	base("entries")
-		.select({
-			maxRecords: 100,
-			view: "all",
+	let data = [];
+	await base(table)
+		.create(requestBody)
+		.then((record) => {
+			data.push({ id: record.fields.id, name: record.fields.first_name }); // could be multiple records e.g. live applications
 		})
-		.eachPage(
-			function page(records, fetchNextPage) {
-				records.forEach(function (record) {
-					allRecords.push(record);
-				});
-				fetchNextPage();
-			},
-			function done(err) {
-				if (err) {
-					callback(err);
-				} else {
-					const body = JSON.stringify({ records: allRecords });
-					const response = {
-						statusCode: 200,
-						body: body,
-						headers: {
-							"content-type": "application/json",
-							"cache-control": "Cache-Control: max-age=300, public",
-						},
-					};
-					callback(null, response);
-				}
-			}
-		);
+		.catch(console.error);
+
+	return {
+		statusCode: 201,
+		body: JSON.stringify({
+			message:
+				"The response data has been successfully added to " + table + " table.",
+			response: data,
+		}),
+	};
 };

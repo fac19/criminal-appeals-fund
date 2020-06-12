@@ -14358,9 +14358,8 @@
 				console.log("hello", s);
 				const c = new r({ apiKey: a }).base("app7xH8ItDsTvcPhg");
 				let u = [];
-				if ("POST" === n)
-					return (
-						await c(o)
+				return "POST" === n
+					? (await c(o)
 							.create(i)
 							.then((e) => {
 								"applicants" === o
@@ -14368,7 +14367,7 @@
 									: u.push({ name: e.fields.case_name });
 							})
 							.catch(console.error),
-						{
+					  {
 							statusCode: 201,
 							body: JSON.stringify({
 								message:
@@ -14377,20 +14376,30 @@
 									" table.",
 								response: u,
 							}),
-						}
-					);
-				"GET" === n &&
-					(await c(o)
-						.select({ maxRecords: 100, view: "Grid view" })
-						.firstPage()
-						.then((e) => {
-							e.forEach((e) => {
-								u.push(e.fields);
-							});
-						})
-						.catch((e) => {
-							console.log(e.status);
-						}));
+					  })
+					: "GET" === n
+					? (await c(o)
+							.select({ maxRecords: 100, view: "Grid view" })
+							.firstPage()
+							.then((e) => {
+								e.forEach((e) => {
+									u.push(e.fields);
+								});
+							})
+							.catch((e) => {
+								console.log(e.status);
+							}),
+					  {
+							statusCode: 200,
+							body: JSON.stringify({
+								message:
+									"The response data has been successfully retrieved to " +
+									o +
+									" table.",
+								response: u,
+							}),
+					  })
+					: void 0;
 			};
 		},
 		function (e, t, a) {

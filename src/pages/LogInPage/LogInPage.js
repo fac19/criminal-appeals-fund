@@ -1,16 +1,23 @@
 import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField, makeStyles } from "@material-ui/core";
 import { Form } from "../../StyledComponents/StyledComponents.style";
 import { useHistory } from "react-router-dom";
 
 // import { makeStyles } from "@material-ui/core/styles";
 
-// const useStyles = makeStyles((theme) => ({
-
-// }));
+const useStyles = makeStyles((theme) => ({
+	logInButton: {
+		width: "60%",
+	},
+	input: {
+		width: "100%",
+		marginBottom: "3rem",
+	},
+}));
 
 const LogInPage = () => {
+	const classes = useStyles();
 	const history = useHistory();
 	const [form, updateForm] = React.useState({ email: "", password: "" });
 	const [errorMessage, setErrorMessage] = React.useState(false);
@@ -36,6 +43,7 @@ const LogInPage = () => {
 			<Navbar />
 			<Form onSubmit={handleSubmit} noValidate>
 				<TextField
+					className={classes.input}
 					id="email"
 					name="email"
 					label="Email"
@@ -53,6 +61,7 @@ const LogInPage = () => {
 					}
 				/>
 				<TextField
+					className={classes.input}
 					id="password"
 					name="password"
 					type="password"
@@ -64,7 +73,11 @@ const LogInPage = () => {
 					error={errorMessage}
 					helperText={errorMessage ? "Please fill out this field" : ""}
 				/>
-				<Button variant="contained" color="primary" type="submit">
+				<Button
+					className={classes.logInButton}
+					variant="contained"
+					color="primary"
+					type="submit">
 					Log In
 				</Button>
 			</Form>

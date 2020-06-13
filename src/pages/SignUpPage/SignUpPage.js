@@ -10,6 +10,7 @@ import {
 } from "../../components/SignUpForm/SignUpForm";
 import { postFile } from "../../utils/cloudinary";
 import { Form } from "../../StyledComponents/StyledComponents.style";
+import { ButtonList } from "./SignUpPage.style";
 import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
 import GoTrue from "gotrue-js";
@@ -26,6 +27,12 @@ const useStyles = makeStyles({
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "white",
+	},
+	signUpButton: {
+		width: "40%",
+	},
+	hiddenButton: {
+		visibility: "hidden",
 	},
 });
 
@@ -157,30 +164,36 @@ const SignUpPage = () => {
 						errorMessage={errorMessage}
 					/>
 				)}
-				{(activeStep === 1 || activeStep === 2) && (
-					<Button variant="contained" color="primary" onClick={handleBack}>
-						Back
-					</Button>
-				)}
-				{activeStep === 0 && (
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={handleBack}
-						disabled>
-						Back
-					</Button>
-				)}
-				{(activeStep === 0 || activeStep === 1) && (
-					<Button variant="contained" color="primary" onClick={handleNext}>
-						Next
-					</Button>
-				)}
-				{activeStep === 2 && (
-					<Button variant="contained" color="primary" type="submit">
-						Sign Up
-					</Button>
-				)}
+				<ButtonList>
+					{(activeStep === 0 || activeStep === 1) && (
+						<Button
+							className={classes.signUpButton}
+							variant="contained"
+							color="primary"
+							onClick={handleNext}>
+							Next
+						</Button>
+					)}
+					{(activeStep === 1 || activeStep === 2) && (
+						<Button
+							className={
+								activeStep === 0 ? classes.hiddenButton : classes.signUpButton
+							}
+							variant="contained"
+							onClick={handleBack}>
+							Back
+						</Button>
+					)}
+					{activeStep === 2 && (
+						<Button
+							className={classes.signUpButton}
+							variant="contained"
+							color="primary"
+							type="submit">
+							Sign Up
+						</Button>
+					)}
+				</ButtonList>
 			</Form>
 		</>
 	);

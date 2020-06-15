@@ -4,7 +4,7 @@ import { Button, MobileStepper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Apply0, Apply1, Apply2 } from "../../components/Apply/Apply";
 import { Form } from "../../StyledComponents/StyledComponents.style";
-import { postFile } from "../../utils/cloudinary";
+import { uploadFileHandler } from "../../utils/cloudinary";
 import { useHistory } from "react-router-dom";
 import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
@@ -68,21 +68,21 @@ const ApplyPage = () => {
 		return convertedFile;
 	}
 
-	const uploadToCloud = async (pdf) => {
-		return readFileAsDataURL(pdf).then(async (file) => {
-			const upload = await postFile(file);
-			updateForm({ ...form, application_url: upload.url });
-			// return upload.url;
-		});
-	};
+	// const uploadToCloud = async (pdf) => {
+	// 	return readFileAsDataURL(pdf).then(async (file) => {
+	// 		const upload = await postFile(file);
+	// 		updateForm({ ...form, application_url: upload.url });
+	// 		// return upload.url;
+	// 	});
+	// };
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (file) {
-			uploadToCloud(file);
-		} else {
-			setErrorMessage("Please upload your application document");
-		}
+		// if (file) {
+		// 	uploadToCloud(file);
+		// } else {
+		// 	setErrorMessage("Please upload your application document");
+		// }
 	};
 
 	React.useEffect(() => {
@@ -141,7 +141,8 @@ const ApplyPage = () => {
 					</Button>
 				)}
 				{activeStep === 2 && (
-					<Button variant="contained" color="primary" type="submit">
+					<Button variant="contained" color="primary">
+						{/* // onClick={(e) => uploadFileHandler(e)}> */}
 						Apply
 					</Button>
 				)}

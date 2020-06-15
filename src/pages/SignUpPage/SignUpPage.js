@@ -13,6 +13,7 @@ import { Form } from "../../StyledComponents/StyledComponents.style";
 import { ButtonList } from "./SignUpPage.style";
 import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
+import { uploadFileHandler } from "../../utils/cloudinary";
 import GoTrue from "gotrue-js";
 
 //Netlify Go True
@@ -100,20 +101,21 @@ const SignUpPage = () => {
 		return convertedFile;
 	}
 
-	const uploadToCloud = async (image) => {
-		return readFileAsDataURL(image).then(async (file) => {
-			const upload = await postFile(file);
-			updateForm({ ...form, image_url: upload.url });
-		});
-	};
+	// const uploadToCloud = async (image) => {
+	// 	return readFileAsDataURL(image).then(async (file) => {
+	// 		const upload = await postFile(file);
+	// 		updateForm({ ...form, image_url: upload.url });
+	// 	});
+	// };
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		if (image) {
-			await uploadToCloud(image).catch(console.error);
-		} else {
-			setErrorMessage(true);
-		}
+		uploadFileHandler(event);
+		// if (image) {
+		// 	await uploadToCloud(image).catch(console.error);
+		// } else {
+		// 	setErrorMessage(true);
+		// }
 		//Netlify verification
 		auth
 			.signup(form.email, form.password)

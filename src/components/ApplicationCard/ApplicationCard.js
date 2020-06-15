@@ -1,9 +1,14 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {
+	makeStyles,
+	MuiThemeProvider,
+	createMuiTheme,
+} from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 import {
 	ApplicationCardContainer,
@@ -35,19 +40,9 @@ const useStyles = makeStyles((theme) => ({
 const ApplicationCard = ({ case_nam, status_name }) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
+	const [isSuccessful, setIsSuccesful] = React.useState(false);
 	const steps = ["Stage 1", "Stage 2", "Stage 3", "Stage 4"];
 
-	// get status from application and setActiveStep based on that
-
-	// const handleNext = () => {
-	// 	setActiveStep((prevActiveStep) => prevActiveStep + 1);
-	// };
-
-	// const handleBack = () => {
-	// 	setActiveStep((prevActiveStep) => prevActiveStep - 1);
-	// };
-
-	// console.log(status_name);
 	React.useEffect(() => {
 		const statusUpdater = () => {
 			switch (status_name[0]) {
@@ -63,22 +58,39 @@ const ApplicationCard = ({ case_nam, status_name }) => {
 				case "Invoice":
 					setActiveStep(3);
 					break;
+				case "Successful close":
+					setIsSuccesful(true);
+					break;
+				case "Unsuccessful close":
+					setIsSuccesful(false);
+					break;
 				default:
 					setActiveStep(0);
 			}
 		};
 		statusUpdater();
-		// const statusUpdater = () => {
-		// 	if (status_name[0] === "Upload") {
-		// 		// console.log("HEY" + status_name);
-		// 		setActiveStep(1);
-		// 	}
-		// };
-		// statusUpdater();
 	}, []);
+
+	// const muiTheme = createMuiTheme({
+	// 	overrides: {
+	// 		MuiStepIcon: {
+	// 			root: {
+	// 				color: "#238823", // or 'rgba(0, 0, 0, 1)'
+	// 				"&$active": {
+	// 					color: "#238823",
+	// 				},
+	// 				"&$completed": {
+	// 					color: "#238823",
+	// 				},
+	// 			},
+	// 		},
+	// 	},
+	// });
 
 	return (
 		<ApplicationCardContainer>
+			{/* {isSuccessful === true ? (
+				<MuiThemeProvider theme={muiTheme}> */}
 			<Stepper
 				className={classes.stepper}
 				activeStep={activeStep}
@@ -89,6 +101,8 @@ const ApplicationCard = ({ case_nam, status_name }) => {
 					</Step>
 				))}
 			</Stepper>
+			{/* </MuiThemeProvider> */}
+
 			<ApplicationInfo>
 				<h1>{case_nam}</h1>
 				{/* <h4>{statusUpdater}</h4> */}

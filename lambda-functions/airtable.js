@@ -1,4 +1,5 @@
 const Airtable = require("airtable");
+const bcrypt = require("bcryptjs");
 
 exports.handler = async (request, context) => {
 	const { AIRTABLE_KEY } = process.env;
@@ -10,6 +11,13 @@ exports.handler = async (request, context) => {
 	const base = new Airtable({
 		apiKey: AIRTABLE_KEY, // secret on Netlify
 	}).base("app7xH8ItDsTvcPhg"); // database
+
+	if (requestBody.password) {
+		await bcrypt
+			.genSalt(10)
+			.then((salt) => bcrypt.hash(requestBody.password, salt))
+			.then((hash) => (requestBody.password = hash));
+	}
 
 	let data = [];
 	if (requestMethod === "POST") {

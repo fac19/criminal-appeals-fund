@@ -4,6 +4,8 @@ import { Button, TextField, makeStyles } from "@material-ui/core";
 import { Form } from "../../StyledComponents/StyledComponents.style";
 import { useHistory } from "react-router-dom";
 
+import { loginAirtable } from "../../utils/fetch";
+
 // import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +34,14 @@ const LogInPage = () => {
 		if (form.email !== "" && form.password !== "" && form.email.includes("@")) {
 			setErrorMessage(false);
 			console.log(form);
-			history.push("/profile");
+			loginAirtable("POST", "applicants", form).then((data) => {
+				console.log(data.response);
+				if (data.length !== 0) {
+					history.push("/profile");
+				} else {
+					console.log("nah");
+				}
+			});
 		} else {
 			setErrorMessage(true);
 		}

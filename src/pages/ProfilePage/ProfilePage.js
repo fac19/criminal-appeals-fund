@@ -16,14 +16,14 @@ const useStyles = makeStyles((theme) => {});
 
 const ProfilePage = () => {
 	const classes = useStyles();
-	const [user, setUser] = React.useContext(UserContext);
-	const dummyUser = { id: ["recazQW1JnmB6CxAy"] };
+	// const [user, setUser] = React.useContext(UserContext);
+	// const dummyUser = { id: ["recazQW1JnmB6CxAy"] };
 
-	React.useEffect(() => {
-		if (user) {
-			getAirtable("GET", "applications", dummyUser.id);
-		}
-	}, [user, dummyUser]);
+	// React.useEffect(() => {
+	// 	if (user) {
+	// 		getAirtable("GET", "applications", dummyUser.id);
+	// 	}
+	// }, [user, dummyUser]);
 	return (
 		<div>
 			<NavbarLoggedIn />

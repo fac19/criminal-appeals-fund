@@ -17,4 +17,14 @@ const getAirtable = (method, table, id) => {
 	}).then((response) => response.json());
 };
 
-export { postAirtable, getAirtable };
+const loginAirtable = (method, table, request) => {
+	return fetch("/.netlify/functions/login?table=" + table, {
+		method: method,
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(request),
+	}).then((response) => response.json());
+};
+
+export { postAirtable, getAirtable, loginAirtable };

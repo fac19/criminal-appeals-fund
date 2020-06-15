@@ -48,7 +48,6 @@
 	"devDependencies": {
 		"codecov": "^3.7.0",
 		"husky": "^4.2.5",
-		"netlify-cli": "^2.53.0",
 		"prettier": "^2.0.5",
 		"pretty-quick": "^2.0.1",
 		"react-test-renderer": "^16.13.1"

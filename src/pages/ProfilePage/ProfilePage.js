@@ -24,6 +24,7 @@ const ProfilePage = () => {
 			getAirtable("GET", "applications", dummyUser.id);
 		}
 	}, [user, dummyUser]);
+
 	return (
 		<div>
 			<NavbarLoggedIn />

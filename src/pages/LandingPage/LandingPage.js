@@ -1,7 +1,7 @@
 import React, { Component, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "../../components/Navbar/Navbar";
-import { Button } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import {
 	HeaderWrapper,
 	BodyWrapper,
@@ -19,6 +19,13 @@ import step1 from "./assets/step1.svg";
 import step2 from "./assets/step2.svg";
 import step3 from "./assets/step3.svg";
 import step4 from "./assets/step4.svg";
+
+const useStyles = makeStyles((theme) => ({
+	landingButton: {
+		width: "11rem",
+		height: "3rem",
+	},
+}));
 
 const useMountEffect = (fun) => useEffect(fun, []);
 const useScroll = () => {
@@ -44,6 +51,7 @@ const useScroll = () => {
 };
 
 const LandingPage = () => {
+	const classes = useStyles();
 	const [executeScroll, htmlElRef] = useScroll();
 	useMountEffect(executeScroll); // Runs after component mounts
 
@@ -54,18 +62,19 @@ const LandingPage = () => {
 			<BodyWrapper>
 				<HeaderWrapper>
 					<HeaderText>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Qualis
-							ista philosophia est, quae non interitum afferat pravitatis, sed
-							sit contenta mediocritate vitiorum? Sed id ne cogitari quidem
-							potest quale sit, ut non repugnet ipsum sibi. Scripta sane et
-							multa et polita, sed nescio quo pacto auctoritatem oratio non
-							habet. Quoniam, si dis placet, ab Epicuro loqui discimus. Duo
-							Reges: constructio interrete.
-						</p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Qualis ista
+						philosophia est, quae non interitum afferat pravitatis, sed sit
+						contenta mediocritate vitiorum? Sed id ne cogitari quidem potest
+						quale sit, ut non repugnet ipsum sibi. Scripta sane et multa et
+						polita, sed nescio quo pacto auctoritatem oratio non habet. Quoniam,
+						si dis placet, ab Epicuro loqui discimus. Duo Reges: constructio
+						interrete.
 					</HeaderText>
 
-					<Button variant="contained" onClick={executeScroll}>
+					<Button
+						className={classes.landingButton}
+						variant="contained"
+						onClick={executeScroll}>
 						How it works
 					</Button>
 				</HeaderWrapper>
@@ -116,7 +125,9 @@ const LandingPage = () => {
 					</StepWrapper>
 				</StepsWrapper>
 				<Link to="/signup">
-					<Button variant="contained">Sign Up</Button>
+					<Button variant="contained" className={classes.landingButton}>
+						Sign Up
+					</Button>
 				</Link>
 			</BodyWrapper>
 		</StyledLanding>

@@ -5,9 +5,18 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 
+import {
+	ApplicationCardContainer,
+	ApplicationStageList,
+	ApplicationInfo,
+} from "./ApplicationCard.style";
+
 const useStyles = makeStyles((theme) => ({
-	root: {
-		width: "100%",
+	stepper: {
+		borderRadius: "1.5rem",
+		paddingLeft: "0",
+		paddingRight: "0",
+		paddingBottom: "0.5rem",
 	},
 	backButton: {
 		marginRight: theme.spacing(1),
@@ -16,9 +25,10 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: theme.spacing(1),
 		marginBottom: theme.spacing(1),
 	},
-
-	li: {
-		listStyleType: "none",
+	statusButton: {
+		width: "11rem",
+		height: "3rem",
+		margin: "2rem",
 	},
 }));
 
@@ -27,51 +37,62 @@ const ApplicationCard = () => {
 	const [activeStep, setActiveStep] = React.useState(0);
 	const steps = ["Stage 1", "Stage 2", "Stage 3", "Stage 4"];
 
-	const handleNext = () => {
-		setActiveStep((prevActiveStep) => prevActiveStep + 1);
-	};
+	// const handleNext = () => {
+	// 	setActiveStep((prevActiveStep) => prevActiveStep + 1);
+	// };
 
-	const handleBack = () => {
-		setActiveStep((prevActiveStep) => prevActiveStep - 1);
-	};
+	// const handleBack = () => {
+	// 	setActiveStep((prevActiveStep) => prevActiveStep - 1);
+	// };
 
 	return (
-		<div className={classes.root}>
-			<Stepper activeStep={activeStep} alternativeLabel>
+		<ApplicationCardContainer>
+			<Stepper
+				className={classes.stepper}
+				activeStep={activeStep}
+				alternativeLabel>
 				{steps.map((label) => (
 					<Step key={label}>
 						<StepLabel>{label}</StepLabel>
 					</Step>
 				))}
 			</Stepper>
-			<ul className={classes.li}>
-				<li>Stage 1: Your application satisfies the criteria</li>
-				<li>Stage 2: Your application has been selected for funding</li>
-				<li>
-					Stage 3: You will need to generate an invoice to receive your funding
-				</li>
-				<li>Stage 4: Your application is awaiting funding</li>
-			</ul>
-			<Button
-				disabled={activeStep === 0}
-				onClick={handleBack}
-				className={classes.backButton}>
-				Back
-			</Button>
-			<Button
-				disabled={activeStep === 4}
-				variant="contained"
-				color="primary"
-				onClick={handleNext}>
-				{activeStep === steps.length - 1 ? "Finish" : "Next"}
-			</Button>
-			{activeStep === 2 && (
-				<Button variant="contained" color="secondary">
+			<ApplicationInfo>
+				<ApplicationStageList>
+					<li>Stage 1: Your application satisfies the criteria</li>
+					<li>Stage 2: Your application has been selected for funding</li>
+					<li>
+						Stage 3: You will need to generate an invoice to receive your
+						funding
+					</li>
+					<li>Stage 4: Your application is awaiting funding</li>
+				</ApplicationStageList>
+				{/* {activeStep !== 0 && (
+					<Button
+						disabled={activeStep === 0}
+						onClick={handleBack}
+						className={classes.backButton}>
+						Back
+					</Button>
+				)}
+				<Button
+					disabled={activeStep === 4}
+					variant="contained"
+					color="primary"
+					onClick={handleNext}>
+					{activeStep === steps.length - 1 ? "Finish" : "Next"}
+				</Button> */}
+				{/* {activeStep === 2 && ( */}
+				<Button
+					className={classes.statusButton}
+					variant="contained"
+					color="primary">
 					Generate Invoice
 				</Button>
-			)}
-			{activeStep === 4 && <h3>Funded</h3>}
-		</div>
+				{/* )} */}
+				{activeStep === 4 && <h3>Funded</h3>}
+			</ApplicationInfo>
+		</ApplicationCardContainer>
 	);
 };
 

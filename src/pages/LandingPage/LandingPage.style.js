@@ -20,7 +20,12 @@ const HeaderText = styled.p`
 const BodyWrapper = styled.section``;
 
 const HeaderWrapper = styled.section`
+	margin-top: -8rem;
 	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 `;
 const StepsWrapper = styled.section`
 	padding: 4em;

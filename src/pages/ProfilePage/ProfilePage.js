@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => {});
 const ProfilePage = () => {
 	const classes = useStyles();
 	// const [user, setUser] = React.useContext(UserContext);
-	const [applicationsObject, setApplicationsObject] = React.useState({});
+	const [applicationsObject, setApplicationsObject] = React.useState([]);
 	const dummyUser = { id: ["recazQW1JnmB6CxAy"] };
 
 	// const makeApplicationCard = (applicationsObject) => {
@@ -38,6 +38,10 @@ const ProfilePage = () => {
 		});
 	}, []);
 
+	React.useEffect(() => {
+		console.log(applicationsObject);
+	}, [applicationsObject]);
+
 	return (
 		<div>
 			<NavbarLoggedIn />
@@ -55,7 +59,8 @@ const ProfilePage = () => {
 				</ApplicantInfo>
 			</ApplicationPageHeader>
 			<ApplicationSection>
-				{makeApplicationCard(applicationsObject)}
+				{applicationsObject.length !== 0 &&
+					makeApplicationCard(applicationsObject)}
 			</ApplicationSection>
 		</div>
 	);

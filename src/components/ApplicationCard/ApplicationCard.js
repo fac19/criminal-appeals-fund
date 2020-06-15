@@ -32,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ApplicationCard = () => {
+const ApplicationCard = ({ case_nam }) => {
 	const classes = useStyles();
-	const [activeStep, setActiveStep] = React.useState(0);
+	const [activeStep, setActiveStep] = React.useState(3);
 	const steps = ["Stage 1", "Stage 2", "Stage 3", "Stage 4"];
 
 	// const handleNext = () => {
@@ -58,7 +58,7 @@ const ApplicationCard = () => {
 				))}
 			</Stepper>
 			<ApplicationInfo>
-				<h1>{case_name}</h1>
+				<h1>{case_nam}</h1>
 				<ApplicationStageList>
 					<li>Stage 1: Your application satisfies the criteria</li>
 					<li>Stage 2: Your application has been selected for funding</li>

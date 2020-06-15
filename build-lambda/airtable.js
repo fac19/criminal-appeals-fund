@@ -14352,54 +14352,58 @@
 			t.handler = async (e, t) => {
 				const { AIRTABLE_KEY: a } = process.env,
 					o = e.queryStringParameters.table,
-					i = JSON.parse(e.body),
-					n = e.httpMethod,
-					s = e.queryStringParameters.user;
-				console.log("hello", s);
-				const c = new r({ apiKey: a }).base("app7xH8ItDsTvcPhg");
-				let u = [];
-				return "POST" === n
-					? (await c(o)
-							.create(i)
+					i = e.httpMethod,
+					n = new r({ apiKey: a }).base("app7xH8ItDsTvcPhg");
+				let s = [];
+				if ("POST" === i) {
+					const t = JSON.parse(e.body);
+					return (
+						await n(o)
+							.create(t)
 							.then((e) => {
 								"applicants" === o
-									? u.push({ id: e.fields.id, name: e.fields.first_name })
-									: u.push({ name: e.fields.case_name });
+									? s.push({ id: e.fields.id, name: e.fields.first_name })
+									: s.push({ name: e.fields.case_name });
 							})
 							.catch(console.error),
-					  {
+						{
 							statusCode: 201,
 							body: JSON.stringify({
 								message:
 									"The response data has been successfully added to " +
 									o +
 									" table.",
-								response: u,
+								response: s,
 							}),
-					  })
-					: "GET" === n
-					? (await c(o)
-							.select({ maxRecords: 100, view: "Grid view" })
+						}
+					);
+				}
+				if ("GET" === i) {
+					const t = e.queryStringParameters.user;
+					return (
+						await n(o)
+							.select({ maxRecords: 100, view: "All Cases" })
 							.firstPage()
 							.then((e) => {
 								e.forEach((e) => {
-									u.push(e.fields);
+									e.fields.user_id[0] === t && s.push(e.fields);
 								});
 							})
 							.catch((e) => {
 								console.log(e.status);
 							}),
-					  {
+						{
 							statusCode: 200,
 							body: JSON.stringify({
 								message:
 									"The response data has been successfully retrieved to " +
 									o +
 									" table.",
-								response: u,
+								response: s,
 							}),
-					  })
-					: void 0;
+						}
+					);
+				}
 			};
 		},
 		function (e, t, a) {

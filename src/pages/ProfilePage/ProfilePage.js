@@ -16,14 +16,27 @@ const useStyles = makeStyles((theme) => {});
 
 const ProfilePage = () => {
 	const classes = useStyles();
-	const [user, setUser] = React.useContext(UserContext);
+	// const [user, setUser] = React.useContext(UserContext);
+	const [applicationsObject, setApplicationsObject] = React.useState({});
 	const dummyUser = { id: ["recazQW1JnmB6CxAy"] };
 
+	// const makeApplicationCard = (applicationsObject) => {
+	// 	return applicationsObject.map((case) => {
+	//       return <ApplicationCard case={case} />;
+	// 	});
+	// };
+
+	const makeApplicationCard = (applicationsObject) => {
+		return applicationsObject.map((application) => {
+			return <ApplicationCard {...application} />;
+		});
+	};
+
 	React.useEffect(() => {
-		if (user) {
-			getAirtable("GET", "applications", dummyUser.id);
-		}
-	}, [user, dummyUser]);
+		getAirtable("GET", "applications", dummyUser.id).then((data) => {
+			setApplicationsObject(data.response);
+		});
+	}, []);
 
 	return (
 		<div>
@@ -42,7 +55,7 @@ const ProfilePage = () => {
 				</ApplicantInfo>
 			</ApplicationPageHeader>
 			<ApplicationSection>
-				<ApplicationCard />
+				{makeApplicationCard(applicationsObject)}
 			</ApplicationSection>
 		</div>
 	);

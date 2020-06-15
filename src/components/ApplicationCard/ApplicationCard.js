@@ -58,6 +58,7 @@ const ApplicationCard = () => {
 				))}
 			</Stepper>
 			<ApplicationInfo>
+				<h1>{case_name}</h1>
 				<ApplicationStageList>
 					<li>Stage 1: Your application satisfies the criteria</li>
 					<li>Stage 2: Your application has been selected for funding</li>

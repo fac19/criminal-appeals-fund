@@ -4,6 +4,7 @@ import {
 	Checkbox,
 	FormControl,
 	Button,
+	TextField,
 } from "@material-ui/core";
 
 import { ErrorText } from "../../StyledComponents/StyledComponents.style";
@@ -57,9 +58,36 @@ const Apply1 = ({ checked, setChecked, errorMessage }) => {
 	);
 };
 
-const Apply2 = ({ handleUpload, errorMessage }) => {
+const Apply2 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 	return (
 		<>
+			<TextField
+				id="caseName"
+				name="case_name"
+				type="text"
+				label="Case Name"
+				value={form.case_name}
+				variant="outlined"
+				onChange={handleInputChange}
+				required
+				autoFocus
+				// error={errorMessage}
+				// helperText={errorMessage ? "Please fill out this field" : ""}
+			/>
+			<TextField
+				id="dateOpened"
+				name="date_opened"
+				type="date"
+				label="Date Opened"
+				variant="outlined"
+				InputLabelProps={{
+					shrink: true,
+				}}
+				onChange={handleInputChange}
+				required
+				// error={errorMessage}
+				// helperText={errorMessage ? "Please fill out this field" : ""}
+			/>
 			<Button variant="contained" component="label" onChange={handleUpload}>
 				Upload File
 				<input type="file" style={{ display: "none" }} />

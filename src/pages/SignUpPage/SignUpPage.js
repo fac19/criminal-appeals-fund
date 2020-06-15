@@ -10,7 +10,7 @@ import {
 } from "../../components/SignUpForm/SignUpForm";
 import { postFile } from "../../utils/cloudinary";
 import { Form } from "../../StyledComponents/StyledComponents.style";
-import fetchAirtable from "../../utils/fetch";
+import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
 import GoTrue from "gotrue-js";
 
@@ -36,8 +36,6 @@ const SignUpPage = () => {
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [errorMessage, setErrorMessage] = React.useState(false);
 	const [image, setImage] = React.useState(null);
-	const d = new Date();
-	const date = d.toLocaleString("en-GB", { timeZone: "UTC" });
 	const [form, updateForm] = React.useState({
 		first_name: "",
 		last_name: "",
@@ -45,7 +43,6 @@ const SignUpPage = () => {
 		bar_number: "",
 		image_url: "",
 		isVerified: "no",
-		date_submitted: date,
 		password: "",
 	});
 
@@ -97,11 +94,9 @@ const SignUpPage = () => {
 	}
 
 	const uploadToCloud = async (image) => {
-		return readFileAsDataURL(image).then((file) => {
-			return postFile(file).then((upload) => {
-				updateForm({ ...form, image_url: upload.url });
-				return upload.url;
-			});
+		return readFileAsDataURL(image).then(async (file) => {
+			const upload = await postFile(file);
+			updateForm({ ...form, image_url: upload.url });
 		});
 	};
 
@@ -109,7 +104,6 @@ const SignUpPage = () => {
 		event.preventDefault();
 		if (image) {
 			await uploadToCloud(image).catch(console.error);
-			history.push("/profile");
 		} else {
 			setErrorMessage(true);
 		}
@@ -122,13 +116,14 @@ const SignUpPage = () => {
 
 	React.useEffect(() => {
 		if (form.image_url !== "") {
-			fetchAirtable("POST", "Applicants", form).then((response) => {
+			postAirtable("POST", "applicants", form).then((response) => {
 				const userObj = response.response[0];
-				const user = { id: userObj.id, name: userObj.first_name };
+				const user = { id: userObj.id, name: userObj.name };
 				setUser(user);
+				history.push("/profile");
 			});
 		}
-	}, [form, setUser]);
+	}, [form, setUser, history]);
 
 	return (
 		<>

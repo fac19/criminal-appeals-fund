@@ -17,6 +17,7 @@ function App() {
 	React.useEffect(() => {
 		console.log(user);
 	}, [user]);
+
 	return (
 		<UserContext.Provider value={[user, setUser]}>
 			<MainWrapper>

@@ -32,10 +32,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ApplicationCard = ({ case_nam }) => {
+const ApplicationCard = ({ case_nam, status_name }) => {
 	const classes = useStyles();
-	const [activeStep, setActiveStep] = React.useState(3);
+	const [activeStep, setActiveStep] = React.useState(0);
 	const steps = ["Stage 1", "Stage 2", "Stage 3", "Stage 4"];
+
+	// get status from application and setActiveStep based on that
 
 	// const handleNext = () => {
 	// 	setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -44,6 +46,36 @@ const ApplicationCard = ({ case_nam }) => {
 	// const handleBack = () => {
 	// 	setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	// };
+
+	// console.log(status_name);
+	React.useEffect(() => {
+		const statusUpdater = () => {
+			switch (status_name[0]) {
+				case "Upload":
+					setActiveStep(0);
+					break;
+				case "Criteria met":
+					setActiveStep(1);
+					break;
+				case "Success":
+					setActiveStep(2);
+					break;
+				case "Invoice":
+					setActiveStep(3);
+					break;
+				default:
+					setActiveStep(0);
+			}
+		};
+		statusUpdater();
+		// const statusUpdater = () => {
+		// 	if (status_name[0] === "Upload") {
+		// 		// console.log("HEY" + status_name);
+		// 		setActiveStep(1);
+		// 	}
+		// };
+		// statusUpdater();
+	}, []);
 
 	return (
 		<ApplicationCardContainer>
@@ -59,6 +91,7 @@ const ApplicationCard = ({ case_nam }) => {
 			</Stepper>
 			<ApplicationInfo>
 				<h1>{case_nam}</h1>
+				{/* <h4>{statusUpdater}</h4> */}
 				<ApplicationStageList>
 					<li>Stage 1: Your application satisfies the criteria</li>
 					<li>Stage 2: Your application has been selected for funding</li>

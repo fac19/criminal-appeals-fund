@@ -45,23 +45,23 @@ const ApplicationCard = ({ case_nam, status_name }) => {
 
 	React.useEffect(() => {
 		const statusUpdater = () => {
+			// console.log("console: " + status_name);
 			switch (status_name[0]) {
-				case "Upload":
+				case "Criteria met":
 					setActiveStep(0);
 					break;
-				case "Criteria met":
+				case "Success":
 					setActiveStep(1);
 					break;
-				case "Success":
+				case "Invoice":
 					setActiveStep(2);
 					break;
-				case "Invoice":
-					setActiveStep(3);
-					break;
 				case "Successful close":
-					setIsSuccesful(true);
+					setActiveStep(-1);
+					setIsSuccesful(false);
 					break;
 				case "Unsuccessful close":
+					setActiveStep(-1);
 					setIsSuccesful(false);
 					break;
 				default:
@@ -131,14 +131,21 @@ const ApplicationCard = ({ case_nam, status_name }) => {
 					{activeStep === steps.length - 1 ? "Finish" : "Next"}
 				</Button> */}
 				{/* {activeStep === 2 && ( */}
-				<Button
-					className={classes.statusButton}
-					variant="contained"
-					color="primary">
-					Generate Invoice
-				</Button>
-				{/* )} */}
-				{activeStep === 4 && <h3>Funded</h3>}
+				{activeStep === 2 ? (
+					<Button
+						className={classes.statusButton}
+						variant="contained"
+						color="primary">
+						Generate Invoice
+					</Button>
+				) : (
+					<span></span>
+				)}
+				{activeStep === 0 ? <h3>Criteria met</h3> : <span></span>}
+
+				{activeStep === 1 ? <h3>Selected for funding</h3> : <span></span>}
+				{activeStep === 3 ? <h3>Successful</h3> : <span></span>}
+				{activeStep === -1 && <h3>Withdrawn</h3>}
 			</ApplicationInfo>
 		</ApplicationCardContainer>
 	);

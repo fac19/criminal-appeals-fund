@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, MobileStepper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,7 +13,9 @@ import { Form } from "../../StyledComponents/StyledComponents.style";
 import { ButtonList } from "./SignUpPage.style";
 import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
-import { uploadFileHandler } from "../../utils/cloudinary";
+import { beginUpload } from "../../utils/cloudinary";
+import { CloudinaryContext, Image } from "cloudinary-react";
+import { fetchPhotos, openUploadWidget } from "../../utils/cloudinary";
 import GoTrue from "gotrue-js";
 
 //Netlify Go True
@@ -53,6 +55,27 @@ const SignUpPage = () => {
 		isVerified: "no",
 		password: "",
 	});
+
+	// to be removed
+	const [images, setImages] = useState([]);
+	const beginUpload = (tag) => {
+		const uploadOptions = {
+			cloudName: "dgc9b8ti3",
+			tags: [tag],
+			uploadPreset: "upload",
+		};
+
+		openUploadWidget(uploadOptions, (error, photos) => {
+			if (!error) {
+				console.log(photos);
+				if (photos.event === "success") {
+					setImages([...photos, photos.info.public_id]);
+				}
+			} else {
+				console.log(error);
+			}
+		});
+	};
 
 	const handleOnChange = (event) => {
 		const { name, value } = event.target;
@@ -110,17 +133,13 @@ const SignUpPage = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		uploadFileHandler(event);
-		// if (image) {
-		// 	await uploadToCloud(image).catch(console.error);
-		// } else {
-		// 	setErrorMessage(true);
-		// }
-		//Netlify verification
-		auth
-			.signup(form.email, form.password)
-			.then((response) => console.log("Success! Check your inbox ", response))
-			.catch((error) => console.log("It's an error", error));
+		if (image) {
+			// await uploadToCloud(image).catch(console.error);
+			// await uploadFileHandler(event).catch(console.error);
+			await beginUpload.catch(console.error);
+		} else {
+			setErrorMessage(true);
+		}
 	};
 
 	React.useEffect(() => {
@@ -136,6 +155,10 @@ const SignUpPage = () => {
 
 	return (
 		<>
+			<button onClick={() => beginUpload()}>Upload Image</button>
+			{images.map((i) => (
+				<Image key={i} publicId={i} fetch-format="auto" quality="auto" />
+			))}
 			<Navbar />
 			<Form onSubmit={handleSubmit}>
 				<MobileStepper

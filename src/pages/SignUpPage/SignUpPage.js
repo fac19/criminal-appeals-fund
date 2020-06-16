@@ -33,7 +33,7 @@ const SignUpPage = () => {
 	const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	const history = useHistory();
 	const classes = useStyles();
-	const [activeStep, setActiveStep] = React.useState(2);
+	const [activeStep, setActiveStep] = React.useState(0);
 	const [errorMessage, setErrorMessage] = React.useState("");
 	const [image, setImage] = React.useState(null);
 	const [repeatPassword, setRepeatPassword] = React.useState("");
@@ -63,13 +63,12 @@ const SignUpPage = () => {
 		setImage(event.target.files[0]);
 	};
 
-	const handleNext = (event) => {
+	const handleNext = () => {
 		if (
 			activeStep === 0 &&
 			form.first_name !== "" &&
 			form.last_name !== "" &&
 			form.bar_number !== "" &&
-			form.email !== "" &&
 			emailRegex.test(form.email)
 		) {
 			setErrorMessage("");
@@ -87,7 +86,7 @@ const SignUpPage = () => {
 	};
 
 	const handleBack = () => {
-		setErrorMessage(false);
+		setErrorMessage("");
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
@@ -121,12 +120,32 @@ const SignUpPage = () => {
 		if (form.image_url !== "") {
 			postAirtable("POST", "applicants", form).then((response) => {
 				const userObj = response.response[0];
-				const user = { id: userObj.id, name: userObj.name };
+				console.log(response.response[0]);
+				const user = {
+					id: userObj.id,
+					first_name: userObj.first_name,
+					isVerified: userObj.isVerified,
+				};
 				setUser(user);
 				history.push("/profile");
 			});
 		}
 	}, [form, setUser, history]);
+
+	const nextOnEnter = (event) => {
+		if (event.keyCode === 13) {
+			if (activeStep === 2) {
+				handleSubmit();
+			} else {
+				handleNext();
+			}
+		}
+	};
+
+	React.useEffect(() => {
+		window.addEventListener("keyup", nextOnEnter);
+		return () => window.removeEventListener("keyup", nextOnEnter);
+	}, []);
 
 	return (
 		<>

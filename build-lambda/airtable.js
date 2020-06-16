@@ -30568,7 +30568,11 @@
 							.create(n)
 							.then((e) => {
 								"applicants" === i
-									? p.push({ id: e.fields.id, name: e.fields.first_name })
+									? p.push({
+											id: e.fields.id,
+											first_name: e.fields.first_name,
+											isVerified: e.fields.isVerified,
+									  })
 									: p.push({ name: e.fields.case_name });
 							})
 							.catch(console.error),

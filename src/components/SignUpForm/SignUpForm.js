@@ -53,7 +53,9 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 					label="Email"
 					variant="outlined"
 					helperText={
-						errorMessage ? "This field must be a valid email address" : ""
+						errorMessage && (form.email === "" || !emailRegex.test(form.email))
+							? "This field must be a valid email address"
+							: ""
 					}
 					onChange={handleOnChange}
 					type="email"

@@ -3,6 +3,7 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, TextField, makeStyles } from "@material-ui/core";
 import { Form, ErrorText } from "../../StyledComponents/StyledComponents.style";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../../Context";
 
 import { loginAirtable } from "../../utils/fetch";
 
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LogInPage = () => {
+	const [user, setUser] = React.useContext(UserContext);
 	const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	const classes = useStyles();
 	const history = useHistory();
@@ -33,17 +35,13 @@ const LogInPage = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (
-			form.email !== "" &&
-			form.password !== "" &&
-			emailRegex.test(form.email)
-		) {
+		if (form.password !== "" && emailRegex.test(form.email)) {
 			setErrorMessage("");
 			loginAirtable("POST", "applicants", form).then((data) => {
 				if (data.response) {
+					setUser(data.response[0]);
 					history.push("/profile");
 				} else {
-					console.log(data.message);
 					setErrorMessage(data.message);
 				}
 			});
@@ -67,9 +65,7 @@ const LogInPage = () => {
 					onChange={handleInputChange}
 					type="email"
 					required
-					error={
-						errorMessage && (form.email === "" || !emailRegex.test(form.email))
-					}
+					error={errorMessage && !emailRegex.test(form.email)}
 					helperText={
 						errorMessage
 							? "Please fill out this field with a valid email address"

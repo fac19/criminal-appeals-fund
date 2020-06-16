@@ -25,7 +25,11 @@ exports.handler = async (request, context) => {
 			.create(requestBody)
 			.then((record) => {
 				table === "applicants"
-					? data.push({ id: record.fields.id, name: record.fields.first_name })
+					? data.push({
+							id: record.fields.id,
+							first_name: record.fields.first_name,
+							isVerified: record.fields.isVerified,
+					  })
 					: data.push({ name: record.fields.case_name });
 			})
 			.catch(console.error);

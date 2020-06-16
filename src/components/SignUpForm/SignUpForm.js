@@ -128,16 +128,16 @@ const SignUp1 = ({
 	);
 };
 
-const SignUp2 = ({ handleUpload, form, errorMessage }) => {
+const SignUp2 = ({ beginUpload, images, errorMessage }) => {
 	return (
 		<>
 			<FormSection>
-				{/* <Button variant="contained" component="label" onChange={handleUpload}> */}
-				<Button variant="contained" component="label" onChange={handleUpload}>
-					Upload File
-					<input type="file" style={{ display: "none" }} />
+				<Button variant="contained" onClick={() => beginUpload()}>
+					Upload Image
 				</Button>
-				{/* <UploadFileHandler /> */}
+				{images.map((i) => (
+					<img key={i} publicId={i} fetch-format="auto" quality="auto" />
+				))}
 			</FormSection>
 		</>
 	);

@@ -52,10 +52,10 @@ const SignUpPage = () => {
 
 	// to be removed
 	const [images, setImages] = useState([]);
-	const beginUpload = (tag) => {
+	const beginUpload = () => {
 		const uploadOptions = {
 			cloudName: "dgc9b8ti3",
-			tags: [tag],
+			folder: form.bar_number,
 			uploadPreset: "upload",
 		};
 
@@ -63,7 +63,9 @@ const SignUpPage = () => {
 			if (!error) {
 				console.log(photos);
 				if (photos.event === "success") {
-					setImages([...photos, photos.info.public_id]);
+					// setImages([photos, photos.info.public_id]);
+					// console.log(images);
+					console.log(photos.event);
 				}
 			} else {
 				console.log(error);
@@ -83,9 +85,9 @@ const SignUpPage = () => {
 		setRepeatPassword(value);
 	};
 
-	const handleUpload = (event) => {
-		setImage(event.target.files[0]);
-	};
+	// const handleUpload = (event) => {
+	// 	setImage(event.target.files[0]);
+	// };
 
 	const handleNext = () => {
 		if (
@@ -143,7 +145,7 @@ const SignUpPage = () => {
 	};
 
 	React.useEffect(() => {
-		if (form.image_url !== "") {
+		if (image) {
 			postAirtable("POST", "applicants", form).then((response) => {
 				const userObj = response.response[0];
 				console.log(response.response[0]);
@@ -153,6 +155,7 @@ const SignUpPage = () => {
 					isVerified: userObj.isVerified,
 				};
 				setUser(user);
+				beginUpload();
 				history.push("/profile");
 			});
 		}
@@ -175,11 +178,8 @@ const SignUpPage = () => {
 
 	return (
 		<>
-			<button onClick={() => beginUpload()}>Upload Image</button>
-			{images.map((i) => (
-				<Image key={i} publicId={i} fetch-format="auto" quality="auto" />
-			))}
 			<Navbar />
+
 			<Form onSubmit={handleSubmit}>
 				<MobileStepper
 					variant="dots"
@@ -206,7 +206,8 @@ const SignUpPage = () => {
 				)}
 				{activeStep === 2 && (
 					<SignUp2
-						handleUpload={handleUpload}
+						beginUpload={beginUpload}
+						images={images}
 						form={form}
 						errorMessage={errorMessage}
 					/>

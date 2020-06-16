@@ -76,7 +76,13 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 	);
 };
 
-const SignUp1 = ({ handleOnChange, form, errorMessage }) => {
+const SignUp1 = ({
+	handleOnChange,
+	form,
+	errorMessage,
+	handleRepeatPasswordChange,
+	repeatPassword,
+}) => {
 	const classes = useStyles();
 
 	return (
@@ -84,8 +90,10 @@ const SignUp1 = ({ handleOnChange, form, errorMessage }) => {
 			<FormSection>
 				<TextField
 					className={classes.input}
-					error={errorMessage}
-					helperText={errorMessage ? "Please fill out this field" : ""}
+					error={
+						errorMessage &&
+						(form.password === "" || form.password !== repeatPassword)
+					}
 					id="password"
 					name="password"
 					value={form.password}
@@ -96,19 +104,22 @@ const SignUp1 = ({ handleOnChange, form, errorMessage }) => {
 					autoFocus
 					required
 				/>
-				{/* <TextField
-				className={classes.input}
-				id="repeatPassword"
-				name="repeat_password"
-				error={errorMessage}
-				helperText={errorMessage ? "Please fill out this field" : ""}
-				value={form.repeat_password}
-				label="Repeat Password"
-				variant="outlined"
-				onChange={handleOnChange}
-				type="Password"
-				required
-			/> */}
+				<TextField
+					className={classes.input}
+					id="repeatPassword"
+					name="repeat_password"
+					error={
+						errorMessage &&
+						(repeatPassword === "" || form.password !== repeatPassword)
+					}
+					helperText={errorMessage ? "Please make sure passwords match" : ""}
+					value={form.repeat_password}
+					label="Repeat Password"
+					variant="outlined"
+					onChange={handleRepeatPasswordChange}
+					type="Password"
+					required
+				/>
 			</FormSection>
 		</>
 	);

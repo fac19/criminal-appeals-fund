@@ -33,9 +33,10 @@ const SignUpPage = () => {
 	const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	const history = useHistory();
 	const classes = useStyles();
-	const [activeStep, setActiveStep] = React.useState(0);
+	const [activeStep, setActiveStep] = React.useState(2);
 	const [errorMessage, setErrorMessage] = React.useState("");
 	const [image, setImage] = React.useState(null);
+	const [repeatPassword, setRepeatPassword] = React.useState("");
 	const [form, updateForm] = React.useState({
 		first_name: "",
 		last_name: "",
@@ -50,6 +51,12 @@ const SignUpPage = () => {
 		const { name, value } = event.target;
 		setErrorMessage("");
 		updateForm({ ...form, [name]: value });
+	};
+
+	const handleRepeatPasswordChange = (event) => {
+		const { value } = event.target;
+		setErrorMessage("");
+		setRepeatPassword(value);
 	};
 
 	const handleUpload = (event) => {
@@ -70,7 +77,7 @@ const SignUpPage = () => {
 		} else if (
 			activeStep === 1 &&
 			form.password !== "" &&
-			form.repeat_password !== ""
+			repeatPassword === form.password
 		) {
 			setErrorMessage("");
 			setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -141,6 +148,8 @@ const SignUpPage = () => {
 				)}
 				{activeStep === 1 && (
 					<SignUp1
+						repeatPassword={repeatPassword}
+						handleRepeatPasswordChange={handleRepeatPasswordChange}
 						handleOnChange={handleOnChange}
 						form={form}
 						errorMessage={errorMessage}

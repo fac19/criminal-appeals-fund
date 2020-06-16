@@ -55,7 +55,7 @@ const SignUpPage = () => {
 	const beginUpload = () => {
 		const uploadOptions = {
 			cloudName: "dgc9b8ti3",
-			folder: form.bar_number,
+			folder: form.email,
 			uploadPreset: "upload",
 		};
 
@@ -63,9 +63,7 @@ const SignUpPage = () => {
 			if (!error) {
 				console.log(photos);
 				if (photos.event === "success") {
-					// setImages([photos, photos.info.public_id]);
-					// console.log(images);
-					console.log(photos.event);
+					updateForm({ ...form, image_url: photos.info.url });
 				}
 			} else {
 				console.log(error);
@@ -84,10 +82,6 @@ const SignUpPage = () => {
 		setErrorMessage("");
 		setRepeatPassword(value);
 	};
-
-	// const handleUpload = (event) => {
-	// 	setImage(event.target.files[0]);
-	// };
 
 	const handleNext = () => {
 		if (
@@ -126,26 +120,9 @@ const SignUpPage = () => {
 		return convertedFile;
 	}
 
-	// const uploadToCloud = async (image) => {
-	// 	return readFileAsDataURL(image).then(async (file) => {
-	// 		const upload = await postFile(file);
-	// 		updateForm({ ...form, image_url: upload.url });
-	// 	});
-	// };
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		if (image) {
-			// await uploadToCloud(image).catch(console.error);
-			// await uploadFileHandler(event).catch(console.error);
-			await beginUpload.catch(console.error);
-		} else {
-			setErrorMessage("Please upload a form of identification");
-		}
-	};
-
-	React.useEffect(() => {
-		if (image) {
+		if (form.image_url) {
 			postAirtable("POST", "applicants", form).then((response) => {
 				const userObj = response.response[0];
 				console.log(response.response[0]);
@@ -155,11 +132,28 @@ const SignUpPage = () => {
 					isVerified: userObj.isVerified,
 				};
 				setUser(user);
-				beginUpload();
 				history.push("/profile");
 			});
+		} else {
+			setErrorMessage("Please upload a form of identification");
 		}
-	}, [form, setUser, history]);
+	};
+
+	// React.useEffect(() => {
+	// 	if (form.image_url) {
+	// 		postAirtable("POST", "applicants", form).then((response) => {
+	// 			const userObj = response.response[0];
+	// 			console.log(response.response[0]);
+	// 			const user = {
+	// 				id: userObj.id,
+	// 				first_name: userObj.first_name,
+	// 				isVerified: userObj.isVerified,
+	// 			};
+	// 			setUser(user);
+	// 			history.push("/profile");
+	// 		});
+	// 	}
+	// }, [form, setUser, history]);
 
 	const nextOnEnter = (event) => {
 		if (event.keyCode === 13) {

@@ -15,7 +15,7 @@ import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
 import { beginUpload } from "../../utils/cloudinary";
 import { CloudinaryContext, Image } from "cloudinary-react";
-import { fetchPhotos, openUploadWidget } from "../../utils/cloudinary";
+import { openUploadWidget } from "../../utils/cloudinary";
 
 const useStyles = makeStyles({
 	root: {
@@ -50,8 +50,6 @@ const SignUpPage = () => {
 		password: "",
 	});
 
-	// to be removed
-	const [images, setImages] = useState([]);
 	const beginUpload = () => {
 		const uploadOptions = {
 			cloudName: "dgc9b8ti3",
@@ -61,7 +59,6 @@ const SignUpPage = () => {
 
 		openUploadWidget(uploadOptions, (error, photos) => {
 			if (!error) {
-				console.log(photos);
 				if (photos.event === "success") {
 					updateForm({ ...form, image_url: photos.info.url });
 				}
@@ -110,22 +107,11 @@ const SignUpPage = () => {
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
-	async function readFileAsDataURL(file) {
-		let convertedFile = await new Promise((resolve) => {
-			let fileReader = new FileReader();
-			fileReader.onloadend = (e) => resolve(fileReader.result);
-			fileReader.readAsDataURL(file);
-		});
-
-		return convertedFile;
-	}
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		if (form.image_url) {
 			postAirtable("POST", "applicants", form).then((response) => {
 				const userObj = response.response[0];
-				console.log(response.response[0]);
 				const user = {
 					id: userObj.id,
 					first_name: userObj.first_name,
@@ -138,22 +124,6 @@ const SignUpPage = () => {
 			setErrorMessage("Please upload a form of identification");
 		}
 	};
-
-	// React.useEffect(() => {
-	// 	if (form.image_url) {
-	// 		postAirtable("POST", "applicants", form).then((response) => {
-	// 			const userObj = response.response[0];
-	// 			console.log(response.response[0]);
-	// 			const user = {
-	// 				id: userObj.id,
-	// 				first_name: userObj.first_name,
-	// 				isVerified: userObj.isVerified,
-	// 			};
-	// 			setUser(user);
-	// 			history.push("/profile");
-	// 		});
-	// 	}
-	// }, [form, setUser, history]);
 
 	const nextOnEnter = (event) => {
 		if (event.keyCode === 13) {

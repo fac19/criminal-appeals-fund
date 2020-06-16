@@ -24,7 +24,7 @@ exports.handler = async (request, context) => {
 			if (success) {
 				data.push({
 					id: airtableUser.fields.id,
-					fist_name: airtableUser.fields.first_name,
+					first_name: airtableUser.fields.first_name,
 					isVerified: airtableUser.fields.isVerified,
 				});
 			}

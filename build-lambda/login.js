@@ -30568,7 +30568,7 @@
 								u &&
 									c.push({
 										id: t.fields.id,
-										fist_name: t.fields.first_name,
+										first_name: t.fields.first_name,
 										isVerified: t.fields.isVerified,
 									});
 						})

@@ -16,15 +16,9 @@ const useStyles = makeStyles((theme) => {});
 
 const ProfilePage = () => {
 	const classes = useStyles();
-	// const [user, setUser] = React.useContext(UserContext);
+	const [user, setUser] = React.useContext(UserContext);
 	const [applicationsObject, setApplicationsObject] = React.useState([]);
-	const dummyUser = { id: ["recazQW1JnmB6CxAy"] };
-
-	// const makeApplicationCard = (applicationsObject) => {
-	// 	return applicationsObject.map((case) => {
-	//       return <ApplicationCard case={case} />;
-	// 	});
-	// };
+	// const dummyUser = { id: ["recazQW1JnmB6CxAy"] }
 
 	const makeApplicationCard = (applicationsObject) => {
 		return applicationsObject.map((application) => {
@@ -33,7 +27,7 @@ const ProfilePage = () => {
 	};
 
 	React.useEffect(() => {
-		getAirtable("GET", "applications", dummyUser.id).then((data) => {
+		getAirtable("GET", "applications", user.id).then((data) => {
 			setApplicationsObject(data.response);
 		});
 	}, []);
@@ -47,20 +41,29 @@ const ProfilePage = () => {
 			<NavbarLoggedIn />
 			<ApplicationPageHeader>
 				<ApplicantInfo>
-					<ApplicantName>Larry Bird</ApplicantName>
-					<Link to="/apply">
-						<Button
-							className={classes.applyButton}
-							variant="contained"
-							color="primary">
-							Apply for funding
-						</Button>
-					</Link>
+					<ApplicantName>{`Hello, ${user.first_name}`}</ApplicantName>
+					{user.isVerified === "yes" ? (
+						<Link to="/apply">
+							<Button
+								className={classes.applyButton}
+								variant="contained"
+								color="primary">
+								Apply for funding
+							</Button>
+						</Link>
+					) : (
+						<h3>
+							Your account is currently unverified, please check back in 24hrs!
+						</h3>
+					)}
 				</ApplicantInfo>
 			</ApplicationPageHeader>
 			<ApplicationSection>
-				{applicationsObject.length !== 0 &&
-					makeApplicationCard(applicationsObject)}
+				{applicationsObject.length !== 0 ? (
+					makeApplicationCard(applicationsObject)
+				) : (
+					<h2>You currently have no applications under review</h2>
+				)}
 			</ApplicationSection>
 		</div>
 	);

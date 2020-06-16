@@ -9,8 +9,11 @@ import {
 	SignUp2,
 } from "../../components/SignUpForm/SignUpForm";
 import { postFile } from "../../utils/cloudinary";
-import { Form, ErrorText } from "../../StyledComponents/StyledComponents.style";
-import { ButtonList } from "./SignUpPage.style";
+import {
+	Form,
+	ErrorText,
+	ButtonList,
+} from "../../StyledComponents/StyledComponents.style";
 import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
 import { beginUpload } from "../../utils/cloudinary";

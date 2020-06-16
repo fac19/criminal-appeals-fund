@@ -26,4 +26,13 @@ const FormSection = styled.section`
 	justify-content: space-evenly;
 `;
 
-export { Form, ErrorText, FormSection };
+const ButtonList = styled.ul`
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+`;
+
+export { Form, ErrorText, FormSection, ButtonList };

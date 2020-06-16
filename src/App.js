@@ -30,7 +30,7 @@ function App() {
 	const SiteRoute = ({ path, component }) => {
 		if (user.id.length) {
 			return <Route path={path}>{component}</Route>;
-		} else if (path === "/signup" || path === "/login") {
+		} else if (path === "/signup" || path === "/login" || path === "/apply") {
 			return <Route path={path}>{component}</Route>;
 		} else {
 			return (

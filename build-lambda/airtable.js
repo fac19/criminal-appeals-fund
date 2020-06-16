@@ -30552,63 +30552,67 @@
 			t.handler = async (e, t) => {
 				const { AIRTABLE_KEY: a } = process.env,
 					i = e.queryStringParameters.table,
-					n = JSON.parse(e.body),
-					s = e.httpMethod,
-					c = e.queryStringParameters.user;
-				console.log("hello", c);
-				const u = new r({ apiKey: a }).base("app7xH8ItDsTvcPhg");
-				n.password &&
-					(await o
-						.genSalt(10)
-						.then((e) => o.hash(n.password, e))
-						.then((e) => (n.password = e)));
-				let p = [];
-				return "POST" === s
-					? (await u(i)
-							.create(n)
+					n = e.httpMethod,
+					s = new r({ apiKey: a }).base("app7xH8ItDsTvcPhg");
+				let c = [];
+				if ("POST" === n) {
+					const t = JSON.parse(e.body);
+					return (
+						t.password &&
+							(await o
+								.genSalt(10)
+								.then((e) => o.hash(t.password, e))
+								.then((e) => (t.password = e))),
+						await s(i)
+							.create(t)
 							.then((e) => {
 								"applicants" === i
-									? p.push({
+									? c.push({
 											id: e.fields.id,
 											first_name: e.fields.first_name,
 											isVerified: e.fields.isVerified,
 									  })
-									: p.push({ name: e.fields.case_name });
+									: c.push({ name: e.fields.case_name });
 							})
 							.catch(console.error),
-					  {
+						{
 							statusCode: 201,
 							body: JSON.stringify({
 								message:
 									"The response data has been successfully added to " +
 									i +
 									" table.",
-								response: p,
+								response: c,
 							}),
-					  })
-					: "GET" === s
-					? (await u(i)
-							.select({ maxRecords: 100, view: "Grid view" })
+						}
+					);
+				}
+				if ("GET" === n) {
+					const t = e.queryStringParameters.user;
+					return (
+						await s(i)
+							.select({ maxRecords: 100, view: "All Cases" })
 							.firstPage()
 							.then((e) => {
 								e.forEach((e) => {
-									p.push(e.fields);
+									e.fields.user_id[0] === t && c.push(e.fields);
 								});
 							})
 							.catch((e) => {
 								console.log(e.status);
 							}),
-					  {
+						{
 							statusCode: 200,
 							body: JSON.stringify({
 								message:
 									"The response data has been successfully retrieved to " +
 									i +
 									" table.",
-								response: p,
+								response: c,
 							}),
-					  })
-					: void 0;
+						}
+					);
+				}
 			};
 		},
 	])

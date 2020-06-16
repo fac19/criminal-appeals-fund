@@ -9,6 +9,7 @@ const postAirtable = (method, table, request) => {
 };
 
 const getAirtable = (method, table, id) => {
+	console.log("Hey");
 	return fetch("/.netlify/functions/airtable?table=" + table + "&user=" + id, {
 		method: method,
 		headers: {

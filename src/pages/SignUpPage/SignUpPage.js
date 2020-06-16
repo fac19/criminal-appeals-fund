@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, MobileStepper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,6 +13,9 @@ import { Form, ErrorText } from "../../StyledComponents/StyledComponents.style";
 import { ButtonList } from "./SignUpPage.style";
 import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
+import { beginUpload } from "../../utils/cloudinary";
+import { CloudinaryContext, Image } from "cloudinary-react";
+import { fetchPhotos, openUploadWidget } from "../../utils/cloudinary";
 
 const useStyles = makeStyles({
 	root: {
@@ -46,6 +49,27 @@ const SignUpPage = () => {
 		isVerified: "no",
 		password: "",
 	});
+
+	// to be removed
+	const [images, setImages] = useState([]);
+	const beginUpload = (tag) => {
+		const uploadOptions = {
+			cloudName: "dgc9b8ti3",
+			tags: [tag],
+			uploadPreset: "upload",
+		};
+
+		openUploadWidget(uploadOptions, (error, photos) => {
+			if (!error) {
+				console.log(photos);
+				if (photos.event === "success") {
+					setImages([...photos, photos.info.public_id]);
+				}
+			} else {
+				console.log(error);
+			}
+		});
+	};
 
 	const handleOnChange = (event) => {
 		const { name, value } = event.target;
@@ -100,17 +124,19 @@ const SignUpPage = () => {
 		return convertedFile;
 	}
 
-	const uploadToCloud = async (image) => {
-		return readFileAsDataURL(image).then(async (file) => {
-			const upload = await postFile(file);
-			updateForm({ ...form, image_url: upload.url });
-		});
-	};
+	// const uploadToCloud = async (image) => {
+	// 	return readFileAsDataURL(image).then(async (file) => {
+	// 		const upload = await postFile(file);
+	// 		updateForm({ ...form, image_url: upload.url });
+	// 	});
+	// };
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		if (image) {
-			await uploadToCloud(image).catch(console.error);
+			// await uploadToCloud(image).catch(console.error);
+			// await uploadFileHandler(event).catch(console.error);
+			await beginUpload.catch(console.error);
 		} else {
 			setErrorMessage("Please upload a form of identification");
 		}
@@ -149,6 +175,10 @@ const SignUpPage = () => {
 
 	return (
 		<>
+			<button onClick={() => beginUpload()}>Upload Image</button>
+			{images.map((i) => (
+				<Image key={i} publicId={i} fetch-format="auto" quality="auto" />
+			))}
 			<Navbar />
 			<Form onSubmit={handleSubmit}>
 				<MobileStepper

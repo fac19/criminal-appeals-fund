@@ -17,13 +17,31 @@ const useStyles = makeStyles((theme) => {});
 const ProfilePage = () => {
 	const classes = useStyles();
 	// const [user, setUser] = React.useContext(UserContext);
-	// const dummyUser = { id: ["recazQW1JnmB6CxAy"] };
+	const [applicationsObject, setApplicationsObject] = React.useState([]);
+	const dummyUser = { id: ["recazQW1JnmB6CxAy"] };
 
-	// React.useEffect(() => {
-	// 	if (user) {
-	// 		getAirtable("GET", "applications", dummyUser.id);
-	// 	}
-	// }, [user, dummyUser]);
+	// const makeApplicationCard = (applicationsObject) => {
+	// 	return applicationsObject.map((case) => {
+	//       return <ApplicationCard case={case} />;
+	// 	});
+	// };
+
+	const makeApplicationCard = (applicationsObject) => {
+		return applicationsObject.map((application) => {
+			return <ApplicationCard {...application} />;
+		});
+	};
+
+	React.useEffect(() => {
+		getAirtable("GET", "applications", dummyUser.id).then((data) => {
+			setApplicationsObject(data.response);
+		});
+	}, []);
+
+	React.useEffect(() => {
+		console.log(applicationsObject);
+	}, [applicationsObject]);
+
 	return (
 		<div>
 			<NavbarLoggedIn />
@@ -41,7 +59,8 @@ const ProfilePage = () => {
 				</ApplicantInfo>
 			</ApplicationPageHeader>
 			<ApplicationSection>
-				<ApplicationCard />
+				{applicationsObject.length !== 0 &&
+					makeApplicationCard(applicationsObject)}
 			</ApplicationSection>
 		</div>
 	);

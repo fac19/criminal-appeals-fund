@@ -1,5 +1,6 @@
 import React from "react";
 import { TextField, Button, makeStyles } from "@material-ui/core";
+// import UploadFileHandler from "../../utils/cloudinary";
 
 import { FormSection } from "../../StyledComponents/StyledComponents.style";
 
@@ -131,10 +132,12 @@ const SignUp2 = ({ handleUpload, form, errorMessage }) => {
 	return (
 		<>
 			<FormSection>
+				{/* <Button variant="contained" component="label" onChange={handleUpload}> */}
 				<Button variant="contained" component="label" onChange={handleUpload}>
 					Upload File
 					<input type="file" style={{ display: "none" }} />
 				</Button>
+				{/* <UploadFileHandler /> */}
 			</FormSection>
 		</>
 	);

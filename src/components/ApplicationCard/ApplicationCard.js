@@ -131,21 +131,64 @@ const ApplicationCard = ({ case_nam, status_name }) => {
 					{activeStep === steps.length - 1 ? "Finish" : "Next"}
 				</Button> */}
 				{/* {activeStep === 2 && ( */}
-				{activeStep === 2 ? (
+				{activeStep === 2 && (
+					<>
+						<Button
+							className={classes.statusButton}
+							variant="contained"
+							color="primary">
+							Generate Invoice
+						</Button>
+						<Button
+							className={classes.statusButton}
+							variant="contained"
+							color="secondary">
+							Withdraw Case
+						</Button>
+					</>
+				)}
+				{activeStep === 0 && (
+					<>
+						<h3>Criteria met</h3>
+						<Button
+							className={classes.statusButton}
+							variant="contained"
+							color="secondary">
+							Withdraw Case
+						</Button>
+					</>
+				)}
+
+				{activeStep === 1 && (
+					<>
+						<h3>Selected for funding</h3>
+						<Button
+							className={classes.statusButton}
+							variant="contained"
+							color="secondary">
+							Withdraw Case
+						</Button>
+					</>
+				)}
+				{activeStep === 3 && (
+					<>
+						<h3>Successful</h3>
+						<Button
+							className={classes.statusButton}
+							variant="contained"
+							color="secondary">
+							Withdraw Case
+						</Button>
+					</>
+				)}
+				{activeStep === -1 && (
 					<Button
 						className={classes.statusButton}
 						variant="contained"
-						color="primary">
-						Generate Invoice
+						color="secondary">
+						Withdraw Case
 					</Button>
-				) : (
-					<span></span>
 				)}
-				{activeStep === 0 ? <h3>Criteria met</h3> : <span></span>}
-
-				{activeStep === 1 ? <h3>Selected for funding</h3> : <span></span>}
-				{activeStep === 3 ? <h3>Successful</h3> : <span></span>}
-				{activeStep === -1 && <h3>Withdrawn</h3>}
 			</ApplicationInfo>
 		</ApplicationCardContainer>
 	);

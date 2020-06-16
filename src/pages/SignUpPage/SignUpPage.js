@@ -2,25 +2,17 @@ import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, MobileStepper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
 	SignUp0,
 	SignUp1,
 	SignUp2,
 } from "../../components/SignUpForm/SignUpForm";
 import { postFile } from "../../utils/cloudinary";
-import { Form } from "../../StyledComponents/StyledComponents.style";
+import { Form, ErrorText } from "../../StyledComponents/StyledComponents.style";
 import { ButtonList } from "./SignUpPage.style";
 import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
-import GoTrue from "gotrue-js";
-
-//Netlify Go True
-// const auth = new GoTrue({
-// 	APIUrl: "https://criminal-appeals-fund.netlify.app/.netlify/identity",
-// 	audience: "",
-// 	setCookie: false,
-// });
 
 const useStyles = makeStyles({
 	root: {
@@ -38,10 +30,11 @@ const useStyles = makeStyles({
 
 const SignUpPage = () => {
 	const [user, setUser] = React.useContext(UserContext);
+	const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	const history = useHistory();
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
-	const [errorMessage, setErrorMessage] = React.useState(false);
+	const [errorMessage, setErrorMessage] = React.useState("");
 	const [image, setImage] = React.useState(null);
 	const [form, updateForm] = React.useState({
 		first_name: "",
@@ -55,6 +48,7 @@ const SignUpPage = () => {
 
 	const handleOnChange = (event) => {
 		const { name, value } = event.target;
+		setErrorMessage("");
 		updateForm({ ...form, [name]: value });
 	};
 
@@ -69,19 +63,19 @@ const SignUpPage = () => {
 			form.last_name !== "" &&
 			form.bar_number !== "" &&
 			form.email !== "" &&
-			form.email.includes("@")
+			emailRegex.test(form.email)
 		) {
-			setErrorMessage(false);
+			setErrorMessage("");
 			setActiveStep((prevActiveStep) => prevActiveStep + 1);
 		} else if (
 			activeStep === 1 &&
 			form.password !== "" &&
 			form.repeat_password !== ""
 		) {
-			setErrorMessage(false);
+			setErrorMessage("");
 			setActiveStep((prevActiveStep) => prevActiveStep + 1);
 		} else {
-			setErrorMessage(true);
+			setErrorMessage("Please make sure the required fields are complete");
 		}
 	};
 
@@ -112,13 +106,8 @@ const SignUpPage = () => {
 		if (image) {
 			await uploadToCloud(image).catch(console.error);
 		} else {
-			setErrorMessage(true);
+			setErrorMessage("Please upload a form of identification");
 		}
-		//Netlify verification
-		// auth
-		// 	.signup(form.email, form.password)
-		// 	.then((response) => console.log("Success! Check your inbox ", response))
-		// 	.catch((error) => console.log("It's an error", error));
 	};
 
 	React.useEffect(() => {
@@ -174,6 +163,15 @@ const SignUpPage = () => {
 							Next
 						</Button>
 					)}
+					{activeStep === 2 && (
+						<Button
+							className={classes.signUpButton}
+							variant="contained"
+							color="primary"
+							type="submit">
+							Sign Up
+						</Button>
+					)}
 					{(activeStep === 1 || activeStep === 2) && (
 						<Button
 							className={
@@ -184,16 +182,8 @@ const SignUpPage = () => {
 							Back
 						</Button>
 					)}
-					{activeStep === 2 && (
-						<Button
-							className={classes.signUpButton}
-							variant="contained"
-							color="primary"
-							type="submit">
-							Sign Up
-						</Button>
-					)}
 				</ButtonList>
+				<ErrorText>{errorMessage ? errorMessage : ""}</ErrorText>
 			</Form>
 		</>
 	);

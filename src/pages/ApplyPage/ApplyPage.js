@@ -155,7 +155,10 @@ const ApplyPage = () => {
 							handleInputChange={handleInputChange}></Apply2>
 					)}
 					{activeStep === 3 && (
-						<Apply3 handleInputChange={handleInputChange} form={form}></Apply3>
+						<Apply3
+							errorMessage={errorMessage}
+							handleInputChange={handleInputChange}
+							form={form}></Apply3>
 					)}
 					{activeStep === 4 && (
 						<Apply4 handleInputChange={handleInputChange} form={form}></Apply4>
@@ -176,7 +179,6 @@ const ApplyPage = () => {
 							<Button
 								disabled={activeStep === 0}
 								variant="contained"
-								// color="primary"
 								onClick={handleBack}>
 								Back
 							</Button>

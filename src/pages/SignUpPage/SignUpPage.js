@@ -174,7 +174,6 @@ const SignUpPage = () => {
 				{activeStep === 2 && (
 					<SignUp2
 						beginUpload={beginUpload}
-						images={images}
 						form={form}
 						errorMessage={errorMessage}
 					/>

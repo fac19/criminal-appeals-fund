@@ -144,14 +144,11 @@ const Apply2 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 	);
 };
 
-const Apply3 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
-	const classes = useStyles();
-
+const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 	return (
 		<>
 			<TextField
-				className={classes.applicationM}
-				rit
+				error={errorMessage && form.application_merit === ""}
 				id="applicationMerit standard-multiline-flexible"
 				name="application_merit"
 				type="text"
@@ -166,7 +163,7 @@ const Apply3 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 			/>
 
 			<TextField
-				className={classes.applicationImpact}
+				error={errorMessage && form.application_impact === ""}
 				id="applicationMerit standard-multiline-flexible"
 				name="application_impact"
 				type="text"
@@ -183,7 +180,6 @@ const Apply3 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 };
 
 const Apply4 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
-	const classes = useStyles();
 	return (
 		<>
 			<h1>Please upload the following documentation</h1>

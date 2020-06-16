@@ -128,16 +128,13 @@ const SignUp1 = ({
 	);
 };
 
-const SignUp2 = ({ beginUpload, images, errorMessage }) => {
+const SignUp2 = ({ beginUpload }) => {
 	return (
 		<>
 			<FormSection>
 				<Button variant="contained" onClick={() => beginUpload()}>
 					Upload Image
 				</Button>
-				{images.map((i) => (
-					<img key={i} publicId={i} fetch-format="auto" quality="auto" />
-				))}
 			</FormSection>
 		</>
 	);

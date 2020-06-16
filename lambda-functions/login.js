@@ -9,46 +9,44 @@ exports.handler = async (request, context) => {
 		apiKey: AIRTABLE_KEY, // secret on Netlify
 	}).base("app7xH8ItDsTvcPhg"); // database
 
-	let data = [];
-	return await base(table)
+	let data = [],
+		success = false;
+	await base(table)
 		.select({ filterByFormula: `{email}="${requestBody.email}"` })
 		.firstPage()
-		.then((records) => {
-			return records.forEach((record) => {
-				// console.log("record", record);
-				console.log(
-					"compare",
-					bcrypt.compare(requestBody.password, record.fields.password)
-				);
+		.then(async (records) => {
+			const airtableUser = records[0];
+			success = await bcrypt.compare(
+				requestBody.password,
+				airtableUser.fields.password
+			);
+			console.log(success);
+			if (success) {
 				data.push({
-					id: record.fields.id,
-					fist_name: record.fields.first_name,
-					isVerified: record.fields.isVerified,
+					id: airtableUser.fields.id,
+					fist_name: airtableUser.fields.first_name,
+					isVerified: airtableUser.fields.isVerified,
 				});
-				return bcrypt.compare(requestBody.password, record.fields.password);
-			});
-		})
-		.then((success) => {
-			return success
-				? {
-						statusCode: 200,
-						body: JSON.stringify({
-							message:
-								"The response data has been successfully retrieved to " +
-								table +
-								" table.",
-							response: data,
-						}),
-				  }
-				: {
-						statusCode: 401,
-						body: JSON.stringify({
-							message:
-								"There was a problem logging you in, please try again or sign up",
-						}),
-				  };
+			}
 		})
 		.catch((err) => {
 			console.log(err.status); // only visible in netlify functions log when running in prod
 		});
+	if (data.length === 0) {
+		return {
+			statusCode: 401,
+			body: JSON.stringify({
+				message:
+					"There was a problem logging you in, please try again or sign up",
+			}),
+		};
+	} else {
+		return {
+			statusCode: 200,
+			body: JSON.stringify({
+				message: "You have been logged in successfully",
+				response: data,
+			}),
+		};
+	}
 };

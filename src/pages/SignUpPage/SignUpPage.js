@@ -18,7 +18,7 @@ import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
 import { beginUpload } from "../../utils/cloudinary";
 import { CloudinaryContext, Image } from "cloudinary-react";
-import { fetchPhotos, openUploadWidget } from "../../utils/cloudinary";
+import { openUploadWidget } from "../../utils/cloudinary";
 
 const useStyles = makeStyles({
 	root: {
@@ -53,20 +53,17 @@ const SignUpPage = () => {
 		password: "",
 	});
 
-	// to be removed
-	const [images, setImages] = useState([]);
-	const beginUpload = (tag) => {
+	const beginUpload = () => {
 		const uploadOptions = {
 			cloudName: "dgc9b8ti3",
-			tags: [tag],
+			folder: form.email,
 			uploadPreset: "upload",
 		};
 
 		openUploadWidget(uploadOptions, (error, photos) => {
 			if (!error) {
-				console.log(photos);
 				if (photos.event === "success") {
-					setImages([...photos, photos.info.public_id]);
+					updateForm({ ...form, image_url: photos.info.url });
 				}
 			} else {
 				console.log(error);
@@ -84,10 +81,6 @@ const SignUpPage = () => {
 		const { value } = event.target;
 		setErrorMessage("");
 		setRepeatPassword(value);
-	};
-
-	const handleUpload = (event) => {
-		setImage(event.target.files[0]);
 	};
 
 	const handleNext = () => {
@@ -117,39 +110,11 @@ const SignUpPage = () => {
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
-	async function readFileAsDataURL(file) {
-		let convertedFile = await new Promise((resolve) => {
-			let fileReader = new FileReader();
-			fileReader.onloadend = (e) => resolve(fileReader.result);
-			fileReader.readAsDataURL(file);
-		});
-
-		return convertedFile;
-	}
-
-	// const uploadToCloud = async (image) => {
-	// 	return readFileAsDataURL(image).then(async (file) => {
-	// 		const upload = await postFile(file);
-	// 		updateForm({ ...form, image_url: upload.url });
-	// 	});
-	// };
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		if (image) {
-			// await uploadToCloud(image).catch(console.error);
-			// await uploadFileHandler(event).catch(console.error);
-			await beginUpload.catch(console.error);
-		} else {
-			setErrorMessage("Please upload a form of identification");
-		}
-	};
-
-	React.useEffect(() => {
-		if (form.image_url !== "") {
+		if (form.image_url) {
 			postAirtable("POST", "applicants", form).then((response) => {
 				const userObj = response.response[0];
-				console.log(response.response[0]);
 				const user = {
 					id: userObj.id,
 					first_name: userObj.first_name,
@@ -158,8 +123,10 @@ const SignUpPage = () => {
 				setUser(user);
 				history.push("/profile");
 			});
+		} else {
+			setErrorMessage("Please upload a form of identification");
 		}
-	}, [form, setUser, history]);
+	};
 
 	const nextOnEnter = (event) => {
 		if (event.keyCode === 13) {
@@ -178,11 +145,8 @@ const SignUpPage = () => {
 
 	return (
 		<>
-			<button onClick={() => beginUpload()}>Upload Image</button>
-			{images.map((i) => (
-				<Image key={i} publicId={i} fetch-format="auto" quality="auto" />
-			))}
 			<Navbar />
+
 			<Form onSubmit={handleSubmit}>
 				<MobileStepper
 					variant="dots"
@@ -209,7 +173,8 @@ const SignUpPage = () => {
 				)}
 				{activeStep === 2 && (
 					<SignUp2
-						handleUpload={handleUpload}
+						beginUpload={beginUpload}
+						images={images}
 						form={form}
 						errorMessage={errorMessage}
 					/>

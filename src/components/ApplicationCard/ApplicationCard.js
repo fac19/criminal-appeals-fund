@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ApplicationCard = ({ case_nam, status_name }) => {
+const ApplicationCard = ({ case_name, status_name }) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [isSuccessful, setIsSuccesful] = React.useState(false);
@@ -104,7 +104,7 @@ const ApplicationCard = ({ case_nam, status_name }) => {
 			{/* </MuiThemeProvider> */}
 
 			<ApplicationInfo>
-				<h1>{case_nam}</h1>
+				<h1>{case_name}</h1>
 				{/* <h4>{statusUpdater}</h4> */}
 				<ApplicationStageList>
 					<li>Stage 1: Your application satisfies the criteria</li>

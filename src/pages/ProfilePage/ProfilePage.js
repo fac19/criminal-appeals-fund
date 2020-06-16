@@ -18,6 +18,9 @@ const ProfilePage = () => {
 	const classes = useStyles();
 	const [user, setUser] = React.useContext(UserContext);
 	const [applicationsObject, setApplicationsObject] = React.useState([]);
+	const [applicationMessage, setApplicationMessage] = React.useState(
+		"Loading..."
+	);
 	// const dummyUser = { id: ["recazQW1JnmB6CxAy"] }
 
 	const makeApplicationCard = (applicationsObject) => {
@@ -28,7 +31,14 @@ const ProfilePage = () => {
 
 	React.useEffect(() => {
 		getAirtable("GET", "applications", user.id).then((data) => {
-			setApplicationsObject(data.response);
+			if (data.response.length === 0) {
+				setApplicationMessage(
+					"You currently have no applications under review"
+				);
+			} else {
+				console.log(data.response);
+				setApplicationsObject(data.response);
+			}
 		});
 	}, []);
 
@@ -62,7 +72,7 @@ const ProfilePage = () => {
 				{applicationsObject.length !== 0 ? (
 					makeApplicationCard(applicationsObject)
 				) : (
-					<h2>You currently have no applications under review</h2>
+					<h2>{applicationMessage}</h2>
 				)}
 			</ApplicationSection>
 		</div>

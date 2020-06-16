@@ -110,7 +110,7 @@ const ApplyPage = () => {
 		console.log(form);
 		postAirtable("POST", "applications", form).then((response) => {
 			console.log(response);
-			// history.push("/profile");
+			history.push("/profile");
 		});
 		// if (file) {
 		// 	uploadToCloud(file);

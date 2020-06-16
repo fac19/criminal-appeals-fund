@@ -27,12 +27,17 @@ const LogInPage = () => {
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
+		setErrorMessage("");
 		updateForm({ ...form, [name]: value });
 	};
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (form.email !== "" && form.password !== "" && form.email.includes("@")) {
+		if (
+			form.email !== "" &&
+			form.password !== "" &&
+			emailRegex.test(form.email)
+		) {
 			setErrorMessage("");
 			loginAirtable("POST", "applicants", form).then((data) => {
 				if (data.response) {
@@ -43,7 +48,7 @@ const LogInPage = () => {
 				}
 			});
 		} else {
-			setErrorMessage("Please fill in the required fields");
+			setErrorMessage("Please make sure required fields are correct");
 		}
 	};
 
@@ -62,7 +67,9 @@ const LogInPage = () => {
 					onChange={handleInputChange}
 					type="email"
 					required
-					error={errorMessage && form.email === "" && !form.email.includes("@")}
+					error={
+						errorMessage && (form.email === "" || !emailRegex.test(form.email))
+					}
 					helperText={
 						errorMessage
 							? "Please fill out this field with a valid email address"

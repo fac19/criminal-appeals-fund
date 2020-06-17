@@ -30,6 +30,7 @@ exports.handler = async (request, context) => {
 						{
 							id: record.fields.id,
 							first_name: record.fields.first_name,
+							email: record.fields.email,
 							isVerified: record.fields.isVerified,
 						},
 						JWT_SECRET,

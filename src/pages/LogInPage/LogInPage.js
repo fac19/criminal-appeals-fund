@@ -1,8 +1,11 @@
 import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, TextField, makeStyles } from "@material-ui/core";
-import { Form } from "../../StyledComponents/StyledComponents.style";
+import { Form, ErrorText } from "../../StyledComponents/StyledComponents.style";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../../Context";
+
+import { loginAirtable } from "../../utils/fetch";
 
 // import { makeStyles } from "@material-ui/core/styles";
 
@@ -17,24 +20,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LogInPage = () => {
+	const [user, setUser] = React.useContext(UserContext);
+	const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	const classes = useStyles();
 	const history = useHistory();
 	const [form, updateForm] = React.useState({ email: "", password: "" });
-	const [errorMessage, setErrorMessage] = React.useState(false);
+	const [errorMessage, setErrorMessage] = React.useState("");
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
+		setErrorMessage("");
 		updateForm({ ...form, [name]: value });
 	};
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (form.email !== "" && form.password !== "" && form.email.includes("@")) {
-			setErrorMessage(false);
-			console.log(form);
-			history.push("/profile");
+		if (form.password !== "" && emailRegex.test(form.email)) {
+			setErrorMessage("");
+			loginAirtable("POST", "applicants", form).then((data) => {
+				if (data.response) {
+					setUser(data.response[0]);
+					history.push("/profile");
+				} else {
+					setErrorMessage(data.message);
+				}
+			});
 		} else {
-			setErrorMessage(true);
+			setErrorMessage("Please make sure required fields are correct");
 		}
 	};
 
@@ -53,10 +65,10 @@ const LogInPage = () => {
 					onChange={handleInputChange}
 					type="email"
 					required
-					error={errorMessage}
+					error={errorMessage && !emailRegex.test(form.email)}
 					helperText={
 						errorMessage
-							? "Please fill out this field wiht a valid email address"
+							? "Please fill out this field with a valid email address"
 							: ""
 					}
 				/>
@@ -70,8 +82,7 @@ const LogInPage = () => {
 					variant="outlined"
 					onChange={handleInputChange}
 					required
-					error={errorMessage}
-					helperText={errorMessage ? "Please fill out this field" : ""}
+					error={errorMessage && form.password === ""}
 				/>
 				<Button
 					className={classes.logInButton}
@@ -80,6 +91,7 @@ const LogInPage = () => {
 					type="submit">
 					Log In
 				</Button>
+				<ErrorText>{errorMessage ? errorMessage : ""}</ErrorText>
 			</Form>
 		</>
 	);

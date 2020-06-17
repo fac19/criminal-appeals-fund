@@ -1,10 +1,8 @@
 import React from "react";
 import { TextField, Button, makeStyles } from "@material-ui/core";
+// import UploadFileHandler from "../../utils/cloudinary";
 
-import {
-	ErrorText,
-	FormSection,
-} from "../../StyledComponents/StyledComponents.style";
+import { FormSection } from "../../StyledComponents/StyledComponents.style";
 
 const useStyles = makeStyles((theme) => ({
 	input: {
@@ -15,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 	const classes = useStyles();
+	const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 	return (
 		<>
@@ -28,7 +27,6 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 					label="First Name"
 					variant="outlined"
 					autoFocus
-					// helperText={errorMessage ? "Please fill out this field" : ""}
 					onChange={handleOnChange}
 					type="text"
 					required
@@ -41,21 +39,24 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 					value={form.last_name}
 					label="Last Name"
 					variant="outlined"
-					// helperText={errorMessage ? "Please fill out this field" : ""}
 					onChange={handleOnChange}
 					type="text"
 					required
 				/>
 				<TextField
 					className={classes.input}
-					error={errorMessage && !form.email.includes("@")}
+					error={
+						errorMessage && (form.email === "" || !emailRegex.test(form.email))
+					}
 					id="email"
 					name="email"
 					value={form.email}
 					label="Email"
 					variant="outlined"
 					helperText={
-						errorMessage ? "This field must be a valid email address" : ""
+						errorMessage && (form.email === "" || !emailRegex.test(form.email))
+							? "This field must be a valid email address"
+							: ""
 					}
 					onChange={handleOnChange}
 					type="email"
@@ -69,20 +70,22 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 					value={form.bar_number}
 					label="Bar Number"
 					variant="outlined"
-					// helperText={errorMessage ? "Please fill out this field" : ""}
 					onChange={handleOnChange}
 					type="number"
 					required
 				/>
 			</FormSection>
-			<ErrorText>
-				{errorMessage ? "Please fill in the required fields" : ""}
-			</ErrorText>
 		</>
 	);
 };
 
-const SignUp1 = ({ handleOnChange, form, errorMessage }) => {
+const SignUp1 = ({
+	handleOnChange,
+	form,
+	errorMessage,
+	handleRepeatPasswordChange,
+	repeatPassword,
+}) => {
 	const classes = useStyles();
 
 	return (
@@ -90,8 +93,10 @@ const SignUp1 = ({ handleOnChange, form, errorMessage }) => {
 			<FormSection>
 				<TextField
 					className={classes.input}
-					error={errorMessage}
-					helperText={errorMessage ? "Please fill out this field" : ""}
+					error={
+						errorMessage &&
+						(form.password === "" || form.password !== repeatPassword)
+					}
 					id="password"
 					name="password"
 					value={form.password}
@@ -102,35 +107,34 @@ const SignUp1 = ({ handleOnChange, form, errorMessage }) => {
 					autoFocus
 					required
 				/>
-				{/* <TextField
-				className={classes.input}
-				id="repeatPassword"
-				name="repeat_password"
-				error={errorMessage}
-				helperText={errorMessage ? "Please fill out this field" : ""}
-				value={form.repeat_password}
-				label="Repeat Password"
-				variant="outlined"
-				onChange={handleOnChange}
-				type="Password"
-				required
-			/> */}
+				<TextField
+					className={classes.input}
+					id="repeatPassword"
+					name="repeat_password"
+					error={
+						errorMessage &&
+						(repeatPassword === "" || form.password !== repeatPassword)
+					}
+					helperText={errorMessage ? "Please make sure passwords match" : ""}
+					value={form.repeat_password}
+					label="Repeat Password"
+					variant="outlined"
+					onChange={handleRepeatPasswordChange}
+					type="Password"
+					required
+				/>
 			</FormSection>
 		</>
 	);
 };
 
-const SignUp2 = ({ handleUpload, form, errorMessage }) => {
+const SignUp2 = ({ beginUpload }) => {
 	return (
 		<>
 			<FormSection>
-				<Button variant="contained" component="label" onChange={handleUpload}>
-					Upload File
-					<input type="file" style={{ display: "none" }} />
+				<Button variant="contained" onClick={() => beginUpload()}>
+					Upload Image
 				</Button>
-				<ErrorText>
-					{errorMessage ? "Please upload a form of identification" : ""}
-				</ErrorText>
 			</FormSection>
 		</>
 	);

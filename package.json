@@ -9,8 +9,8 @@
 		"@testing-library/react": "^9.5.0",
 		"@testing-library/user-event": "^7.2.1",
 		"airtable": "^0.8.1",
-		"gotrue-js": "^0.9.25",
-		"netlify-lambda": "^1.6.3",
+		"bcryptjs": "^2.4.3",
+		"cloudinary-react": "^1.5.0",
 		"npm-run-all": "^4.1.5",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
@@ -23,12 +23,8 @@
 	"scripts": {
 		"test": "react-scripts test -u --coverage --watchAll=false",
 		"test-watch": "react-scripts test -u --coverage --watchAll",
-		"start": "run-p start:**",
-		"start:app": "react-scripts start",
-		"start:lambda": "netlify-lambda serve lambda-functions",
-		"build": "run-p build:**",
-		"build:app": "react-scripts build",
-		"build:lambda": "netlify-lambda build lambda-functions"
+		"start": "react-scripts start",
+		"build": "CI=false react-scripts build"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -48,7 +44,7 @@
 	"devDependencies": {
 		"codecov": "^3.7.0",
 		"husky": "^4.2.5",
-		"netlify-cli": "^2.53.0",
+		"netlify-cli": "^2.54.0",
 		"prettier": "^2.0.5",
 		"pretty-quick": "^2.0.1",
 		"react-test-renderer": "^16.13.1"
@@ -57,6 +53,5 @@
 		"hooks": {
 			"pre-commit": "pretty-quick --staged"
 		}
-	},
-	"proxy": "http://localhost:9000"
+	}
 }

@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, AppBar, Toolbar } from "@material-ui/core";
+import { UserContext } from "../../Context";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -52,26 +53,17 @@ const Navbar = () => {
 			</AppBar>
 		</div>
 	);
-
-	// return (
-	// 	<nav>
-	// 		<h2>
-	// 			<Link to="/">Criminal Appeals Fund</Link>
-	// 		</h2>
-	// 		<ul>
-	// 			<li>
-	// 				<Link to="/signup">Sign Up</Link>
-	// 			</li>
-	// 			<li>
-	// 				<Link to="/login">Sign In</Link>
-	// 			</li>
-	// 		</ul>
-	// 	</nav>
-	// );
 };
 
 const NavbarLoggedIn = () => {
 	const classes = useStyles();
+	const history = useHistory();
+	const [user, setUser] = React.useContext(UserContext);
+
+	const handleSignOut = () => {
+		setUser({ id: "", first_name: "", isVerified: "" });
+		history.push("/");
+	};
 
 	return (
 		<div className={classes.root}>
@@ -88,11 +80,12 @@ const NavbarLoggedIn = () => {
 							Apply
 						</Button>
 					</Link>
-					<Link to="/">
-						<Button className={classes.navButton} color="inherit">
-							Sign Out
-						</Button>
-					</Link>
+					<Button
+						className={classes.navButton}
+						onClick={handleSignOut}
+						color="primary">
+						Sign Out
+					</Button>
 				</Toolbar>
 			</AppBar>
 		</div>

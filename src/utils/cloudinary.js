@@ -1,15 +1,34 @@
-async function postFile(file) {
-	const fetchObject = {
-		method: "POST",
-		headers: { "content-type": "application/json" },
-		body: JSON.stringify({
-			file: file,
-			upload_preset: "upload",
-		}),
+import { Cloudinary as CoreCloudinary, Util } from "cloudinary-core";
+
+const url = (publicId, options) => {
+	const scOptions = Util.withSnakeCaseKeys(options);
+	const cl = CoreCloudinary.new();
+	return cl.url(publicId, scOptions);
+};
+
+const openUploadWidget = (options, callback) => {
+	const scOptions = Util.withSnakeCaseKeys(options);
+	window.cloudinary.openUploadWidget(scOptions, callback);
+};
+
+export async function fetchPhotos(imageTag, setter) {
+	const options = {
+		cloudName: "dgc9b8ti3",
+		format: "json",
+		type: "list",
+		version: Math.ceil(new Date().getTime() / 1000),
 	};
-	const cloudURL = "https://api.cloudinary.com/v1_1/dgc9b8ti3/auto/upload";
-	const response = await fetch(cloudURL, fetchObject);
-	return await response.json();
+
+	const urlPath = url(imageTag.toString(), options);
+
+	fetch(urlPath)
+		.then((res) => res.text())
+		.then((text) =>
+			text
+				? setter(JSON.parse(text).resources.map((image) => image.public_id))
+				: []
+		)
+		.catch((err) => console.log(err));
 }
 
-export { postFile };
+export { openUploadWidget, url };

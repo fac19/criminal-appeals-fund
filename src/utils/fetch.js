@@ -9,6 +9,7 @@ const postAirtable = (method, table, request) => {
 };
 
 const getAirtable = (method, table, id) => {
+	console.log("Hey");
 	return fetch("/.netlify/functions/airtable?table=" + table + "&user=" + id, {
 		method: method,
 		headers: {
@@ -17,4 +18,14 @@ const getAirtable = (method, table, id) => {
 	}).then((response) => response.json());
 };
 
-export { postAirtable, getAirtable };
+const loginAirtable = (method, table, request) => {
+	return fetch("/.netlify/functions/login?table=" + table, {
+		method: method,
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(request),
+	}).then((response) => response.json());
+};
+
+export { postAirtable, getAirtable, loginAirtable };

@@ -2,25 +2,23 @@ import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, MobileStepper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
 	SignUp0,
 	SignUp1,
 	SignUp2,
 } from "../../components/SignUpForm/SignUpForm";
-import { postFile } from "../../utils/cloudinary";
-import { Form } from "../../StyledComponents/StyledComponents.style";
-import { ButtonList } from "./SignUpPage.style";
+// import { postFile } from "../../utils/cloudinary";
+import {
+	Form,
+	ErrorText,
+	ButtonList,
+} from "../../StyledComponents/StyledComponents.style";
 import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
-import GoTrue from "gotrue-js";
-
-//Netlify Go True
-const auth = new GoTrue({
-	APIUrl: "https://criminal-appeals-fund.netlify.app/.netlify/identity",
-	audience: "",
-	setCookie: false,
-});
+// import { beginUpload } from "../../utils/cloudinary";
+// import { CloudinaryContext, Image } from "cloudinary-react";
+import { openUploadWidget } from "../../utils/cloudinary";
 
 const useStyles = makeStyles({
 	root: {
@@ -38,11 +36,13 @@ const useStyles = makeStyles({
 
 const SignUpPage = () => {
 	const [user, setUser] = React.useContext(UserContext);
+	const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	const history = useHistory();
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
-	const [errorMessage, setErrorMessage] = React.useState(false);
-	const [image, setImage] = React.useState(null);
+	const [errorMessage, setErrorMessage] = React.useState("");
+	// const [image, setImage] = React.useState(null);
+	const [repeatPassword, setRepeatPassword] = React.useState("");
 	const [form, updateForm] = React.useState({
 		first_name: "",
 		last_name: "",
@@ -53,88 +53,100 @@ const SignUpPage = () => {
 		password: "",
 	});
 
+	const beginUpload = () => {
+		const uploadOptions = {
+			cloudName: "dgc9b8ti3",
+			folder: form.email,
+			uploadPreset: "upload",
+		};
+
+		openUploadWidget(uploadOptions, (error, photos) => {
+			if (!error) {
+				if (photos.event === "success") {
+					updateForm({ ...form, image_url: photos.info.url });
+				}
+			} else {
+				console.log(error);
+			}
+		});
+	};
+
 	const handleOnChange = (event) => {
 		const { name, value } = event.target;
+		setErrorMessage("");
 		updateForm({ ...form, [name]: value });
 	};
 
-	const handleUpload = (event) => {
-		setImage(event.target.files[0]);
+	const handleRepeatPasswordChange = (event) => {
+		const { value } = event.target;
+		setErrorMessage("");
+		setRepeatPassword(value);
 	};
 
-	const handleNext = (event) => {
+	const handleNext = () => {
 		if (
 			activeStep === 0 &&
 			form.first_name !== "" &&
 			form.last_name !== "" &&
 			form.bar_number !== "" &&
-			form.email !== "" &&
-			form.email.includes("@")
+			emailRegex.test(form.email)
 		) {
-			setErrorMessage(false);
+			setErrorMessage("");
 			setActiveStep((prevActiveStep) => prevActiveStep + 1);
 		} else if (
 			activeStep === 1 &&
 			form.password !== "" &&
-			form.repeat_password !== ""
+			repeatPassword === form.password
 		) {
-			setErrorMessage(false);
+			setErrorMessage("");
 			setActiveStep((prevActiveStep) => prevActiveStep + 1);
 		} else {
-			setErrorMessage(true);
+			setErrorMessage("Please make sure the required fields are complete");
 		}
 	};
 
 	const handleBack = () => {
-		setErrorMessage(false);
+		setErrorMessage("");
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
-	};
-
-	async function readFileAsDataURL(file) {
-		let convertedFile = await new Promise((resolve) => {
-			let fileReader = new FileReader();
-			fileReader.onloadend = (e) => resolve(fileReader.result);
-			fileReader.readAsDataURL(file);
-		});
-
-		return convertedFile;
-	}
-
-	const uploadToCloud = async (image) => {
-		return readFileAsDataURL(image).then(async (file) => {
-			const upload = await postFile(file);
-			updateForm({ ...form, image_url: upload.url });
-		});
 	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		if (image) {
-			await uploadToCloud(image).catch(console.error);
-		} else {
-			setErrorMessage(true);
-		}
-		//Netlify verification
-		auth
-			.signup(form.email, form.password)
-			.then((response) => console.log("Success! Check your inbox ", response))
-			.catch((error) => console.log("It's an error", error));
-	};
-
-	React.useEffect(() => {
-		if (form.image_url !== "") {
+		if (form.image_url) {
 			postAirtable("POST", "applicants", form).then((response) => {
 				const userObj = response.response[0];
-				const user = { id: userObj.id, name: userObj.name };
+				const user = {
+					id: userObj.id,
+					first_name: userObj.first_name,
+					isVerified: userObj.isVerified,
+				};
 				setUser(user);
 				history.push("/profile");
 			});
+		} else {
+			setErrorMessage("Please upload a form of identification");
 		}
-	}, [form, setUser, history]);
+	};
+
+	const nextOnEnter = (event) => {
+		if (event.keyCode === 13) {
+			if (activeStep === 2) {
+				handleSubmit();
+			} else {
+				handleNext();
+			}
+		}
+	};
+
+	React.useEffect(() => {
+		window.addEventListener("keyup", nextOnEnter);
+		return () => window.removeEventListener("keyup", nextOnEnter);
+	}, []);
 
 	return (
 		<>
 			<Navbar />
+
 			<Form onSubmit={handleSubmit}>
 				<MobileStepper
 					variant="dots"
@@ -152,6 +164,8 @@ const SignUpPage = () => {
 				)}
 				{activeStep === 1 && (
 					<SignUp1
+						repeatPassword={repeatPassword}
+						handleRepeatPasswordChange={handleRepeatPasswordChange}
 						handleOnChange={handleOnChange}
 						form={form}
 						errorMessage={errorMessage}
@@ -159,7 +173,7 @@ const SignUpPage = () => {
 				)}
 				{activeStep === 2 && (
 					<SignUp2
-						handleUpload={handleUpload}
+						beginUpload={beginUpload}
 						form={form}
 						errorMessage={errorMessage}
 					/>
@@ -174,6 +188,15 @@ const SignUpPage = () => {
 							Next
 						</Button>
 					)}
+					{activeStep === 2 && (
+						<Button
+							className={classes.signUpButton}
+							variant="contained"
+							color="primary"
+							type="submit">
+							Sign Up
+						</Button>
+					)}
 					{(activeStep === 1 || activeStep === 2) && (
 						<Button
 							className={
@@ -184,16 +207,8 @@ const SignUpPage = () => {
 							Back
 						</Button>
 					)}
-					{activeStep === 2 && (
-						<Button
-							className={classes.signUpButton}
-							variant="contained"
-							color="primary"
-							type="submit">
-							Sign Up
-						</Button>
-					)}
 				</ButtonList>
+				<ErrorText>{errorMessage ? errorMessage : ""}</ErrorText>
 			</Form>
 		</>
 	);

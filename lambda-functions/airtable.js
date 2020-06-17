@@ -83,6 +83,7 @@ exports.handler = async (request, context) => {
 						first_name: userData.first_name,
 						last_name: userData.last_name,
 						isVerified: userData.isVerified,
+						id: userData.id,
 					});
 				}
 			})

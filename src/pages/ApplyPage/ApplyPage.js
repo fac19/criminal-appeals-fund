@@ -19,6 +19,7 @@ import {
 import { useHistory } from "react-router-dom";
 import { postAirtable } from "../../utils/fetch";
 // import { UserContext } from "../../Context";
+import { getAirtable } from "../../utils/fetch";
 
 const useStyles = makeStyles({
 	root: {
@@ -29,7 +30,8 @@ const useStyles = makeStyles({
 });
 
 const ApplyPage = () => {
-	// const [user, setUser] = React.useContext(UserContext);
+	const [user, setUser] = React.useState({});
+	const token = localStorage.getItem("user");
 	const history = useHistory();
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
@@ -40,13 +42,23 @@ const ApplyPage = () => {
 		court_name: "",
 		case_stage: "",
 		status_id: ["recHOTyA7teTAoYHc"],
-		user_id: ["recQJCWRxSU4oqQBi"],
+		user_id: [user.id],
 		application_merit: "",
 		application_impact: "",
 	});
 	const [checked, setChecked] = React.useState(false);
 	const [errorMessage, setErrorMessage] = React.useState("");
 	// const [file, setFile] = React.useState(null);
+
+	React.useEffect(() => {
+		getAirtable("GET", "applicants", token).then((data) => {
+			setUser(data.response[0]);
+		});
+	}, [token]);
+
+	React.useEffect(() => {
+		updateForm({ ...form, user_id: [user.id] });
+	}, [user]);
 
 	const handleNext = (event) => {
 		if (activeStep === 1 && checked === false) {
@@ -109,7 +121,6 @@ const ApplyPage = () => {
 		event.preventDefault();
 		console.log(form);
 		postAirtable("POST", "applications", form).then((response) => {
-			console.log(response);
 			history.push("/profile");
 		});
 		// if (file) {

@@ -56,19 +56,35 @@ exports.handler = async (request, context) => {
 	} else if (requestMethod === "GET") {
 		const userToken = request.queryStringParameters.token;
 		const tokenData = jwt.verify(userToken, JWT_SECRET);
+		let view = "";
+		let userId = "";
+		if (table === "applications") {
+			view = "All Cases";
+			userId = "user_id";
+		} else {
+			view = "Grid view";
+			userId = "id";
+		}
 		await base(table)
 			.select({
 				maxRecords: 100,
-				view: "All Cases",
-				filterByFormula: `{user_id} = "${tokenData.id}"`,
+				view: `${view}`,
+				filterByFormula: `${userId} = "${tokenData.id}"`,
 			})
 			.firstPage()
 			.then((records) => {
-				records.forEach((record) => {
-					if (record.fields.user_id[0] === tokenData.id) {
+				if (table === "applications") {
+					records.forEach((record) => {
 						data.push(record.fields);
-					}
-				});
+					});
+				} else {
+					const userData = records[0].fields;
+					data.push({
+						first_name: userData.first_name,
+						last_name: userData.last_name,
+						isVerified: userData.isVerified,
+					});
+				}
 			})
 			.catch((err) => {
 				console.log(err.status); // only visible in netlify functions log when running in prod

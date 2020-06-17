@@ -37,15 +37,16 @@ const ProfilePage = () => {
 					"You currently have no applications under review"
 				);
 			} else {
-				console.log(data.response);
 				setApplicationsObject(data.response);
 			}
 		});
-	}, [user]);
+	}, [token]);
 
 	React.useEffect(() => {
-		console.log(applicationsObject);
-	}, [applicationsObject]);
+		getAirtable("GET", "applicants", token).then((data) => {
+			console.log(data);
+		});
+	}, [token]);
 
 	return (
 		<div>

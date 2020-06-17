@@ -44,7 +44,7 @@ const ApplyPage = () => {
 		user_id: [user.id],
 		application_merit: "",
 		application_impact: "",
-		docs_uploaded: false,
+		docs_uploaded: "no",
 	});
 	const [checked, setChecked] = React.useState(false);
 	const [errorMessage, setErrorMessage] = React.useState("");
@@ -70,7 +70,7 @@ const ApplyPage = () => {
 			if (!error) {
 				if (photos.event === "success") {
 					setErrorMessage("");
-					updateForm({ ...form, docs_uploaded: true });
+					updateForm({ ...form, docs_uploaded: "yes" });
 					console.log(form.docs_uploaded);
 				}
 			} else {
@@ -116,7 +116,7 @@ const ApplyPage = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (!form.docs_uploaded) {
+		if (form.docs_uploaded === "no") {
 			setErrorMessage("Please upload documents");
 		} else {
 			postAirtable("POST", "applications", form).then((response) => {

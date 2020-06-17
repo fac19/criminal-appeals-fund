@@ -26,6 +26,7 @@ exports.handler = async (request, context) => {
 					? data.push({
 							id: record.fields.id,
 							first_name: record.fields.first_name,
+							email: record.fields.email,
 							isVerified: record.fields.isVerified,
 					  })
 					: data.push({ name: record.fields.case_name });

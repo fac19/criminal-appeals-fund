@@ -178,7 +178,13 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 	);
 };
 
-const Apply4 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
+const Apply4 = ({
+	handleUpload,
+	errorMessage,
+	form,
+	handleInputChange,
+	beginUpload,
+}) => {
 	return (
 		<>
 			<h1>Please upload the following documentation</h1>
@@ -186,7 +192,9 @@ const Apply4 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 				<li> Signed waiver of legal privilege</li>
 				<li> Proof of financial means</li>
 			</ul>
-			{/* Cloudinary widget goes here */}
+			<button variant="contained" onClick={() => beginUpload()} type="button">
+				Upload documents
+			</button>
 		</>
 	);
 };

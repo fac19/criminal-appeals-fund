@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => {});
 const ProfilePage = () => {
 	const classes = useStyles();
 	const token = localStorage.getItem("user");
-	const [user, setUser] = React.useContext(UserContext);
+	const [user, setUser] = React.useState({});
 	const [applicationsObject, setApplicationsObject] = React.useState([]);
 	const [applicationMessage, setApplicationMessage] = React.useState(
 		"Loading..."
@@ -44,7 +44,7 @@ const ProfilePage = () => {
 
 	React.useEffect(() => {
 		getAirtable("GET", "applicants", token).then((data) => {
-			console.log(data);
+			setUser(data.response[0]);
 		});
 	}, [token]);
 
@@ -53,7 +53,7 @@ const ProfilePage = () => {
 			<NavbarLoggedIn />
 			<ApplicationPageHeader>
 				<ApplicantInfo>
-					<ApplicantName>{`Hello, ${user.first_name}`}</ApplicantName>
+					<ApplicantName>{`Hello, ${user.first_name} ${user.last_name}`}</ApplicantName>
 					{user.isVerified === "yes" ? (
 						<Link to="/apply">
 							<Button

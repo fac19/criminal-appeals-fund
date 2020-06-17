@@ -26,9 +26,13 @@ const ProfilePage = () => {
 
 	const makeApplicationCard = (applicationsObject) => {
 		return applicationsObject.map((application) => {
-			return <ApplicationCard {...application} />;
+			return <ApplicationCard key={application.id} {...application} />;
 		});
 	};
+
+	// const handleWithdraw = () => {
+	// 	updateAirtable('PUT')
+	// }
 
 	React.useEffect(() => {
 		getAirtable("GET", "applications", token).then((data) => {

@@ -6,6 +6,7 @@ import {
 	SignUpPage,
 	ProfilePage,
 	ApplyPage,
+	UploadDocuments,
 } from "./Pages";
 import { UserContext } from "./Context.js";
 import { MainWrapper } from "./StyledComponents/PageStyles.style";
@@ -46,6 +47,7 @@ function App() {
 						<SiteRoute path="/signup" component={<SignUpPage />} />
 						<SiteRoute path="/profile" component={<ProfilePage />} />
 						<SiteRoute path="/apply" component={<ApplyPage />} />
+						<SiteRoute path="/addinfo" component={<UploadDocuments />} />
 						<SiteRoute exact path="/" component={<LandingPage />} />
 					</Switch>
 				</Router>

@@ -7,7 +7,7 @@ exports.handler = async (request, context) => {
 	// what we sent from front end
 	const id = request.queryStringParameters.applicationId;
 	const withdraw = "recFO2XAO0lavb6Bl";
-
+	// update 3 Upload docs and 5 Invoice
 	const base = new Airtable({
 		apiKey: AIRTABLE_KEY, // secret on Netlify
 	}).base(`${AIRTABLE_BASE}`); // database

@@ -44,7 +44,7 @@ const ApplyPage = () => {
 		user_id: [user.id],
 		application_merit: "",
 		application_impact: "",
-		docs_uploaded: "no",
+		docs_uploaded: "no", // use action_date instead
 	});
 	const [checked, setChecked] = React.useState(false);
 	const [errorMessage, setErrorMessage] = React.useState("");

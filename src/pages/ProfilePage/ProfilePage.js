@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => {});
 const ProfilePage = () => {
 	const classes = useStyles();
 	const token = localStorage.getItem("user");
-	const [user, setUser] = React.useState({});
+	const [user, setUser] = React.useState(UserContext);
 	const [applicationsObject, setApplicationsObject] = React.useState([]);
 	const [applicationMessage, setApplicationMessage] = React.useState(
 		"Loading..."

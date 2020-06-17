@@ -33,6 +33,7 @@ const loginAirtable = (method, table, request) => {
 	}).then((response) => response.json());
 };
 
+// need to add options to update 3 Upload documents and 5 Invoice
 const updateAirtable = (method, table, applicationId) => {
 	return fetch(
 		"/.netlify/functions/update?table=" +

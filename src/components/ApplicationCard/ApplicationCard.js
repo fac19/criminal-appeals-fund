@@ -8,6 +8,7 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 import {
 	ApplicationCardContainer,
@@ -144,12 +145,14 @@ const ApplicationCard = ({ case_name, status_name }) => {
 
 				{activeStep === 1 && userAction && (
 					<>
-						<Button
-							className={classes.statusButton}
-							variant="contained"
-							color="primary">
-							Upload supporting documents
-						</Button>
+						<Link to="/addinfo">
+							<Button
+								className={classes.statusButton}
+								variant="contained"
+								color="primary">
+								Upload supporting documents
+							</Button>
+						</Link>
 						<Button
 							className={classes.statusButton}
 							variant="contained"

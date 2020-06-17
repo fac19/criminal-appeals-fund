@@ -1,14 +1,18 @@
 const Airtable = require("airtable");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 exports.handler = async (request, context) => {
 	const { AIRTABLE_KEY } = process.env;
+	const { AIRTABLE_BASE } = process.env;
+	const { JWT_SECRET } = process.env;
 	const table = request.queryStringParameters.table; //e.g. "Applications%20for%20funding"
 	// what we sent from front end
 	const requestMethod = request.httpMethod;
+	console.log(AIRTABLE_BASE);
 	const base = new Airtable({
 		apiKey: AIRTABLE_KEY, // secret on Netlify
-	}).base("app7xH8ItDsTvcPhg"); // database
+	}).base(`${AIRTABLE_BASE}`); // database
 
 	let data = [];
 	if (requestMethod === "POST") {
@@ -22,13 +26,22 @@ exports.handler = async (request, context) => {
 		await base(table)
 			.create(requestBody)
 			.then((record) => {
-				table === "applicants"
-					? data.push({
+				if (table === "applicants") {
+					const token = jwt.sign(
+						{
 							id: record.fields.id,
 							first_name: record.fields.first_name,
 							isVerified: record.fields.isVerified,
-					  })
-					: data.push({ name: record.fields.case_name });
+						},
+						JWT_SECRET,
+						{
+							expiresIn: "24h",
+						}
+					);
+					data.push({ token });
+				} else {
+					data.push({ name: record.fields.case_name });
+				}
 			})
 			.catch(console.error);
 		return {

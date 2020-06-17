@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ApplicationCard = ({ case_name, status_name }) => {
+const ApplicationCard = ({ handleWithdraw, id, case_name, status_name }) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [userAction, setUserAction] = React.useState(false);
@@ -133,12 +133,12 @@ const ApplicationCard = ({ case_name, status_name }) => {
 				{activeStep === 0 && (
 					<>
 						<h3>Application under review</h3>
-						<Button
+						<button
+							onClick={handleWithdraw}
 							className={classes.statusButton}
-							variant="contained"
-							color="secondary">
+							id={id}>
 							Withdraw Case
-						</Button>
+						</button>
 					</>
 				)}
 
@@ -150,23 +150,23 @@ const ApplicationCard = ({ case_name, status_name }) => {
 							color="primary">
 							Upload supporting documents
 						</Button>
-						<Button
+						<button
+							onClick={handleWithdraw}
 							className={classes.statusButton}
-							variant="contained"
-							color="secondary">
+							id={id}>
 							Withdraw Case
-						</Button>
+						</button>
 					</>
 				)}
 				{activeStep === 1 && !userAction && (
 					<>
 						<h3>Documents under review</h3>
-						<Button
+						<button
+							onClick={handleWithdraw}
 							className={classes.statusButton}
-							variant="contained"
-							color="secondary">
+							id={id}>
 							Withdraw Case
-						</Button>
+						</button>
 					</>
 				)}
 				{activeStep === 2 && userAction && (
@@ -177,23 +177,23 @@ const ApplicationCard = ({ case_name, status_name }) => {
 							color="primary">
 							Upload Invoice
 						</Button>
-						<Button
+						<button
+							onClick={handleWithdraw}
 							className={classes.statusButton}
-							variant="contained"
-							color="secondary">
+							id={id}>
 							Withdraw Case
-						</Button>
+						</button>
 					</>
 				)}
 				{activeStep === 2 && !userAction && (
 					<>
 						<h3>Awaiting funding</h3>
-						<Button
+						<button
+							onClick={handleWithdraw}
 							className={classes.statusButton}
-							variant="contained"
-							color="secondary">
+							id={id}>
 							Withdraw Case
-						</Button>
+						</button>
 					</>
 				)}
 				{activeStep === 3 && (

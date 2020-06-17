@@ -15,10 +15,10 @@ import {
 	ButtonList,
 	ErrorText,
 } from "../../StyledComponents/StyledComponents.style";
-import { uploadFileHandler } from "../../utils/cloudinary";
+// import { uploadFileHandler } from "../../utils/cloudinary";
 import { useHistory } from "react-router-dom";
 import { postAirtable } from "../../utils/fetch";
-import { UserContext } from "../../Context";
+// import { UserContext } from "../../Context";
 
 const useStyles = makeStyles({
 	root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 });
 
 const ApplyPage = () => {
-	const [user, setUser] = React.useContext(UserContext);
+	// const [user, setUser] = React.useContext(UserContext);
 	const history = useHistory();
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
@@ -46,7 +46,7 @@ const ApplyPage = () => {
 	});
 	const [checked, setChecked] = React.useState(false);
 	const [errorMessage, setErrorMessage] = React.useState("");
-	const [file, setFile] = React.useState(null);
+	// const [file, setFile] = React.useState(null);
 
 	const handleNext = (event) => {
 		if (activeStep === 1 && checked === false) {
@@ -83,19 +83,19 @@ const ApplyPage = () => {
 		updateForm({ ...form, [name]: value });
 	};
 
-	const handleUpload = (event) => {
-		setFile(event.target.files[0]);
-	};
+	// const handleUpload = (event) => {
+	// 	setFile(event.target.files[0]);
+	// };
 
-	async function readFileAsDataURL(file) {
-		let convertedFile = await new Promise((resolve) => {
-			let fileReader = new FileReader();
-			fileReader.onloadend = (e) => resolve(fileReader.result);
-			fileReader.readAsDataURL(file);
-		});
+	// async function readFileAsDataURL(file) {
+	// 	let convertedFile = await new Promise((resolve) => {
+	// 		let fileReader = new FileReader();
+	// 		fileReader.onloadend = (e) => resolve(fileReader.result);
+	// 		fileReader.readAsDataURL(file);
+	// 	});
 
-		return convertedFile;
-	}
+	// 	return convertedFile;
+	// }
 
 	// const uploadToCloud = async (pdf) => {
 	// 	return readFileAsDataURL(pdf).then(async (file) => {

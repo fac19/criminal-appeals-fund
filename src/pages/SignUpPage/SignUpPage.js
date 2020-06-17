@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, MobileStepper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,7 +8,7 @@ import {
 	SignUp1,
 	SignUp2,
 } from "../../components/SignUpForm/SignUpForm";
-import { postFile } from "../../utils/cloudinary";
+// import { postFile } from "../../utils/cloudinary";
 import {
 	Form,
 	ErrorText,
@@ -16,8 +16,8 @@ import {
 } from "../../StyledComponents/StyledComponents.style";
 import { postAirtable } from "../../utils/fetch";
 import { UserContext } from "../../Context";
-import { beginUpload } from "../../utils/cloudinary";
-import { CloudinaryContext, Image } from "cloudinary-react";
+// import { beginUpload } from "../../utils/cloudinary";
+// import { CloudinaryContext, Image } from "cloudinary-react";
 import { openUploadWidget } from "../../utils/cloudinary";
 
 const useStyles = makeStyles({
@@ -36,12 +36,12 @@ const useStyles = makeStyles({
 
 const SignUpPage = () => {
 	const [user, setUser] = React.useContext(UserContext);
-	const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	const history = useHistory();
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [errorMessage, setErrorMessage] = React.useState("");
-	const [image, setImage] = React.useState(null);
+	// const [image, setImage] = React.useState(null);
 	const [repeatPassword, setRepeatPassword] = React.useState("");
 	const [form, updateForm] = React.useState({
 		first_name: "",

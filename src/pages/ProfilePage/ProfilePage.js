@@ -40,7 +40,7 @@ const ProfilePage = () => {
 				setApplicationsObject(data.response);
 			}
 		});
-	}, []);
+	}, [user]);
 
 	React.useEffect(() => {
 		console.log(applicationsObject);

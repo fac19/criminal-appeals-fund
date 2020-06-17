@@ -1,4 +1,4 @@
-import React, { Component, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, makeStyles } from "@material-ui/core";
@@ -7,7 +7,7 @@ import {
 	BodyWrapper,
 	StepsWrapper,
 	StepHeading,
-	StepsSubContainer,
+	// StepsSubContainer,
 	StepsText,
 	StyledLanding,
 	GlobalStyle,

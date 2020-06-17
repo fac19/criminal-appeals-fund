@@ -116,7 +116,7 @@ const SignUpPage = () => {
 			postAirtable("POST", "applicants", form).then((response) => {
 				const userToken = response.response[0];
 				localStorage.setItem("user", userToken.token);
-				// history.push("/profile");
+				history.push("/profile");
 			});
 		} else {
 			setErrorMessage("Please upload a form of identification");

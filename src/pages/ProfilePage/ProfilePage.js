@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => {});
 
 const ProfilePage = () => {
 	const classes = useStyles();
+	const token = localStorage.getItem("user");
 	const [user, setUser] = React.useContext(UserContext);
 	const [applicationsObject, setApplicationsObject] = React.useState([]);
 	const [applicationMessage, setApplicationMessage] = React.useState(
@@ -30,7 +31,7 @@ const ProfilePage = () => {
 	};
 
 	React.useEffect(() => {
-		getAirtable("GET", "applications", user.id).then((data) => {
+		getAirtable("GET", "applications", token).then((data) => {
 			if (data.response.length === 0) {
 				setApplicationMessage(
 					"You currently have no applications under review"

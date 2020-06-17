@@ -9,7 +9,6 @@ exports.handler = async (request, context) => {
 	const table = request.queryStringParameters.table; //e.g. "Applications%20for%20funding"
 	// what we sent from front end
 	const requestMethod = request.httpMethod;
-	console.log(AIRTABLE_BASE);
 	const base = new Airtable({
 		apiKey: AIRTABLE_KEY, // secret on Netlify
 	}).base(`${AIRTABLE_BASE}`); // database
@@ -55,17 +54,18 @@ exports.handler = async (request, context) => {
 			}),
 		};
 	} else if (requestMethod === "GET") {
-		const userId = request.queryStringParameters.user;
+		const userToken = request.queryStringParameters.token;
+		const tokenData = jwt.verify(userToken, JWT_SECRET);
 		await base(table)
 			.select({
 				maxRecords: 100,
 				view: "All Cases",
-				// filterByFormula: `user_idz = ${userId}`,
+				filterByFormula: `{user_id} = "${tokenData.id}"`,
 			})
 			.firstPage()
 			.then((records) => {
 				records.forEach((record) => {
-					if (record.fields.user_id[0] === userId) {
+					if (record.fields.user_id[0] === tokenData.id) {
 						data.push(record.fields);
 					}
 				});

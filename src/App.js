@@ -23,9 +23,10 @@ function App() {
 	}, [user]);
 
 	const SiteRoute = ({ path, component }) => {
-		if (user.id.length) {
+		const token = localStorage.getItem("user");
+		if (token) {
 			return <Route path={path}>{component}</Route>;
-		} else if (path === "/signup" || path === "/login" || path === "/apply") {
+		} else if (path === "/signup" || path === "/login") {
 			return <Route path={path}>{component}</Route>;
 		} else {
 			return (

@@ -1,14 +1,17 @@
 const Airtable = require("airtable");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 exports.handler = async (request, context) => {
 	const { AIRTABLE_KEY } = process.env;
+	const { AIRTABLE_BASE } = process.env;
+	const { JWT_SECRET } = process.env;
 	const table = request.queryStringParameters.table; //e.g. "Applications%20for%20funding"
 	// what we sent from front end
 	const requestMethod = request.httpMethod;
 	const base = new Airtable({
 		apiKey: AIRTABLE_KEY, // secret on Netlify
-	}).base("app7xH8ItDsTvcPhg"); // database
+	}).base(`${AIRTABLE_BASE}`); // database
 
 	let data = [];
 	if (requestMethod === "POST") {
@@ -22,13 +25,23 @@ exports.handler = async (request, context) => {
 		await base(table)
 			.create(requestBody)
 			.then((record) => {
-				table === "applicants"
-					? data.push({
+				if (table === "applicants") {
+					const token = jwt.sign(
+						{
 							id: record.fields.id,
 							first_name: record.fields.first_name,
+							email: record.fields.email,
 							isVerified: record.fields.isVerified,
-					  })
-					: data.push({ name: record.fields.case_name });
+						},
+						JWT_SECRET,
+						{
+							expiresIn: "24h",
+						}
+					);
+					data.push({ token });
+				} else {
+					data.push({ name: record.fields.case_name });
+				}
 			})
 			.catch(console.error);
 		return {
@@ -42,20 +55,38 @@ exports.handler = async (request, context) => {
 			}),
 		};
 	} else if (requestMethod === "GET") {
-		const userId = request.queryStringParameters.user;
+		const userToken = request.queryStringParameters.token;
+		const tokenData = jwt.verify(userToken, JWT_SECRET);
+		let view = "";
+		let userId = "";
+		if (table === "applications") {
+			view = "All Cases";
+			userId = "user_id";
+		} else {
+			view = "Grid view";
+			userId = "id";
+		}
 		await base(table)
 			.select({
 				maxRecords: 100,
-				view: "All Cases",
-				// filterByFormula: `user_idz = ${userId}`,
+				view: `${view}`,
+				filterByFormula: `${userId} = "${tokenData.id}"`,
 			})
 			.firstPage()
 			.then((records) => {
-				records.forEach((record) => {
-					if (record.fields.user_id[0] === userId) {
+				if (table === "applications") {
+					records.forEach((record) => {
 						data.push(record.fields);
-					}
-				});
+					});
+				} else {
+					const userData = records[0].fields;
+					data.push({
+						first_name: userData.first_name,
+						last_name: userData.last_name,
+						isVerified: userData.isVerified,
+						id: userData.id,
+					});
+				}
 			})
 			.catch((err) => {
 				console.log(err.status); // only visible in netlify functions log when running in prod

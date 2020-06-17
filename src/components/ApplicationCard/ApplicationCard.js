@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const ApplicationCard = ({ case_name, status_name }) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
+	const [userAction, setUserAction] = React.useState(false);
 	const [isSuccessful, setIsSuccesful] = React.useState(false);
 	const steps = ["Stage 1", "Stage 2", "Stage 3", "Stage 4"];
 
@@ -46,25 +47,42 @@ const ApplicationCard = ({ case_name, status_name }) => {
 		const statusUpdater = () => {
 			// console.log("console: " + status_name);
 			switch (status_name[0]) {
-				case "Criteria met":
+				case "Application submitted":
 					setActiveStep(0);
+					setUserAction(false);
+					break;
+				case "Criteria met":
+					setActiveStep(1);
+					setUserAction(true);
+					break;
+				case "Upload documents":
+					setActiveStep(1);
+					setUserAction(false);
 					break;
 				case "Success":
-					setActiveStep(1);
+					setActiveStep(2);
+					setUserAction(true);
 					break;
 				case "Invoice":
 					setActiveStep(2);
+					setUserAction(false);
 					break;
 				case "Successful close":
-					setActiveStep(-1);
-					setIsSuccesful(false);
+					setActiveStep(3);
+					setUserAction(false);
+					setIsSuccesful(true);
 					break;
 				case "Unsuccessful close":
 					setActiveStep(-1);
+					setUserAction(false);
 					setIsSuccesful(false);
 					break;
+				case "Withdrawn":
+					setActiveStep(-2);
+					setUserAction(false);
+					break;
 				default:
-					setActiveStep(0);
+					setActiveStep(-1);
 			}
 		};
 		statusUpdater();
@@ -106,49 +124,15 @@ const ApplicationCard = ({ case_name, status_name }) => {
 				<h1>{case_name}</h1>
 				{/* <h4>{statusUpdater}</h4> */}
 				<ApplicationStageList>
-					<li>Stage 1: Your application satisfies the criteria</li>
-					<li>Stage 2: Your application has been selected for funding</li>
-					<li>
-						Stage 3: You will need to generate an invoice to receive your
-						funding
-					</li>
-					<li>Stage 4: Your application is awaiting funding</li>
+					<li>Stage 1: Application submitted</li>
+					<li>Stage 2: Application satisfies the criteria</li>
+					<li>Stage 3: Final approval</li>
+					<li>Stage 4: Funding processed</li>
 				</ApplicationStageList>
-				{/* {activeStep !== 0 && (
-					<Button
-						disabled={activeStep === 0}
-						onClick={handleBack}
-						className={classes.backButton}>
-						Back
-					</Button>
-				)}
-				<Button
-					disabled={activeStep === 4}
-					variant="contained"
-					color="primary"
-					onClick={handleNext}>
-					{activeStep === steps.length - 1 ? "Finish" : "Next"}
-				</Button> */}
-				{/* {activeStep === 2 && ( */}
-				{activeStep === 2 && (
-					<>
-						<Button
-							className={classes.statusButton}
-							variant="contained"
-							color="primary">
-							Generate Invoice
-						</Button>
-						<Button
-							className={classes.statusButton}
-							variant="contained"
-							color="secondary">
-							Withdraw Case
-						</Button>
-					</>
-				)}
+
 				{activeStep === 0 && (
 					<>
-						<h3>Criteria met</h3>
+						<h3>Application under review</h3>
 						<Button
 							className={classes.statusButton}
 							variant="contained"
@@ -158,9 +142,52 @@ const ApplicationCard = ({ case_name, status_name }) => {
 					</>
 				)}
 
-				{activeStep === 1 && (
+				{activeStep === 1 && userAction && (
 					<>
-						<h3>Selected for funding</h3>
+						<Button
+							className={classes.statusButton}
+							variant="contained"
+							color="primary">
+							Upload supporting documents
+						</Button>
+						<Button
+							className={classes.statusButton}
+							variant="contained"
+							color="secondary">
+							Withdraw Case
+						</Button>
+					</>
+				)}
+				{activeStep === 1 && !userAction && (
+					<>
+						<h3>Documents under review</h3>
+						<Button
+							className={classes.statusButton}
+							variant="contained"
+							color="secondary">
+							Withdraw Case
+						</Button>
+					</>
+				)}
+				{activeStep === 2 && userAction && (
+					<>
+						<Button
+							className={classes.statusButton}
+							variant="contained"
+							color="primary">
+							Upload Invoice
+						</Button>
+						<Button
+							className={classes.statusButton}
+							variant="contained"
+							color="secondary">
+							Withdraw Case
+						</Button>
+					</>
+				)}
+				{activeStep === 2 && !userAction && (
+					<>
+						<h3>Awaiting funding</h3>
 						<Button
 							className={classes.statusButton}
 							variant="contained"
@@ -172,21 +199,20 @@ const ApplicationCard = ({ case_name, status_name }) => {
 				{activeStep === 3 && (
 					<>
 						<h3>Successful</h3>
-						<Button
-							className={classes.statusButton}
-							variant="contained"
-							color="secondary">
-							Withdraw Case
-						</Button>
+						<div></div>
 					</>
 				)}
 				{activeStep === -1 && (
-					<Button
-						className={classes.statusButton}
-						variant="contained"
-						color="secondary">
-						Withdraw Case
-					</Button>
+					<>
+						<h3>Application unsuccessful</h3>
+						<div></div>
+					</>
+				)}
+				{activeStep === -2 && (
+					<>
+						<h3>Application withdrawn</h3>
+						<div></div>
+					</>
 				)}
 			</ApplicationInfo>
 		</ApplicationCardContainer>

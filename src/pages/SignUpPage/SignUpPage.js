@@ -114,13 +114,8 @@ const SignUpPage = () => {
 		event.preventDefault();
 		if (form.image_url) {
 			postAirtable("POST", "applicants", form).then((response) => {
-				const userObj = response.response[0];
-				const user = {
-					id: userObj.id,
-					first_name: userObj.first_name,
-					isVerified: userObj.isVerified,
-				};
-				setUser(user);
+				const userToken = response.response[0];
+				localStorage.setItem("user", userToken.token);
 				history.push("/profile");
 			});
 		} else {

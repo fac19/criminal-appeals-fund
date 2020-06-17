@@ -15,10 +15,10 @@ import {
 	ButtonList,
 	ErrorText,
 } from "../../StyledComponents/StyledComponents.style";
-// import { uploadFileHandler } from "../../utils/cloudinary";
 import { useHistory } from "react-router-dom";
 import { postAirtable } from "../../utils/fetch";
-// import { UserContext } from "../../Context";
+import { getAirtable } from "../../utils/fetch";
+import { openUploadWidget } from "../../utils/cloudinary";
 
 const useStyles = makeStyles({
 	root: {
@@ -29,7 +29,8 @@ const useStyles = makeStyles({
 });
 
 const ApplyPage = () => {
-	// const [user, setUser] = React.useContext(UserContext);
+	const [user, setUser] = React.useState({});
+	const token = localStorage.getItem("user");
 	const history = useHistory();
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
@@ -40,13 +41,43 @@ const ApplyPage = () => {
 		court_name: "",
 		case_stage: "",
 		status_id: ["recHOTyA7teTAoYHc"],
-		user_id: ["recQJCWRxSU4oqQBi"],
+		user_id: [user.id],
 		application_merit: "",
 		application_impact: "",
+		docs_uploaded: "no",
 	});
 	const [checked, setChecked] = React.useState(false);
 	const [errorMessage, setErrorMessage] = React.useState("");
-	// const [file, setFile] = React.useState(null);
+
+	React.useEffect(() => {
+		getAirtable("GET", "applicants", token).then((data) => {
+			setUser(data.response[0]);
+		});
+	}, [token]);
+
+	React.useEffect(() => {
+		updateForm({ ...form, user_id: [user.id] });
+	}, [user]);
+
+	const beginUpload = () => {
+		const uploadOptions = {
+			cloudName: "dgc9b8ti3",
+			folder: user.email + "-" + form.case_name,
+			uploadPreset: "upload",
+		};
+
+		openUploadWidget(uploadOptions, (error, photos) => {
+			if (!error) {
+				if (photos.event === "success") {
+					setErrorMessage("");
+					updateForm({ ...form, docs_uploaded: "yes" });
+					console.log(form.docs_uploaded);
+				}
+			} else {
+				console.log(error);
+			}
+		});
+	};
 
 	const handleNext = (event) => {
 		if (activeStep === 1 && checked === false) {
@@ -83,50 +114,16 @@ const ApplyPage = () => {
 		updateForm({ ...form, [name]: value });
 	};
 
-	// const handleUpload = (event) => {
-	// 	setFile(event.target.files[0]);
-	// };
-
-	// async function readFileAsDataURL(file) {
-	// 	let convertedFile = await new Promise((resolve) => {
-	// 		let fileReader = new FileReader();
-	// 		fileReader.onloadend = (e) => resolve(fileReader.result);
-	// 		fileReader.readAsDataURL(file);
-	// 	});
-
-	// 	return convertedFile;
-	// }
-
-	// const uploadToCloud = async (pdf) => {
-	// 	return readFileAsDataURL(pdf).then(async (file) => {
-	// 		const upload = await postFile(file);
-	// 		updateForm({ ...form, application_url: upload.url });
-	// 		// return upload.url;
-	// 	});
-	// };
-
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log(form);
-		postAirtable("POST", "applications", form).then((response) => {
-			console.log(response);
-			history.push("/profile");
-		});
-		// if (file) {
-		// 	uploadToCloud(file);
-		// } else {
-		// 	setErrorMessage("Please upload your application document");
-		// }
+		if (form.docs_uploaded === "no") {
+			setErrorMessage("Please upload documents");
+		} else {
+			postAirtable("POST", "applications", form).then((response) => {
+				history.push("/profile");
+			});
+		}
 	};
-
-	// React.useEffect(() => {
-	// 	if (form.application_url !== "") {
-	// 		postAirtable("POST", "applications", form).then((response) => {
-	// 			console.log(response);
-	// 			history.push("/profile");
-	// 		});
-	// 	}
-	// }, [form, history]);
 
 	return (
 		<>
@@ -161,7 +158,10 @@ const ApplyPage = () => {
 							form={form}></Apply3>
 					)}
 					{activeStep === 4 && (
-						<Apply4 handleInputChange={handleInputChange} form={form}></Apply4>
+						<Apply4
+							handleInputChange={handleInputChange}
+							form={form}
+							beginUpload={beginUpload}></Apply4>
 					)}
 					<ButtonList>
 						{activeStep !== 4 && (

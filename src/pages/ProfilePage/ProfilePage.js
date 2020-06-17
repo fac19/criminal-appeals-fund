@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => {});
 
 const ProfilePage = () => {
 	const classes = useStyles();
-	const [user, setUser] = React.useContext(UserContext);
+	const token = localStorage.getItem("user");
+	const [user, setUser] = React.useState({});
 	const [applicationsObject, setApplicationsObject] = React.useState([]);
 	const [applicationMessage, setApplicationMessage] = React.useState(
 		"Loading..."
@@ -25,33 +26,38 @@ const ProfilePage = () => {
 
 	const makeApplicationCard = (applicationsObject) => {
 		return applicationsObject.map((application) => {
-			return <ApplicationCard {...application} />;
+			return <ApplicationCard key={application.id} {...application} />;
 		});
 	};
 
+	// const handleWithdraw = () => {
+	// 	updateAirtable('PUT')
+	// }
+
 	React.useEffect(() => {
-		getAirtable("GET", "applications", user.id).then((data) => {
+		getAirtable("GET", "applications", token).then((data) => {
 			if (data.response.length === 0) {
 				setApplicationMessage(
 					"You currently have no applications under review"
 				);
 			} else {
-				console.log(data.response);
 				setApplicationsObject(data.response);
 			}
 		});
-	}, [user]);
+	}, [token]);
 
 	React.useEffect(() => {
-		console.log(applicationsObject);
-	}, [applicationsObject]);
+		getAirtable("GET", "applicants", token).then((data) => {
+			setUser(data.response[0]);
+		});
+	}, [token]);
 
 	return (
 		<div>
 			<NavbarLoggedIn />
 			<ApplicationPageHeader>
 				<ApplicantInfo>
-					<ApplicantName>{`Hello, ${user.first_name}`}</ApplicantName>
+					<ApplicantName>{`Hello, ${user.first_name} ${user.last_name}`}</ApplicantName>
 					{user.isVerified === "yes" ? (
 						<Link to="/apply">
 							<Button

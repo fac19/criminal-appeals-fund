@@ -39,7 +39,8 @@ const LogInPage = () => {
 			setErrorMessage("");
 			loginAirtable("POST", "applicants", form).then((data) => {
 				if (data.response) {
-					setUser(data.response[0]);
+					const userToken = data.response[0];
+					localStorage.setItem("user", userToken.token);
 					history.push("/profile");
 				} else {
 					setErrorMessage(data.message);

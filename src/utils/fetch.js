@@ -1,3 +1,5 @@
+import { responsiveFontSizes } from "@material-ui/core";
+
 const postAirtable = (method, table, request) => {
 	return fetch("/.netlify/functions/airtable?table=" + table, {
 		method: method,
@@ -8,14 +10,17 @@ const postAirtable = (method, table, request) => {
 	}).then((response) => response.json());
 };
 
-const getAirtable = (method, table, id) => {
+const getAirtable = (method, table, token) => {
 	console.log("Hey");
-	return fetch("/.netlify/functions/airtable?table=" + table + "&user=" + id, {
-		method: method,
-		headers: {
-			"Content-Type": "application/json",
-		},
-	}).then((response) => response.json());
+	return fetch(
+		"/.netlify/functions/airtable?table=" + table + "&token=" + token,
+		{
+			method: method,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}
+	).then((response) => response.json());
 };
 
 const loginAirtable = (method, table, request) => {
@@ -28,4 +33,19 @@ const loginAirtable = (method, table, request) => {
 	}).then((response) => response.json());
 };
 
-export { postAirtable, getAirtable, loginAirtable };
+const updateAirtable = (method, table, applicationId) => {
+	return fetch(
+		"/.netlify/functions/update?table=" +
+			table +
+			"&applicationId=" +
+			applicationId,
+		{
+			method: method,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}
+	).then((response) => response.json());
+};
+
+export { postAirtable, getAirtable, loginAirtable, updateAirtable };

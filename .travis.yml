@@ -1,5 +1,7 @@
 language: node_js
 node_js: 13
+env:
+  - CODECOV_TOKEN="138fa62b-8ba8-44c4-a175-f4efa1870149"
 install:
   - npm ci
 script:

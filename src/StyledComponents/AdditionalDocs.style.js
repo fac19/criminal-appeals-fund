@@ -6,7 +6,7 @@ const PageTitle = styled.h1`
 	font-size: 2em;
 	color: black;
 	text-align: center;
-	margin-top: "20px";
+	// margin: 2em;
 `;
 
 const TextWrapper = styled.section`

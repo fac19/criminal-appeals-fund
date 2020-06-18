@@ -155,7 +155,9 @@ const ApplyPage = () => {
 						<Apply3
 							errorMessage={errorMessage}
 							handleInputChange={handleInputChange}
-							form={form}></Apply3>
+							form={form}>
+							<h3>Please write no more than 300 words for each section</h3>
+						</Apply3>
 					)}
 					{activeStep === 4 && (
 						<Apply4

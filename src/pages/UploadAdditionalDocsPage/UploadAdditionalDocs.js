@@ -8,6 +8,7 @@ import {
 	PageTitle,
 	ButtonWrapper,
 	SuccessfulStatus,
+	TextWrapper,
 } from "../../StyledComponents/AdditionalDocs.style";
 
 const UploadDocuments = () => {
@@ -58,6 +59,7 @@ const UploadDocuments = () => {
 						the case meets the criteria outlined by the Criminal Appeals Fund
 					</p>
 				)}
+				s
 				<ButtonWrapper>
 					<button onClick={beginUpload} type="button">
 						{" "}
@@ -81,11 +83,18 @@ const UploadDocuments = () => {
 				<NavbarLoggedIn />
 				<PageTitle> Upload your invoice</PageTitle>
 				{<h1>Upload your invoice</h1> && (
-					<p>
-						Congratulations on securing funding! Please upload your invoice here
-						so that we can process this as quickly as posisible.
-					</p>
+					<p>Congratulations on securing funding!</p>
 				)}
+				<TextWrapper>
+					<p>
+						Upload your invoice here so that we can process this as quickly as
+						posisible.
+					</p>
+					<p>
+						Please ensure your it is in one of the following formats: pdf, docx
+						or doc.
+					</p>
+				</TextWrapper>
 
 				<ButtonWrapper>
 					<Button
@@ -96,6 +105,7 @@ const UploadDocuments = () => {
 						{" "}
 						Upload documents
 					</Button>
+
 					{docsUploaded && (
 						<SuccessfulStatus>
 							Documents successfully uploaded, this is ready to submit.

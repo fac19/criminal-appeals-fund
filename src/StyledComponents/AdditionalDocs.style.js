@@ -9,6 +9,10 @@ const PageTitle = styled.h1`
 	margin-top: 30px;
 `;
 
+const TextWrapper = styled.section`
+	margin: 0 auto;
+`;
+
 const ButtonWrapper = styled.section`
 	display: grid;
 	flex-direction: column;
@@ -20,4 +24,4 @@ const SuccessfulStatus = styled.p`
 	color: #238823;
 `;
 
-export { PageTitle, ButtonWrapper, SuccessfulStatus };
+export { PageTitle, ButtonWrapper, SuccessfulStatus, TextWrapper };

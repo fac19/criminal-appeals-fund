@@ -1,6 +1,15 @@
 import styled from "styled-components";
 
-const VerificationInfoList = styled.ul`
+const CriteriaInfoList = styled.ul`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-evenly;
+	list-style: none;
+	padding: 0;
+`;
+
+const ClusterInfoList = styled.ul`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -9,7 +18,7 @@ const VerificationInfoList = styled.ul`
 	padding: 0;
 `;
 
-const VerificationInfoListItem = styled.li`
+const ApplyInfoListItem = styled.li`
 	text-align: left;
 	padding: 1rem;
 	border-radius: 5px;
@@ -25,11 +34,21 @@ const VerificationInfoListItem = styled.li`
 	}
 `;
 
-const VerificationSubtitle = styled.h3`
+const ApplyTitle = styled.h2`
+	font-size: 2.5rem;
+`;
+
+const ApplySubtitle = styled.h4`
 	margin-top: 1rem;
 	font-size: 1.1rem;
 	opacity: 0.9;
 	font-weight: 400;
 `;
 
-export { VerificationInfoList, VerificationInfoListItem, VerificationSubtitle };
+export {
+	CriteriaInfoList,
+	ApplyInfoListItem,
+	ClusterInfoList,
+	ApplyTitle,
+	ApplySubtitle,
+};

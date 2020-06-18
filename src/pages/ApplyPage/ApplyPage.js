@@ -26,6 +26,12 @@ const useStyles = makeStyles({
 		alignItems: "center",
 		backgroundColor: "white",
 	},
+	button: {
+		width: "30%",
+		textTransform: "none",
+		fontFamily: "IBM Plex Serif, serif",
+		fontSize: "1.1rem",
+	},
 });
 
 const ApplyPage = () => {
@@ -41,7 +47,7 @@ const ApplyPage = () => {
 		court_name: "",
 		case_stage: "",
 		status_id: ["recHOTyA7teTAoYHc"],
-		user_id: [user.id],
+		user_email: [user.id],
 		application_merit: "",
 		application_impact: "",
 	});
@@ -56,7 +62,7 @@ const ApplyPage = () => {
 	}, [token]);
 
 	React.useEffect(() => {
-		updateForm({ ...form, user_id: [user.id] });
+		updateForm({ ...form, user_email: [user.id] });
 	}, [user]);
 
 	const beginUpload = () => {
@@ -81,21 +87,18 @@ const ApplyPage = () => {
 
 	const handleNext = (event) => {
 		if (activeStep === 1 && checked === false) {
-			setErrorMessage(
-				"Please confirm you have understood the funding guidelines"
-			);
+			setErrorMessage("Please confirm you have understood the guidelines");
 		} else if (
 			activeStep === 2 &&
-			form.case_name === "" &&
-			form.solicitor_name === "" &&
-			form.court_name === "" &&
-			form.case_stage === ""
+			(form.case_name === "" ||
+				form.solicitor_name === "" ||
+				form.court_name === "" ||
+				form.case_stage === "")
 		) {
 			setErrorMessage("Please make sure the required fields are complete");
 		} else if (
 			activeStep === 3 &&
-			form.application_impact === "" &&
-			form.application_merit === ""
+			(form.application_impact === "" || form.application_merit === "")
 		) {
 			setErrorMessage("Please make sure the required fields are complete");
 		} else {
@@ -117,7 +120,7 @@ const ApplyPage = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (!docsUploaded) {
-			setErrorMessage("Please upload documents");
+			setErrorMessage("Please upload the necessary documents");
 		} else {
 			postAirtable("POST", "applications", form).then((response) => {
 				history.push("/profile");
@@ -128,8 +131,10 @@ const ApplyPage = () => {
 	return (
 		<>
 			<NavbarLoggedIn />
-
-			<Form onSubmit={handleSubmit}>
+			<Form
+				data-cy="apply-form"
+				onSubmit={handleSubmit}
+				style={{ justifyContent: "space-evenly" }}>
 				<MobileStepper
 					variant="dots"
 					steps={5}
@@ -155,28 +160,40 @@ const ApplyPage = () => {
 						<Apply3
 							errorMessage={errorMessage}
 							handleInputChange={handleInputChange}
-							form={form}></Apply3>
+							form={form}>
+							<h3>Please write no more than 300 words for each section</h3>
+						</Apply3>
 					)}
 					{activeStep === 4 && (
 						<Apply4
+							docsUploaded={docsUploaded}
 							handleInputChange={handleInputChange}
 							form={form}
 							beginUpload={beginUpload}></Apply4>
 					)}
 					<ButtonList>
 						{activeStep !== 4 && (
-							<Button variant="contained" color="primary" onClick={handleNext}>
+							<Button
+								className={classes.button}
+								variant="contained"
+								color="primary"
+								onClick={handleNext}>
 								Next
 							</Button>
 						)}
 						{activeStep === 4 && (
-							<Button variant="contained" color="primary" type="submit">
-								{/* // onClick={(e) => uploadFileHandler(e)}> */}
+							<Button
+								className={classes.button}
+								variant="contained"
+								color="primary"
+								data-cy="apply-button"
+								type="submit">
 								Apply
 							</Button>
 						)}
 						{activeStep !== 0 && (
 							<Button
+								className={classes.button}
 								disabled={activeStep === 0}
 								variant="contained"
 								onClick={handleBack}>
@@ -184,7 +201,9 @@ const ApplyPage = () => {
 							</Button>
 						)}
 					</ButtonList>
-					<ErrorText>{errorMessage ? errorMessage : ""}</ErrorText>
+					<ErrorText data-cy="apply-error">
+						{errorMessage ? errorMessage : ""}
+					</ErrorText>
 				</FormSection>
 			</Form>
 		</>

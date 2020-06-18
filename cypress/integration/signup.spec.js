@@ -1,8 +1,6 @@
 //User story 2. I want to be able to create an account on the website to obtain funding for applications
 
-import "cypress-file-upload";
-
-describe("Users should be able to create an account", () => {
+describe("User should be able to create an account", () => {
 	it("Displays the signup button on the landing page", () => {
 		cy.visit("/");
 		cy.contains("Sign Up").click();
@@ -16,9 +14,32 @@ describe("Users should be able to create an account", () => {
 		cy.url().should("include", "/signup");
 	});
 
-	// .invoke('attr', 'placeholder').should('contain', 'username')
+	it("User cannot be able to sign up with an exsisting email address", () => {
+		cy.get("#firstName").type("John");
+		cy.get("#lastName").type("Doe");
+		cy.get("#email").type("itsina96@gmail.com");
+		cy.get("#barNumber").type("123456789");
+		cy.contains("Next").click();
+		cy.get("[data-cy=signup-error]").should(
+			"have.text",
+			"Email address already exists!"
+		);
+	});
 
-	it("Users should be able to enter their personal details", () => {
+	it("should throw an error message if the email address is missing @", () => {
+		cy.visit("/signup");
+		cy.get("#firstName").type("John");
+		cy.get("#lastName").type("Doe");
+		cy.get("#email").type("itsina96gmail.com");
+		cy.get("#barNumber").type("123456789");
+		cy.contains("Next").click();
+		cy.get("#email-helper-text").should(
+			"have.text",
+			"This field must be a valid email address"
+		);
+	});
+
+	it("User should be able to enter their personal details", () => {
 		cy.visit("/signup");
 		cy.get("#firstName").type("John");
 		cy.get("#lastName").type("Doe");
@@ -27,25 +48,14 @@ describe("Users should be able to create an account", () => {
 		cy.contains("Next").click();
 	});
 
-	it("Users should be able to create a password", () => {
+	it("User should be able to create a password", () => {
 		cy.get("[data-cy=signup-password]").type("123456789");
 		cy.get("[data-cy=signup-password-repeat").type("123456789");
 		cy.contains("Next").click();
 	});
 
-	it("Users can upload proof of identity via the Cloudinary widget", () => {
-		const yourFixturePath = "data.json";
-		cy.get("[data-cy=upload-img]").contains("Upload Image").click();
-		cy.get("input[type='file']").click();
+	it("User can upload proof of identity via the Cloudinary widget", () => {
+		cy.get("[data-cy=upload-img]").click();
+		// cy.get("input[type='file']").click();
 	});
-
-	// it("Testing picture uploading", () => {
-	// 	cy.fixture("testPicture.png").then((fileContent) => {
-	// 		cy.get('input[type="file"]').upload({
-	// 			fileContent: fileContent.toString(),
-	// 			fileName: "testPicture.png",
-	// 			mimeType: "image/png",
-	// 		});
-	// 	});
-	// });
 });

@@ -1,35 +1,62 @@
 import React from "react";
 import {
+	CriteriaInfoList,
+	ApplyInfoListItem,
+	ClusterInfoList,
+	ApplyTitle,
+	ApplySubtitle,
+} from "./Apply.style";
+import { UploadSuccess } from "../../StyledComponents/StyledComponents.style";
+import {
 	FormControlLabel,
 	Checkbox,
 	FormControl,
 	TextField,
 	makeStyles,
+	Button,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
 	checkbox: {
-		margin: "1rem auto",
+		margin: "0rem auto",
+		marginBottom: "1rem",
 	},
 	input: {
-		marginBottom: "1rem",
+		marginBottom: "2rem",
+	},
+	meritInput: {
+		marginBottom: "4rem",
 	},
 	caseName: {
 		marginTop: "3rem",
 		marginBottom: "1rem",
+	},
+	button: {
+		margin: "0 auto",
+		marginBottom: "2rem",
+		width: "50%",
+		textTransform: "none",
+		fontFamily: "IBM Plex Serif, serif",
+		fontSize: "1.1rem",
 	},
 });
 
 const Apply0 = () => {
 	return (
 		<>
-			<h2>Applying For Funding</h2>
-			<h4>First, ensure that your case satisfies the folowing criteria:</h4>
-			<ul>
-				<li>1: You have exhausted all other methods of funding</li>
-				<li>2: Your case has merit</li>
-				<li>3: Your case will have an impact on the criminal justice system</li>
-			</ul>
+			<ApplyTitle>Applying For Funding</ApplyTitle>
+			<ApplySubtitle>
+				First, ensure that your case satisfies the folowing criteria:
+			</ApplySubtitle>
+			<CriteriaInfoList>
+				<ApplyInfoListItem>
+					1: You have exhausted all other methods of funding
+				</ApplyInfoListItem>
+				<ApplyInfoListItem>2: Your case has merit</ApplyInfoListItem>
+				<ApplyInfoListItem>
+					3: Your case will have an impact on the criminal justice system
+				</ApplyInfoListItem>
+			</CriteriaInfoList>
 		</>
 	);
 };
@@ -43,17 +70,15 @@ const Apply1 = ({ checked, setChecked, errorMessage }) => {
 
 	return (
 		<>
-			<h2>Applying For Funding</h2>
-			<h4>
-				Secondly, read our funding guidelines and decide which cluster your case
-				fits into
-			</h4>
-			<ul>
-				<li>Children</li>
-				<li>Excessive Sentence</li>
-				<li>Families</li>
-				<li>Discrimination</li>
-			</ul>
+			<ApplySubtitle>
+				Secondly, decide which cluster your case fits into
+			</ApplySubtitle>
+			<ClusterInfoList>
+				<ApplyInfoListItem>Children</ApplyInfoListItem>
+				<ApplyInfoListItem>Excessive Sentence</ApplyInfoListItem>
+				<ApplyInfoListItem>Families</ApplyInfoListItem>
+				<ApplyInfoListItem>Discrimination</ApplyInfoListItem>
+			</ClusterInfoList>
 			<FormControl required>
 				<FormControlLabel
 					className={classes.checkbox}
@@ -65,7 +90,8 @@ const Apply1 = ({ checked, setChecked, errorMessage }) => {
 							color="primary"
 						/>
 					}
-					label="I understand the funding guidelines"></FormControlLabel>
+					label="I understand the criteria and clusters"
+					data-cy="label-i-understand"></FormControlLabel>
 			</FormControl>
 		</>
 	);
@@ -140,6 +166,8 @@ const Apply2 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 };
 
 const Apply3 = ({ errorMessage, handleInputChange, form }) => {
+	const classes = useStyles();
+
 	return (
 		<>
 			<TextField
@@ -155,6 +183,8 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 				rowsMax={4}
 				required
 				autoFocus
+				className={classes.meritInput}
+				data-cy="apply-merits"
 			/>
 
 			<TextField
@@ -168,7 +198,9 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 				onChange={handleInputChange}
 				multiline
 				rowsMax={4}
+				data-cy="apply-impact"
 				required
+				className={classes.meritInput}
 			/>
 		</>
 	);
@@ -180,17 +212,32 @@ const Apply4 = ({
 	form,
 	handleInputChange,
 	beginUpload,
+	docsUploaded,
 }) => {
+	const classes = useStyles();
+
 	return (
 		<>
-			<h1>Please upload the following documentation</h1>
-			<ul>
-				<li> Signed waiver of legal privilege</li>
-				<li> Proof of financial means</li>
-			</ul>
-			<button variant="contained" onClick={() => beginUpload()} type="button">
+			<ApplySubtitle>Please upload the following documentation</ApplySubtitle>
+			<CriteriaInfoList>
+				<ApplyInfoListItem>1: Proof of litigation extension</ApplyInfoListItem>
+				<ApplyInfoListItem>
+					2: Signed waiver of legal privilege
+				</ApplyInfoListItem>
+				<ApplyInfoListItem>3: Proof of financial means</ApplyInfoListItem>
+			</CriteriaInfoList>
+			<Button
+				className={classes.button}
+				variant="contained"
+				onClick={beginUpload}
+				type="button">
 				Upload documents
-			</button>
+			</Button>
+			{docsUploaded && (
+				<UploadSuccess>
+					Documents successfully uploaded. Your application is ready to submit.
+				</UploadSuccess>
+			)}
 		</>
 	);
 };

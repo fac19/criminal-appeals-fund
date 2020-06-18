@@ -12,26 +12,23 @@ exports.handler = async (request, context) => {
 		apiKey: AIRTABLE_KEY, // secret on Netlify
 	}).base(`${AIRTABLE_BASE}`); // database
 
-	let data = [],
-		success = false;
+	let data = [];
+	if (requestBody.password) {
+		await bcrypt
+			.genSalt(10)
+			.then((salt) => bcrypt.hash(requestBody.password, salt))
+			.then((hash) => (requestBody.password = hash));
+	}
 	await base(table)
-		.select({
-			view: "full_view",
-			filterByFormula: `{email}="${requestBody.email}"`,
-		})
-		.firstPage()
-		.then(async (records) => {
-			const airtableUser = records[0];
-			success = await bcrypt.compare(
-				requestBody.password,
-				airtableUser.fields.password
-			);
-			if (success) {
+		.create(requestBody)
+		.then((record) => {
+			if (table === "applicants") {
 				const token = jwt.sign(
 					{
-						id: airtableUser.fields.id,
-						first_name: airtableUser.fields.first_name,
-						isVerified: airtableUser.fields.isVerified,
+						id: record.fields.id,
+						first_name: record.fields.first_name,
+						email: record.fields.email,
+						isVerified: record.fields.isVerified,
 					},
 					JWT_SECRET,
 					{
@@ -39,11 +36,11 @@ exports.handler = async (request, context) => {
 					}
 				);
 				data.push({ token });
+			} else {
+				data.push({ name: record.fields.case_name });
 			}
 		})
-		.catch((err) => {
-			console.log(err.status); // only visible in netlify functions log when running in prod
-		});
+		.catch(console.error);
 	if (data.length === 0) {
 		return {
 			statusCode: 401,
@@ -54,9 +51,12 @@ exports.handler = async (request, context) => {
 		};
 	} else {
 		return {
-			statusCode: 200,
+			statusCode: 201,
 			body: JSON.stringify({
-				message: "You have been logged in successfully",
+				message:
+					"The response data has been successfully added to " +
+					table +
+					" table.",
 				response: data,
 			}),
 		};

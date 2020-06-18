@@ -13,7 +13,7 @@ import {
 	ErrorText,
 	ButtonList,
 } from "../../StyledComponents/StyledComponents.style";
-import { postAirtable } from "../../utils/fetch";
+import { postAirtable, checkSignUp } from "../../utils/fetch";
 import { openUploadWidget } from "../../utils/cloudinary";
 
 const useStyles = makeStyles({
@@ -24,6 +24,9 @@ const useStyles = makeStyles({
 	},
 	signUpButton: {
 		width: "40%",
+		textTransform: "none",
+		fontFamily: "IBM Plex Serif, serif",
+		fontSize: "1.1rem",
 	},
 	hiddenButton: {
 		visibility: "hidden",
@@ -36,7 +39,6 @@ const SignUpPage = () => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [errorMessage, setErrorMessage] = React.useState("");
-	// const [image, setImage] = React.useState(null);
 	const [repeatPassword, setRepeatPassword] = React.useState("");
 	const [form, updateForm] = React.useState({
 		first_name: "",
@@ -59,6 +61,7 @@ const SignUpPage = () => {
 			if (!error) {
 				if (photos.event === "success") {
 					setDocsUploaded(true);
+					setErrorMessage("");
 				}
 			} else {
 				console.log(error);
@@ -86,8 +89,14 @@ const SignUpPage = () => {
 			form.bar_number !== "" &&
 			emailRegex.test(form.email)
 		) {
-			setErrorMessage("");
-			setActiveStep((prevActiveStep) => prevActiveStep + 1);
+			checkSignUp("POST", "applicants", form.email).then((response) => {
+				if (response.message.includes("unique")) {
+					setErrorMessage("");
+					setActiveStep((prevActiveStep) => prevActiveStep + 1);
+				} else {
+					setErrorMessage("Email address already exists!");
+				}
+			});
 		} else if (
 			activeStep === 1 &&
 			form.password !== "" &&
@@ -117,21 +126,6 @@ const SignUpPage = () => {
 			setErrorMessage("Please upload a form of identification");
 		}
 	};
-
-	const nextOnEnter = (event) => {
-		if (event.keyCode === 13) {
-			if (activeStep === 2) {
-				handleSubmit();
-			} else {
-				handleNext();
-			}
-		}
-	};
-
-	React.useEffect(() => {
-		window.addEventListener("keyup", nextOnEnter);
-		return () => window.removeEventListener("keyup", nextOnEnter);
-	}, []);
 
 	return (
 		<>
@@ -163,6 +157,7 @@ const SignUpPage = () => {
 				)}
 				{activeStep === 2 && (
 					<SignUp2
+						docsUploaded={docsUploaded}
 						beginUpload={beginUpload}
 						form={form}
 						errorMessage={errorMessage}
@@ -198,7 +193,9 @@ const SignUpPage = () => {
 						</Button>
 					)}
 				</ButtonList>
-				<ErrorText>{errorMessage ? errorMessage : ""}</ErrorText>
+				<ErrorText data-cy="signup-error">
+					{errorMessage ? errorMessage : ""}
+				</ErrorText>
 			</Form>
 		</>
 	);

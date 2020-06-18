@@ -16,6 +16,7 @@ const StyledLanding = styled.section`
 
 const HeaderText = styled.p`
 	font-size: 2rem;
+	padding: 0 2rem 4rem;
 `;
 const BodyWrapper = styled.section``;
 
@@ -29,7 +30,7 @@ const HeaderWrapper = styled.section`
 `;
 const StepsWrapper = styled.section`
 	padding: 4em;
-	background-color: #e8e8e8;
+	background-color: #f1f3f4;
 	margin: 2rem 0;
 	padding: none;
 `;
@@ -62,11 +63,13 @@ const StepWrapper = styled.section`
 	@media (min-width: 768px) {
 		display: grid;
 		&:nth-child(1),
-		&:nth-child(3) {
+		&:nth-child(3),
+		&:nth-child(5) {
 			grid-template-columns: 2fr 1fr;
 		}
 		&:nth-child(2),
-		&:nth-child(4) {
+		&:nth-child(4),
+		&:nth-child(6) {
 			grid-template-columns: 1fr 2fr;
 		}
 	}

@@ -14,26 +14,38 @@ const ApplicationSection = styled.section`
 
 const ApplicationPageHeader = styled.section``;
 
-const ApplicantInfo = styled.ul`
+const ApplicantName = styled.h2`
+	font-size: 2.5rem;
+	padding-left: 3rem;
+	padding-right: 3rem;
+	margin-left: 2rem;
+	margin-right: 2rem;
+	text-align: left;
+`;
+
+const ApplicationStageList = styled.ul`
 	list-style: none;
+	display: block;
+	flex-direction: column;
+	align-items: flex-start;
+	font-size: 1.4rem;
+	text-align: left;
+`;
+
+const ApplicantDiv = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	padding-left: 3rem;
 	padding-right: 3rem;
-	margin-left: 2rem;
-	margin-right: 2rem;
-	margin-top: 0;
-`;
-
-const ApplicantName = styled.h2`
-	font-size: 2.5rem;
+	margin: 2rem;
 `;
 
 export {
 	ApplicationSection,
 	ApplicationPageHeader,
-	ApplicantInfo,
 	ApplicantName,
+	ApplicationStageList,
+	ApplicantDiv,
 };

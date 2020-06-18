@@ -1,27 +1,24 @@
 import React from "react";
-import {
-	makeStyles,
-	// MuiThemeProvider,
-	// createMuiTheme,
-} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 
 import {
 	ApplicationCardContainer,
-	ApplicationStageList,
+	CaseName,
 	ApplicationInfo,
+	WithdrawButton,
+	ApplicationStatus,
+	StatusButton,
 } from "./ApplicationCard.style";
 
 const useStyles = makeStyles((theme) => ({
 	stepper: {
 		borderRadius: "1.5rem",
-		paddingLeft: "0",
-		paddingRight: "0",
-		paddingBottom: "0.5rem",
+		marginBottom: "1.5rem",
+		zIndex: "-1",
 	},
 	backButton: {
 		marginRight: theme.spacing(1),
@@ -30,23 +27,19 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: theme.spacing(1),
 		marginBottom: theme.spacing(1),
 	},
-	statusButton: {
-		width: "11rem",
-		height: "3rem",
-		margin: "2rem",
+	withdrawHidden: {
+		visibility: "hidden",
 	},
-	// withdrawn : {
-	// 	backgroundColor: 'lightgrey',
-	// 	opacity: '0.7',
-	// },
-	// successful : {
-	// 	backgroundColor: '#4BB543',
-	// 	opacity: '0.7',
-	// },
-	// unsuccessful : {
-	// 	backgroundColor: '#ff726f',
-	// 	opacity: '0.7',
-	// }
+	withdrawnApplication: {
+		backgroundColor: "lightgrey",
+		opacity: "0.8",
+	},
+	withdrawnStepper: {
+		borderRadius: "1.5rem",
+		marginBottom: "1.5rem",
+		backgroundColor: "lightgrey",
+		opacity: "0.8",
+	},
 }));
 
 const ApplicationCard = ({
@@ -114,9 +107,80 @@ const ApplicationCard = ({
 	}, [status_name]);
 
 	return (
-		<ApplicationCardContainer>
+		<ApplicationCardContainer
+			className={activeStep === -2 ? classes.withdrawnApplication : null}>
+			<ApplicationInfo>
+				<CaseName>{case_name}</CaseName>
+				{activeStep === 0 && (
+					<>
+						<ApplicationStatus>Application under review</ApplicationStatus>
+					</>
+				)}
+
+				{activeStep === 1 && userAction && (
+					<>
+						<StatusButton
+							variant="contained"
+							color="primary"
+							id={id}
+							onClick={handleClick}>
+							Upload supporting documents
+						</StatusButton>
+					</>
+				)}
+				{activeStep === 1 && !userAction && (
+					<>
+						<ApplicationStatus>Documents under review</ApplicationStatus>
+					</>
+				)}
+				{activeStep === 2 && userAction && (
+					<>
+						<StatusButton
+							variant="contained"
+							color="primary"
+							onClick={handleClick}
+							data-cy="upload-invoice">
+							Upload Invoice
+						</StatusButton>
+					</>
+				)}
+				{activeStep === 2 && !userAction && (
+					<>
+						<ApplicationStatus>Awaiting funding</ApplicationStatus>
+					</>
+				)}
+				{activeStep === 3 && (
+					<>
+						<ApplicationStatus style={{ color: "#238823" }}>
+							Application successful
+						</ApplicationStatus>
+					</>
+				)}
+				{activeStep === -1 && (
+					<>
+						<ApplicationStatus style={{ color: "#d2222d" }}>
+							Application unsuccessful
+						</ApplicationStatus>
+					</>
+				)}
+				{activeStep === -2 && (
+					<>
+						<ApplicationStatus>Application withdrawn</ApplicationStatus>
+					</>
+				)}
+				<WithdrawButton
+					className={
+						activeStep < 0 || activeStep === 3 ? classes.withdrawHidden : null
+					}
+					onClick={handleWithdraw}
+					id={id}>
+					Withdraw Case
+				</WithdrawButton>
+			</ApplicationInfo>
 			<Stepper
-				className={classes.stepper}
+				className={
+					activeStep === -2 ? classes.withdrawnStepper : classes.stepper
+				}
 				activeStep={activeStep}
 				alternativeLabel>
 				{steps.map((label) => (
@@ -125,104 +189,6 @@ const ApplicationCard = ({
 					</Step>
 				))}
 			</Stepper>
-
-			<ApplicationInfo>
-				<h1>{case_name}</h1>
-				<ApplicationStageList>
-					<li>Stage 1: Application submitted</li>
-					<li>Stage 2: Application satisfies the criteria</li>
-					<li>Stage 3: Final approval</li>
-					<li>Stage 4: Funding processed</li>
-				</ApplicationStageList>
-
-				{activeStep === 0 && (
-					<>
-						<h3>Application under review</h3>
-						<button
-							onClick={handleWithdraw}
-							className={classes.statusButton}
-							id={id}>
-							Withdraw Case
-						</button>
-					</>
-				)}
-
-				{activeStep === 1 && userAction && (
-					<>
-						<Button
-							className={classes.statusButton}
-							variant="contained"
-							color="primary"
-							id={id}
-							onClick={handleClick}>
-							Upload supporting documents
-						</Button>
-						<button
-							onClick={handleWithdraw}
-							className={classes.statusButton}
-							id={id}>
-							Withdraw Case
-						</button>
-					</>
-				)}
-				{activeStep === 1 && !userAction && (
-					<>
-						<h3>Documents under review</h3>
-						<button
-							onClick={handleWithdraw}
-							className={classes.statusButton}
-							id={id}>
-							Withdraw Case
-						</button>
-					</>
-				)}
-				{activeStep === 2 && userAction && (
-					<>
-						<Button
-							className={classes.statusButton}
-							variant="contained"
-							color="primary"
-							onClick={handleClick}>
-							Upload Invoice
-						</Button>
-						<button
-							onClick={handleWithdraw}
-							className={classes.statusButton}
-							id={id}>
-							Withdraw Case
-						</button>
-					</>
-				)}
-				{activeStep === 2 && !userAction && (
-					<>
-						<h3>Awaiting funding</h3>
-						<button
-							onClick={handleWithdraw}
-							className={classes.statusButton}
-							id={id}>
-							Withdraw Case
-						</button>
-					</>
-				)}
-				{activeStep === 3 && (
-					<>
-						<h3>Successful</h3>
-						<div></div>
-					</>
-				)}
-				{activeStep === -1 && (
-					<>
-						<h3>Application unsuccessful</h3>
-						<div></div>
-					</>
-				)}
-				{activeStep === -2 && (
-					<>
-						<h3>Application withdrawn</h3>
-						<div></div>
-					</>
-				)}
-			</ApplicationInfo>
 		</ApplicationCardContainer>
 	);
 };

@@ -1,12 +1,29 @@
 import React from "react";
 import { TextField, Button, makeStyles } from "@material-ui/core";
 
-import { FormSection } from "../../StyledComponents/StyledComponents.style";
+import {
+	VerificationInfoList,
+	VerificationInfoListItem,
+	VerificationSubtitle,
+} from "./SignUpForm.style";
+
+import {
+	FormSection,
+	UploadSuccess,
+} from "../../StyledComponents/StyledComponents.style";
 
 const useStyles = makeStyles((theme) => ({
 	input: {
 		width: "100%",
 		marginBottom: "2rem",
+	},
+	uploadButton: {
+		margin: "0 auto",
+		marginBottom: "2rem",
+		width: "50%",
+		textTransform: "none",
+		fontFamily: "IBM Plex Serif, serif",
+		fontSize: "1.1rem",
 	},
 }));
 
@@ -130,16 +147,36 @@ const SignUp1 = ({
 	);
 };
 
-const SignUp2 = ({ beginUpload }) => {
+const SignUp2 = ({ beginUpload, docsUploaded }) => {
+	const classes = useStyles();
+
 	return (
 		<>
 			<FormSection>
+				<VerificationSubtitle>
+					Please upload the following documents:
+				</VerificationSubtitle>
+				<VerificationInfoList>
+					<VerificationInfoListItem>
+						1: Your practicing certificate
+					</VerificationInfoListItem>
+					<VerificationInfoListItem>
+						2: A photo of you holding up official identification (e.g. passport,
+						driving licence).
+					</VerificationInfoListItem>
+				</VerificationInfoList>
 				<Button
+					className={classes.uploadButton}
 					variant="contained"
-					data-cy="upload-img"
-					onClick={() => beginUpload()}>
-					Upload Image
+					onClick={beginUpload}
+					data-cy="upload-img">
+					Upload verification
 				</Button>
+				{docsUploaded && (
+					<UploadSuccess>
+						Documents successfully uploaded. You are ready to sign up.
+					</UploadSuccess>
+				)}
 			</FormSection>
 		</>
 	);

@@ -1,0 +1,5 @@
+{
+	"projectId": "wvu3m9",
+	"baseUrl": "http://localhost:8888",
+	"apiUrl": "/.netlify/functions/airtable?table=applications&token=recQJCWRxSU4oqQBi"
+}

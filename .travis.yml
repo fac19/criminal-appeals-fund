@@ -2,3 +2,6 @@ language: node_js
 node_js: 13
 install:
   - npm ci
+script:
+  - npm run test
+after-script: bash <(curl -s https://codecov.io/bash) -t 138fa62b-8ba8-44c4-a175-f4efa1870149

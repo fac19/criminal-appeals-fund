@@ -16,6 +16,10 @@ const ErrorText = styled.p`
 	margin-bottom: 1rem;
 `;
 
+const SuccessfulText = styled.p`
+	color: #238823;
+`;
+
 const FormSection = styled.section`
 	height: 80%;
 	width: 100%;

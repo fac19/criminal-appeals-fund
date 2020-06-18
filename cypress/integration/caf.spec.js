@@ -15,53 +15,16 @@ describe("User should be able to log in to their account", () => {
 		cy.get("#email").type("itsina96@gmail.com");
 		cy.get("#password").type("123");
 		cy.get("[data-cy=submit]").click();
-		cy.get(".sc-fzpans ksXGA-d").should(
+		cy.get("[data-cy=login-form-error]").should(
 			"have.text",
 			"There was a problem logging you in, please try again or sign up"
 		);
 	});
+
 	it("should be able to render profile page after user successfully logged in", () => {
-		cy.get("#email").type("itsina96@gmail.com");
-		cy.get("#password").type("123");
+		cy.visit("/login");
+		cy.get("#email").type("campbellsofitsidocherty@gmail.com");
+		cy.get("#password").type("12345678");
 		cy.get("[data-cy=submit]").click();
 	});
 });
-
-// 	it("can find and type in password", () => {
-// 		cy.get("#password")
-// 			.type("fakepassword")
-// 			.should("have.value", "fakepassword");
-// 	});
-
-// 	it("will fail when type invalid user credentials", () => {
-// 		cy.get("#email").type("fake@email.com");
-
-// 		cy.get("#password").type("fakepassword");
-
-// 		cy.get("input[type=submit]").click();
-
-// 		cy.get("#login-message").should("have.text", "Login failed");
-// 	});
-
-// 	it("will fail when type invalid password with valid user", () => {
-// 		cy.get("#email").type("fake@email.com");
-
-// 		cy.get("#password").type("abc");
-
-// 		cy.get("input[type=submit]").click();
-
-// 		cy.get("#login-message").should("have.text", "Login failed");
-// 	});
-
-// 	it("will succeed when type valid user credentials", () => {
-// 		cy.get("#email").type("a@b.com");
-
-// 		cy.get("#password").type("abc");
-
-// 		cy.get("input[type=submit]").click();
-
-// 		cy.get("#login-message").should("not.have.text", "Login failed");
-
-// 		cy.location("pathname").should("include", "/user/profile");
-// 	});
-// });

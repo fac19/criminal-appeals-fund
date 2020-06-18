@@ -77,7 +77,7 @@ const Apply2 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 	return (
 		<>
 			<TextField
-				error={errorMessage && form.case_name === ""}
+				error={errorMessage.length !== 0 && form.case_name === ""}
 				className={classes.caseName}
 				id="caseName"
 				name="case_name"
@@ -90,7 +90,7 @@ const Apply2 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 				autoFocus
 			/>
 			<TextField
-				error={errorMessage && form.case_stage === ""}
+				error={errorMessage.length !== 0 && form.case_stage === ""}
 				className={classes.input}
 				id="caseStage"
 				name="case_stage"
@@ -102,7 +102,7 @@ const Apply2 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 				required
 			/>
 			<TextField
-				error={errorMessage && form.court_name === ""}
+				error={errorMessage.length !== 0 && form.court_name === ""}
 				className={classes.input}
 				id="courtName"
 				name="court_name"
@@ -124,7 +124,7 @@ const Apply2 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 				onChange={handleInputChange}
 			/>
 			<TextField
-				error={errorMessage && form.solicitor_name === ""}
+				error={errorMessage.length !== 0 && form.solicitor_name === ""}
 				className={classes.input}
 				id="solicitorName"
 				name="solicitor_name"
@@ -135,10 +135,6 @@ const Apply2 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 				onChange={handleInputChange}
 				required
 			/>
-			{/* <Button className={classes.input} variant="contained" component="label" onChange={handleUpload}>
-				Upload File
-				<input type="file" style={{ display: "none" }} />
-			</Button> */}
 		</>
 	);
 };
@@ -147,7 +143,7 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 	return (
 		<>
 			<TextField
-				error={errorMessage && form.application_merit === ""}
+				error={errorMessage.length !== 0 && form.application_merit === ""}
 				id="applicationMerit standard-multiline-flexible"
 				name="application_merit"
 				type="text"
@@ -162,7 +158,7 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 			/>
 
 			<TextField
-				error={errorMessage && form.application_impact === ""}
+				error={errorMessage.length !== 0 && form.application_impact === ""}
 				id="applicationMerit standard-multiline-flexible"
 				name="application_impact"
 				type="text"

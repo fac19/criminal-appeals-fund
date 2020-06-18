@@ -27,33 +27,15 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const useMountEffect = (fun) => useEffect(fun, []);
-const useScroll = () => {
-	const htmlElRef = useRef(null);
-	const executeScroll = () => {
-		window.scrollTo({
-			top: htmlElRef.current.offsetTop,
-			left: 0,
-			behavior: "smooth",
-		});
-
-		// if (window.location.href == "http://localhost:3000/"){
-		// 	return;
-		// } else {
-		// 	window.scrollTo({
-		// 		top: htmlElRef.current.offsetTop,
-		// 		left: 0,
-		// 		behavior: "smooth",
-		// 	});
-		// }
-	};
-	return [executeScroll, htmlElRef];
-};
-
 const LandingPage = () => {
 	const classes = useStyles();
-	const [executeScroll, htmlElRef] = useScroll();
-	useMountEffect(executeScroll); // Runs after component mounts
+	const ref = useRef();
+
+	const executeScroll = () =>
+		ref.current.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+		});
 
 	return (
 		<StyledLanding>
@@ -78,7 +60,7 @@ const LandingPage = () => {
 						How it works
 					</Button>
 				</HeaderWrapper>
-				<StepsWrapper ref={htmlElRef}>
+				<StepsWrapper ref={ref}>
 					<StepWrapper>
 						<StepsText>
 							<StepHeading>Step 1:</StepHeading>

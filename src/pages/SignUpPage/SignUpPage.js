@@ -8,16 +8,12 @@ import {
 	SignUp1,
 	SignUp2,
 } from "../../components/SignUpForm/SignUpForm";
-// import { postFile } from "../../utils/cloudinary";
 import {
 	Form,
 	ErrorText,
 	ButtonList,
 } from "../../StyledComponents/StyledComponents.style";
 import { postAirtable } from "../../utils/fetch";
-import { UserContext } from "../../Context";
-// import { beginUpload } from "../../utils/cloudinary";
-// import { CloudinaryContext, Image } from "cloudinary-react";
 import { openUploadWidget } from "../../utils/cloudinary";
 
 const useStyles = makeStyles({
@@ -35,7 +31,6 @@ const useStyles = makeStyles({
 });
 
 const SignUpPage = () => {
-	const [user, setUser] = React.useContext(UserContext);
 	const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	const history = useHistory();
 	const classes = useStyles();
@@ -48,10 +43,10 @@ const SignUpPage = () => {
 		last_name: "",
 		email: "",
 		bar_number: "",
-		image_url: "",
-		isVerified: "no",
+		isVerified: false,
 		password: "",
 	});
+	const [docsUploaded, setDocsUploaded] = React.useState(false);
 
 	const beginUpload = () => {
 		const uploadOptions = {
@@ -63,7 +58,7 @@ const SignUpPage = () => {
 		openUploadWidget(uploadOptions, (error, photos) => {
 			if (!error) {
 				if (photos.event === "success") {
-					updateForm({ ...form, image_url: photos.info.url });
+					setDocsUploaded(true);
 				}
 			} else {
 				console.log(error);
@@ -112,7 +107,7 @@ const SignUpPage = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		if (form.image_url) {
+		if (docsUploaded) {
 			postAirtable("POST", "applicants", form).then((response) => {
 				const userToken = response.response[0];
 				localStorage.setItem("user", userToken.token);

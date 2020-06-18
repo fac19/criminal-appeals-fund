@@ -1,9 +1,8 @@
 import React from "react";
 import { NavbarLoggedIn } from "../../components/Navbar/Navbar";
 import { ApplicationCard } from "../../components/ApplicationCard/ApplicationCard";
-import { UserContext } from "../../Context";
 import { Button, makeStyles } from "@material-ui/core";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getAirtable, updateAirtable } from "../../utils/fetch";
 import {
 	ApplicationSection,
@@ -15,10 +14,13 @@ import {
 const useStyles = makeStyles((theme) => {});
 
 const ProfilePage = () => {
-	const history = useHistory();
 	const classes = useStyles();
 	const token = localStorage.getItem("user");
-	const [user, setUser] = React.useState({});
+	localStorage.removeItem("case");
+	localStorage.removeItem("status");
+	localStorage.removeItem("appId");
+	localStorage.removeItem("email");
+	const [user, setUser] = React.useState([]);
 	const [withdraw, setWithdraw] = React.useState(false);
 	const [applicationsObject, setApplicationsObject] = React.useState([]);
 	const [applicationMessage, setApplicationMessage] = React.useState(
@@ -27,9 +29,11 @@ const ProfilePage = () => {
 
 	const handleWithdraw = (event) => {
 		const applicationId = event.target.id;
-		updateAirtable("PUT", "applications", applicationId).then(() => {
-			setWithdraw(!withdraw);
-		});
+		updateAirtable("PUT", "applications", applicationId, "Withdrawn").then(
+			() => {
+				setWithdraw(!withdraw);
+			}
+		);
 	};
 
 	const makeApplicationCard = (applicationsObject) => {
@@ -38,6 +42,7 @@ const ProfilePage = () => {
 				<ApplicationCard
 					handleWithdraw={handleWithdraw}
 					key={application.id}
+					userEmail={user.email}
 					{...application}
 				/>
 			);
@@ -67,20 +72,29 @@ const ProfilePage = () => {
 			<NavbarLoggedIn />
 			<ApplicationPageHeader>
 				<ApplicantInfo>
-					<ApplicantName>{`Hello, ${user.first_name} ${user.last_name}`}</ApplicantName>
-					{user.isVerified === "yes" ? (
-						<Link to="/apply">
-							<Button
-								className={classes.applyButton}
-								variant="contained"
-								color="primary">
-								Apply for funding
-							</Button>
-						</Link>
+					<ApplicantName>
+						{user.length !== 0
+							? `Hello, ${user.first_name} ${user.last_name}`
+							: ""}
+					</ApplicantName>
+					{user.length !== 0 ? (
+						user.isVerified ? (
+							<Link to="/apply">
+								<Button
+									className={classes.applyButton}
+									variant="contained"
+									color="primary">
+									Apply for funding
+								</Button>
+							</Link>
+						) : (
+							<h3>
+								Your account is currently unverified, please check back in
+								24hrs!
+							</h3>
+						)
 					) : (
-						<h3>
-							Your account is currently unverified, please check back in 24hrs!
-						</h3>
+						""
 					)}
 				</ApplicantInfo>
 			</ApplicationPageHeader>

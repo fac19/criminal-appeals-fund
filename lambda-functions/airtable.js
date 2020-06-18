@@ -83,6 +83,7 @@ exports.handler = async (request, context) => {
 					data.push({
 						first_name: userData.first_name,
 						last_name: userData.last_name,
+						email: userData.email,
 						isVerified: userData.isVerified,
 						id: userData.id,
 					});

@@ -5,5 +5,5 @@ install:
 script:
   - npm run test
 after-script:
-  - bash <(curl -s https://codecov.io/bash) -t token -f coverage/coverage-final.json
-  - bash <(curl -s https://codecov.io/bash) -t token -f .nyc_output/out.json
+  - bash <(curl -s https://codecov.io/bash) -t 138fa62b-8ba8-44c4-a175-f4efa1870149 -f coverage/coverage-final.json
+  - bash <(curl -s https://codecov.io/bash) -t 138fa62b-8ba8-44c4-a175-f4efa1870149 -f .nyc_output/out.json

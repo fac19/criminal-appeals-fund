@@ -128,13 +128,17 @@ const SignUp1 = ({
 	);
 };
 
-const SignUp2 = ({ beginUpload }) => {
+const SignUp2 = ({ beginUpload, docsUploaded }) => {
 	return (
 		<>
 			<FormSection>
-				<Button variant="contained" onClick={() => beginUpload()}>
+				<h3>Please upload a photo of your passport or driver's license.</h3>
+				<Button variant="contained" onClick={beginUpload}>
 					Upload Image
 				</Button>
+				{docsUploaded && (
+					<p>Documents successfully uploaded. You are ready to sign up.</p>
+				)}
 			</FormSection>
 		</>
 	);

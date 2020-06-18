@@ -12,13 +12,12 @@ const UploadDocuments = () => {
 	const status = localStorage.getItem("status");
 	const appId = localStorage.getItem("appId");
 	const email = localStorage.getItem("email");
+	const stageName = status === "Criteria met" ? "documentation" : "invoice";
 	const beginUpload = () => {
-		const folderName = status === "Criteria met" ? "documentation" : "invoice";
-
 		const uploadOptions = {
 			cloudName: "dgc9b8ti3",
 			folder: email,
-			public_id: case_name + "/" + folderName,
+			public_id: case_name + "/" + stageName,
 			uploadPreset: "upload",
 		};
 
@@ -42,22 +41,54 @@ const UploadDocuments = () => {
 		}
 	};
 
-	return (
+	if (stageName === "documentation") {
 		// if status = 2 upload docs, =4 upload invoice
-		<>
-			<NavbarLoggedIn />
-			<h1>Upload you supporting documents</h1>
-			<p>
-				As part of the application, please upload supporting evidence on how the
-				case meets the criteria outlined by the Criminal Appeals Fund
-			</p>
-			<button onClick={beginUpload} type="button">
-				{" "}
-				Upload documents
-			</button>
-			<Button onClick={handleClick}> Submit documentation</Button>
-		</>
-	);
+		return (
+			<>
+				<NavbarLoggedIn />
+				{<h1>Upload your supporting documents</h1> && (
+					<p>
+						As part of the application, please upload supporting evidence on how
+						the case meets the criteria outlined by the Criminal Appeals Fund
+					</p>
+				)}
+				<button onClick={beginUpload} type="button">
+					{" "}
+					Upload documents
+				</button>
+				{docsUploaded && (
+					<p>Documents successfully uploaded, this is ready to submit.</p>
+				)}
+				<Button onClick={handleClick} variant="outlined" color="primary">
+					{" "}
+					Submit documentation
+				</Button>
+			</>
+		);
+	} else {
+		return (
+			<>
+				<NavbarLoggedIn />
+				{<h1>Upload your invoice</h1> && (
+					<p>
+						Congratulations on securing funding! Please upload your invoice here
+						so that we can process this as quickly as posisible.
+					</p>
+				)}
+				<button onClick={beginUpload} type="button">
+					{" "}
+					Upload documents
+				</button>
+				{docsUploaded && (
+					<p>Documents successfully uploaded, this is ready to submit.</p>
+				)}
+				<Button onClick={handleClick} variant="outlined" color="primary">
+					{" "}
+					Submit documentation
+				</Button>
+			</>
+		);
+	}
 };
 
 export default UploadDocuments;

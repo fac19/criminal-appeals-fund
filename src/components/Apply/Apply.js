@@ -180,6 +180,7 @@ const Apply4 = ({
 	form,
 	handleInputChange,
 	beginUpload,
+	docsUploaded,
 }) => {
 	return (
 		<>
@@ -188,9 +189,14 @@ const Apply4 = ({
 				<li> Signed waiver of legal privilege</li>
 				<li> Proof of financial means</li>
 			</ul>
-			<button variant="contained" onClick={() => beginUpload()} type="button">
+			<button variant="contained" onClick={beginUpload} type="button">
 				Upload documents
 			</button>
+			{docsUploaded && (
+				<p>
+					Documents successfully uploaded. Your application is ready to submit.
+				</p>
+			)}
 		</>
 	);
 };

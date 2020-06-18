@@ -163,6 +163,7 @@ const SignUpPage = () => {
 				)}
 				{activeStep === 2 && (
 					<SignUp2
+						docsUploaded={docsUploaded}
 						beginUpload={beginUpload}
 						form={form}
 						errorMessage={errorMessage}

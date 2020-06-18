@@ -159,6 +159,7 @@ const ApplyPage = () => {
 					)}
 					{activeStep === 4 && (
 						<Apply4
+							docsUploaded={docsUploaded}
 							handleInputChange={handleInputChange}
 							form={form}
 							beginUpload={beginUpload}></Apply4>

@@ -8,7 +8,7 @@ const Form = styled.form`
 	margin: 8rem auto;
 	align-content: center;
 	align-items: center;
-	justify-content: space-evenly;
+	justify-content: center;
 	text-align: center;
 `;
 
@@ -18,13 +18,13 @@ const ErrorText = styled.p`
 `;
 
 const FormSection = styled.section`
-	height: 80%;
+	min-height: 80%;
 	width: 100%;
 	margin-top: 1rem;
 	margin-bottom: 1rem;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
 `;
 
 const ButtonList = styled.ul`

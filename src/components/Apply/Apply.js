@@ -5,6 +5,7 @@ import {
 	ClusterInfoList,
 	ApplyTitle,
 	ApplySubtitle,
+	// UploadButton
 } from "./Apply.style";
 import {
 	FormControlLabel,
@@ -12,6 +13,7 @@ import {
 	FormControl,
 	TextField,
 	makeStyles,
+	Button,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -20,11 +22,19 @@ const useStyles = makeStyles({
 		marginBottom: "1rem",
 	},
 	input: {
-		marginBottom: "1rem",
+		marginBottom: "2rem",
+	},
+	meritInput: {
+		marginBottom: "4rem",
 	},
 	caseName: {
 		marginTop: "3rem",
 		marginBottom: "1rem",
+	},
+	button: {
+		margin: "0 auto",
+		marginBottom: "2rem",
+		width: "50%",
 	},
 });
 
@@ -153,6 +163,8 @@ const Apply2 = ({ handleUpload, errorMessage, handleInputChange, form }) => {
 };
 
 const Apply3 = ({ errorMessage, handleInputChange, form }) => {
+	const classes = useStyles();
+
 	return (
 		<>
 			<TextField
@@ -168,6 +180,7 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 				rowsMax={4}
 				required
 				autoFocus
+				className={classes.meritInput}
 			/>
 
 			<TextField
@@ -182,6 +195,7 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 				multiline
 				rowsMax={4}
 				required
+				className={classes.meritInput}
 			/>
 		</>
 	);
@@ -195,17 +209,25 @@ const Apply4 = ({
 	beginUpload,
 	docsUploaded,
 }) => {
+	const classes = useStyles();
+
 	return (
 		<>
-			<h1>Please upload the following documentation</h1>
-			<ul>
-				<li>Proof of litigation extension</li>
-				<li>Signed waiver of legal privilege</li>
-				<li>Proof of financial means</li>
-			</ul>
-			<button variant="contained" onClick={beginUpload} type="button">
+			<ApplySubtitle>Please upload the following documentation</ApplySubtitle>
+			<CriteriaInfoList>
+				<ApplyInfoListItem>1: Proof of litigation extension</ApplyInfoListItem>
+				<ApplyInfoListItem>
+					2: Signed waiver of legal privilege
+				</ApplyInfoListItem>
+				<ApplyInfoListItem>3: Proof of financial means</ApplyInfoListItem>
+			</CriteriaInfoList>
+			<Button
+				className={classes.button}
+				variant="contained"
+				onClick={beginUpload}
+				type="button">
 				Upload documents
-			</button>
+			</Button>
 			{docsUploaded && (
 				<p>
 					Documents successfully uploaded. Your application is ready to submit.

@@ -12,20 +12,66 @@ const ApplicationCardContainer = styled.article`
 	margin: 1rem;
 `;
 
-const ApplicationStageList = styled.ul`
-	list-style: none;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	font-size: 1.2rem;
+const CaseName = styled.h2`
+	font-size: 1.6rem;
+	font-weight: 400;
+	text-align: center;
+	margin-left: 1rem;
 `;
 
 const ApplicationInfo = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
 	width: 90%;
 	margin: 0.5rem auto;
 `;
 
-export { ApplicationCardContainer, ApplicationStageList, ApplicationInfo };
+const WithdrawButton = styled.button`
+	background-color: white;
+	color: #ff726f;
+	border: 1.3px solid #ff726f;
+	border-radius: 8px;
+	cursor: pointer;
+	width: 11rem;
+	height: 3rem;
+	margin: 2rem;
+	font-family: "IBM Plex Serif", serif;
+	font-size: 1.1rem;
+	transition: 0.3s;
+	&:hover {
+		opacity: 0.9;
+	}
+`;
+
+const ApplicationStatus = styled.h3`
+	font-size: 1.4rem;
+	font-weight: 300;
+`;
+
+const StatusButton = styled.button`
+	background-color: white;
+	color: #2096ee;
+	border: 1.3px solid #2096ee;
+	border-radius: 8px;
+	width: 13rem;
+	height: 3rem;
+	font-family: "IBM Plex Serif", serif;
+	margin: 2rem;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: 0.3s;
+	&:hover {
+		opacity: 0.9;
+	}
+`;
+
+export {
+	ApplicationCardContainer,
+	CaseName,
+	ApplicationInfo,
+	WithdrawButton,
+	ApplicationStatus,
+	StatusButton,
+};

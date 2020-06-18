@@ -7,11 +7,23 @@ import { getAirtable, updateAirtable } from "../../utils/fetch";
 import {
 	ApplicationSection,
 	ApplicationPageHeader,
-	ApplicantInfo,
 	ApplicantName,
+	ApplicationStageList,
+	ApplicantDiv,
 } from "./ProfilePage.style";
 
-const useStyles = makeStyles((theme) => {});
+const useStyles = makeStyles((theme) => ({
+	applyButton: {
+		minHeight: "3rem",
+		marginRight: "2rem",
+		textTransform: "none",
+		fontSize: "1.1rem",
+		fontFamily: "IBM Plex Serif, serif",
+	},
+	link: {
+		textDecoration: "none",
+	},
+}));
 
 const ProfilePage = () => {
 	const classes = useStyles();
@@ -71,15 +83,22 @@ const ProfilePage = () => {
 		<div>
 			<NavbarLoggedIn />
 			<ApplicationPageHeader>
-				<ApplicantInfo>
-					<ApplicantName>
-						{user.length !== 0
-							? `Hello, ${user.first_name} ${user.last_name}`
-							: ""}
-					</ApplicantName>
-					{user.length !== 0 ? (
-						user.isVerified ? (
-							<Link to="/apply">
+				<ApplicantName>
+					{user.length !== 0
+						? `Hello, ${user.first_name} ${user.last_name}`
+						: ""}
+				</ApplicantName>
+
+				{user.length !== 0 ? (
+					user.isVerified ? (
+						<ApplicantDiv>
+							<ApplicationStageList>
+								<li>Stage 1: Application submitted</li>
+								<li>Stage 2: Application satisfies the criteria</li>
+								<li>Stage 3: Final approval</li>
+								<li>Stage 4: Funding processed</li>
+							</ApplicationStageList>
+							<Link className={classes.link} to="/apply">
 								<Button
 									className={classes.applyButton}
 									variant="contained"
@@ -87,16 +106,15 @@ const ProfilePage = () => {
 									Apply for funding
 								</Button>
 							</Link>
-						) : (
-							<h3>
-								Your account is currently unverified, please check back in
-								24hrs!
-							</h3>
-						)
+						</ApplicantDiv>
 					) : (
-						""
-					)}
-				</ApplicantInfo>
+						<h3>
+							Your account is currently unverified, please check back in 24hrs!
+						</h3>
+					)
+				) : (
+					""
+				)}
 			</ApplicationPageHeader>
 			<ApplicationSection>
 				{applicationsObject.length !== 0 ? (

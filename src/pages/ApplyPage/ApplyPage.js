@@ -129,8 +129,7 @@ const ApplyPage = () => {
 	return (
 		<>
 			<NavbarLoggedIn />
-
-			<Form onSubmit={handleSubmit}>
+			<Form onSubmit={handleSubmit} style={{ justifyContent: "space-evenly" }}>
 				<MobileStepper
 					variant="dots"
 					steps={5}
@@ -181,7 +180,6 @@ const ApplyPage = () => {
 								variant="contained"
 								color="primary"
 								type="submit">
-								{/* // onClick={(e) => uploadFileHandler(e)}> */}
 								Apply
 							</Button>
 						)}

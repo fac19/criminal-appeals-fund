@@ -10,7 +10,13 @@ import {
 	SuccessfulStatus,
 	TextWrapper,
 } from "../../StyledComponents/AdditionalDocs.style";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 
+const useStyles = makeStyles({
+	root: {
+		margin: "20px 0 20px 0",
+	},
+});
 const UploadDocuments = () => {
 	const [docsUploaded, setDocsUploaded] = React.useState(false);
 	const history = useHistory();
@@ -19,6 +25,7 @@ const UploadDocuments = () => {
 	const appId = localStorage.getItem("appId");
 	const email = localStorage.getItem("email");
 	const stageName = status === "Criteria met" ? "documentation" : "invoice";
+	const classes = useStyles();
 	const beginUpload = () => {
 		const uploadOptions = {
 			cloudName: "dgc9b8ti3",
@@ -52,8 +59,7 @@ const UploadDocuments = () => {
 		return (
 			<>
 				<NavbarLoggedIn />
-				<PageTitle> Supporting Documentation</PageTitle>
-				{<h1>Upload your supporting documents</h1> && (
+				{<PageTitle> Supporting Documentation</PageTitle> && (
 					<p>
 						As part of the application, please upload supporting evidence on how
 						the case meets the criteria outlined by the Criminal Appeals Fund
@@ -101,7 +107,8 @@ const UploadDocuments = () => {
 						onClick={beginUpload}
 						variant="outlined"
 						color="primary"
-						type="button">
+						type="button"
+						className={classes.root}>
 						{" "}
 						Upload documents
 					</Button>

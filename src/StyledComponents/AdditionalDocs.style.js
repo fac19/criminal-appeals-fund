@@ -6,11 +6,10 @@ const PageTitle = styled.h1`
 	font-size: 2em;
 	color: black;
 	text-align: center;
-	margin-top: 30px;
 `;
 
 const TextWrapper = styled.section`
-	margin: 0 auto;
+	margin: 0 2em;
 `;
 
 const ButtonWrapper = styled.section`

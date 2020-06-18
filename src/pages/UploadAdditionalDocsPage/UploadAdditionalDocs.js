@@ -12,12 +12,13 @@ const UploadDocuments = () => {
 	const status = localStorage.getItem("status");
 	const appId = localStorage.getItem("appId");
 	const email = localStorage.getItem("email");
-	console.log("case", case_name, "status", status, "id", appId);
 	const beginUpload = () => {
+		const folderName = status === "Criteria met" ? "documentation" : "invoice";
+
 		const uploadOptions = {
 			cloudName: "dgc9b8ti3",
-			folder: email + "-" + case_name,
-			use_filename: "true",
+			folder: email,
+			public_id: case_name + "/" + folderName,
 			uploadPreset: "upload",
 		};
 
@@ -37,10 +38,6 @@ const UploadDocuments = () => {
 			// add error message
 		} else {
 			updateAirtable("PUT", "applications", appId, status);
-			localStorage.removeItem("case");
-			localStorage.removeItem("status");
-			localStorage.removeItem("appId");
-			localStorage.removeItem("email");
 			history.push("/profile");
 		}
 	};

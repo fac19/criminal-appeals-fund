@@ -17,7 +17,6 @@ exports.handler = async (request, context) => {
 	const base = new Airtable({
 		apiKey: AIRTABLE_KEY, // secret on Netlify
 	}).base(`${AIRTABLE_BASE}`); // database
-	console.log("status", statusToUpdate);
 	await base(table)
 		.update([
 			{

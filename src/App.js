@@ -8,21 +8,10 @@ import {
 	ApplyPage,
 	UploadDocuments,
 } from "./Pages";
-import { UserContext } from "./Context.js";
 import { MainWrapper } from "./StyledComponents/PageStyles.style";
 // import { GlobalStyle } from "./pages/LandingPage/LandingPage.style";
 
 function App() {
-	const [user, setUser] = React.useState({
-		id: "",
-		first_name: "",
-		isVerified: "",
-	});
-
-	React.useEffect(() => {
-		console.log(user);
-	}, [user]);
-
 	const SiteRoute = ({ path, component }) => {
 		const token = localStorage.getItem("user");
 		if (token) {
@@ -31,7 +20,7 @@ function App() {
 			return <Route path={path}>{component}</Route>;
 		} else {
 			return (
-				<Route path="/">
+				<Route to="/">
 					<LandingPage />
 				</Route>
 			);
@@ -39,20 +28,18 @@ function App() {
 	};
 
 	return (
-		<UserContext.Provider value={[user, setUser]}>
-			<MainWrapper>
-				<Router>
-					<Switch>
-						<SiteRoute path="/login" component={<LogInPage />} />
-						<SiteRoute path="/signup" component={<SignUpPage />} />
-						<SiteRoute path="/profile" component={<ProfilePage />} />
-						<SiteRoute path="/apply" component={<ApplyPage />} />
-						<SiteRoute path="/addinfo" component={<UploadDocuments />} />
-						<SiteRoute exact path="/" component={<LandingPage />} />
-					</Switch>
-				</Router>
-			</MainWrapper>
-		</UserContext.Provider>
+		<MainWrapper>
+			<Router>
+				<Switch>
+					<SiteRoute path="/login" component={<LogInPage />} />
+					<SiteRoute path="/signup" component={<SignUpPage />} />
+					<SiteRoute path="/profile" component={<ProfilePage />} />
+					<SiteRoute path="/apply" component={<ApplyPage />} />
+					<SiteRoute path="/addinfo" component={<UploadDocuments />} />
+					<SiteRoute exact path="/" component={<LandingPage />} />
+				</Switch>
+			</Router>
+		</MainWrapper>
 	);
 }
 

@@ -44,8 +44,8 @@ const ApplyPage = () => {
 		user_id: [user.id],
 		application_merit: "",
 		application_impact: "",
-		docs_uploaded: "no", // use action_date instead
 	});
+	const [docsUploaded, setDocsUploaded] = React.useState(false);
 	const [checked, setChecked] = React.useState(false);
 	const [errorMessage, setErrorMessage] = React.useState("");
 
@@ -62,7 +62,8 @@ const ApplyPage = () => {
 	const beginUpload = () => {
 		const uploadOptions = {
 			cloudName: "dgc9b8ti3",
-			folder: user.email + "-" + form.case_name,
+			folder: user.email,
+			public_id: form.case_name + "/application",
 			uploadPreset: "upload",
 		};
 
@@ -70,8 +71,7 @@ const ApplyPage = () => {
 			if (!error) {
 				if (photos.event === "success") {
 					setErrorMessage("");
-					updateForm({ ...form, docs_uploaded: "yes" });
-					console.log(form.docs_uploaded);
+					setDocsUploaded(true);
 				}
 			} else {
 				console.log(error);
@@ -116,7 +116,7 @@ const ApplyPage = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (form.docs_uploaded === "no") {
+		if (!docsUploaded) {
 			setErrorMessage("Please upload documents");
 		} else {
 			postAirtable("POST", "applications", form).then((response) => {

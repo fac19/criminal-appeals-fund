@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, AppBar, Toolbar } from "@material-ui/core";
-import { UserContext } from "../../Context";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -58,10 +57,9 @@ const Navbar = () => {
 const NavbarLoggedIn = () => {
 	const classes = useStyles();
 	const history = useHistory();
-	const [user, setUser] = React.useContext(UserContext);
 
 	const handleSignOut = () => {
-		setUser({ id: "", first_name: "", isVerified: "" });
+		localStorage.clear();
 		history.push("/");
 	};
 

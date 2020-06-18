@@ -24,7 +24,7 @@
 	"scripts": {
 		"test": "react-scripts test -u --coverage --watchAll=false",
 		"test-watch": "react-scripts test -u --coverage --watchAll",
-		"build": "CI=false react-scripts build",
+		"build": "react-scripts build",
 		"cypress": "cypress open",
 		"start": "react-scripts -r @cypress/instrument-cra start"
 	},

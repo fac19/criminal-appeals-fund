@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 	input: {
 		width: "100%",
 		marginBottom: "3rem",
+		borderColor: "#512b58",
 	},
 }));
 

@@ -1,84 +1,30 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import { Button, AppBar, Toolbar } from "@material-ui/core";
-import styled from "styled-components";
-const useStyles = makeStyles((theme) => ({
-	root: {
-		flexGrow: 1,
-		width: "100vw",
-		height: "8%",
-		marginBottom: "2rem",
-		backgroundColor: "white",
-		position: "fixed",
-		top: 0,
-		left: 0,
-	},
-	menuButton: {
-		marginRight: theme.spacing(2),
-	},
-	title: {
-		flexGrow: 1,
-	},
-	heading: {
-		color: "black",
-	},
-	navButton: {
-		alignSelf: "right",
-	},
-}));
+import { Nav, NavbarLinks, NavbarLink, NavbarTitle } from "./Navbar.style";
 
-// const NavbarNew = styled.div`
-// 	height: 10vh;
-// 	background-color: grey;
-// 	width: 100vh;
-// `;
-
-// const NavbarNew = () => {
-// 		return (
-// 		<div>
-// 			<NavbarNew>
-// 					<Link to="/">
-// 						<h1 className={classes.heading}>Criminal Appeals Fund</h1>
-// 					</Link>
-// 					<Link to="/login">
-// 							Login
-// 					</Link>
-// 					<Link to="/signup">
-// 							Sign Up
-// 					</Link>
-// 			</NavbarNew>
-// 		</div>
-// 	);
-// }
 const Navbar = () => {
-	const classes = useStyles();
-
 	return (
-		<div className={classes.root}>
-			<AppBar className={classes.root} position="static">
-				<Toolbar>
-					<Link to="/">
-						<h1 className={classes.heading}>Criminal Appeals Fund</h1>
+		<Nav>
+			<Link to="/" style={{ textDecoration: "none" }}>
+				<NavbarTitle>Criminal Appeals Fund</NavbarTitle>
+			</Link>
+			<NavbarLinks>
+				<NavbarLink>
+					<Link to="/login" style={{ textDecoration: "none" }}>
+						Login
 					</Link>
-					<Link to="/login">
-						<Button className={classes.navButton} color="inherit">
-							Login
-						</Button>
+				</NavbarLink>
+				<NavbarLink>
+					<Link to="signup" style={{ textDecoration: "none" }}>
+						Sign Up
 					</Link>
-					<Link to="/signup">
-						<Button className={classes.navButton} color="inherit">
-							Sign Up
-						</Button>
-					</Link>
-				</Toolbar>
-			</AppBar>
-		</div>
+				</NavbarLink>
+			</NavbarLinks>
+		</Nav>
 	);
 };
 
 const NavbarLoggedIn = () => {
-	const classes = useStyles();
 	const history = useHistory();
 
 	const handleSignOut = () => {
@@ -87,31 +33,23 @@ const NavbarLoggedIn = () => {
 	};
 
 	return (
-		<div className={classes.root}>
-			<AppBar className={classes.root} position="static">
-				<Toolbar>
-					<h1 className={classes.heading}>Criminal Appeals Fund</h1>
-					<Link to="/profile">
-						<Button className={classes.navButton} color="inherit">
-							My Applications
-						</Button>
+		<Nav>
+			<NavbarTitle>Criminal Appeals Fund</NavbarTitle>
+			<NavbarLinks>
+				<NavbarLink>
+					<Link to="/profile" style={{ textDecoration: "none" }}>
+						My Applications
 					</Link>
-					<Link to="/apply">
-						<Button className={classes.navButton} color="inherit">
-							Apply
-						</Button>
+				</NavbarLink>
+				<NavbarLink>
+					<Link to="/apply" style={{ textDecoration: "none" }}>
+						Apply
 					</Link>
-					<Button
-						className={classes.navButton}
-						onClick={handleSignOut}
-						color="primary">
-						Sign Out
-					</Button>
-				</Toolbar>
-			</AppBar>
-		</div>
+				</NavbarLink>
+				<NavbarLink onClick={handleSignOut}>Sign Out</NavbarLink>
+			</NavbarLinks>
+		</Nav>
 	);
 };
 
 export { Navbar, NavbarLoggedIn };
-// export { NavbarNew };

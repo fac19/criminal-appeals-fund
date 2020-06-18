@@ -16,6 +16,7 @@ const StyledLanding = styled.section`
 
 const HeaderText = styled.p`
 	font-size: 2rem;
+	padding: 0 2rem 4rem;
 `;
 const BodyWrapper = styled.section``;
 
@@ -29,7 +30,7 @@ const HeaderWrapper = styled.section`
 `;
 const StepsWrapper = styled.section`
 	padding: 4em;
-	background-color: #e8e8e8;
+	background-color: #f1f3f4;
 	margin: 2rem 0;
 	padding: none;
 `;

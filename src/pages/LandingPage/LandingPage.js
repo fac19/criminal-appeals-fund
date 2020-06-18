@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	landingButton: {
 		width: "11rem",
 		height: "3rem",
+		backgroundColor: "#f1f3f4",
 	},
 }));
 

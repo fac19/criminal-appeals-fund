@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, makeStyles } from "@material-ui/core";
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	landingButton: {
 		width: "11rem",
 		height: "3rem",
+		backgroundColor: "#f1f3f4",
 	},
 }));
 

@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
+} from "react-router-dom";
 import {
 	LandingPage,
 	LogInPage,
@@ -9,21 +14,24 @@ import {
 	UploadDocuments,
 } from "./Pages";
 import { MainWrapper } from "./StyledComponents/PageStyles.style";
-// import { GlobalStyle } from "./pages/LandingPage/LandingPage.style";
 
 function App() {
 	const SiteRoute = ({ path, component }) => {
 		const token = localStorage.getItem("user");
 		if (token) {
-			return <Route path={path}>{component}</Route>;
-		} else if (path === "/signup" || path === "/login") {
-			return <Route path={path}>{component}</Route>;
-		} else {
+			if (path === "/signup" || path === "/login") {
+				return <Redirect to="/profile" />;
+			} else {
+				return <Route path={path}>{component}</Route>;
+			}
+		} else if (path === "/signup" || path === "/login" || path === "/") {
 			return (
-				<Route to="/">
-					<LandingPage />
+				<Route exact path={path}>
+					{component}
 				</Route>
 			);
+		} else {
+			return <Redirect to="/" />;
 		}
 	};
 

@@ -1,4 +1,5 @@
-// User Story 1. User should be able to log in to their account
+// User Story 1. I want to log in with my exsisting account
+
 describe("User should be able to log in to their account", () => {
 	it("should display Criminal Appeals Fund website", () => {
 		cy.viewport("macbook-15");

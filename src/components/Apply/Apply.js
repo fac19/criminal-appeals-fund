@@ -1,5 +1,12 @@
 import React from "react";
 import {
+	CriteriaInfoList,
+	ApplyInfoListItem,
+	ClusterInfoList,
+	ApplyTitle,
+	ApplySubtitle,
+} from "./Apply.style";
+import {
 	FormControlLabel,
 	Checkbox,
 	FormControl,
@@ -23,13 +30,19 @@ const useStyles = makeStyles({
 const Apply0 = () => {
 	return (
 		<>
-			<h2>Applying For Funding</h2>
-			<h4>First, ensure that your case satisfies the folowing criteria:</h4>
-			<ul>
-				<li>1: You have exhausted all other methods of funding</li>
-				<li>2: Your case has merit</li>
-				<li>3: Your case will have an impact on the criminal justice system</li>
-			</ul>
+			<ApplyTitle>Applying For Funding</ApplyTitle>
+			<ApplySubtitle>
+				First, ensure that your case satisfies the folowing criteria:
+			</ApplySubtitle>
+			<CriteriaInfoList>
+				<ApplyInfoListItem>
+					1: You have exhausted all other methods of funding
+				</ApplyInfoListItem>
+				<ApplyInfoListItem>2: Your case has merit</ApplyInfoListItem>
+				<ApplyInfoListItem>
+					3: Your case will have an impact on the criminal justice system
+				</ApplyInfoListItem>
+			</CriteriaInfoList>
 		</>
 	);
 };
@@ -43,17 +56,16 @@ const Apply1 = ({ checked, setChecked, errorMessage }) => {
 
 	return (
 		<>
-			<h2>Applying For Funding</h2>
-			<h4>
+			<ApplySubtitle>
 				Secondly, read our funding guidelines and decide which cluster your case
 				fits into
-			</h4>
-			<ul>
-				<li>Children</li>
-				<li>Excessive Sentence</li>
-				<li>Families</li>
-				<li>Discrimination</li>
-			</ul>
+			</ApplySubtitle>
+			<ClusterInfoList>
+				<ApplyInfoListItem>Children</ApplyInfoListItem>
+				<ApplyInfoListItem>Excessive Sentence</ApplyInfoListItem>
+				<ApplyInfoListItem>Families</ApplyInfoListItem>
+				<ApplyInfoListItem>Discrimination</ApplyInfoListItem>
+			</ClusterInfoList>
 			<FormControl required>
 				<FormControlLabel
 					className={classes.checkbox}
@@ -65,7 +77,8 @@ const Apply1 = ({ checked, setChecked, errorMessage }) => {
 							color="primary"
 						/>
 					}
-					label="I understand the funding guidelines"></FormControlLabel>
+					label="I understand the criteria and clusters"
+					data-cy="label-i-understand"></FormControlLabel>
 			</FormControl>
 		</>
 	);
@@ -155,6 +168,7 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 				rowsMax={4}
 				required
 				autoFocus
+				data-cy="apply-merits"
 			/>
 
 			<TextField
@@ -168,6 +182,7 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 				onChange={handleInputChange}
 				multiline
 				rowsMax={4}
+				data-cy="apply-impact"
 				required
 			/>
 		</>
@@ -180,17 +195,24 @@ const Apply4 = ({
 	form,
 	handleInputChange,
 	beginUpload,
+	docsUploaded,
 }) => {
 	return (
 		<>
 			<h1>Please upload the following documentation</h1>
 			<ul>
-				<li> Signed waiver of legal privilege</li>
-				<li> Proof of financial means</li>
+				<li>Proof of litigation extension</li>
+				<li>Signed waiver of legal privilege</li>
+				<li>Proof of financial means</li>
 			</ul>
-			<button variant="contained" onClick={() => beginUpload()} type="button">
+			<button variant="contained" onClick={beginUpload} type="button">
 				Upload documents
 			</button>
+			{docsUploaded && (
+				<p>
+					Documents successfully uploaded. Your application is ready to submit.
+				</p>
+			)}
 		</>
 	);
 };

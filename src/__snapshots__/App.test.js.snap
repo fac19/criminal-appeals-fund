@@ -2,97 +2,72 @@
 
 exports[`Snapshot test renders the correct ui 1`] = `
 <main
-  className="sc-fzoXzr glEpCv"
+  className="sc-fzoNJl duuItW"
 >
   <section
-    className="sc-AxjAm fvSFcP"
+    className="sc-AxhUy fZgnqZ"
   >
-    <div
-      className="makeStyles-root-2"
+    <nav
+      className="sc-AxjAm ekthxH"
     >
-      <header
-        className="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary makeStyles-root-2 MuiPaper-elevation4"
+      <a
+        href="/"
+        onClick={[Function]}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
       >
-        <div
-          className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
+        <h1
+          className="sc-AxiKw bCOZED"
         >
-          <a
-            href="/"
-            onClick={[Function]}
-          >
-            <h1
-              className="makeStyles-heading-5"
-            >
-              Criminal Appeals Fund
-            </h1>
-          </a>
+          Criminal Appeals Fund
+        </h1>
+      </a>
+      <ul
+        className="sc-AxirZ bgowxA"
+      >
+        <li
+          className="sc-AxhCb kACtoS"
+        >
           <a
             href="/login"
             onClick={[Function]}
+            style={
+              Object {
+                "textDecoration": "none",
+              }
+            }
           >
-            <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-navButton-6 MuiButton-colorInherit"
-              disabled={false}
-              onBlur={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={0}
-              type="button"
-            >
-              <span
-                className="MuiButton-label"
-              >
-                Login
-              </span>
-            </button>
+            Login
           </a>
+        </li>
+        <li
+          className="sc-AxhCb kACtoS"
+        >
           <a
             href="/signup"
             onClick={[Function]}
+            style={
+              Object {
+                "textDecoration": "none",
+              }
+            }
           >
-            <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-navButton-6 MuiButton-colorInherit"
-              disabled={false}
-              onBlur={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={0}
-              type="button"
-            >
-              <span
-                className="MuiButton-label"
-              >
-                Sign Up
-              </span>
-            </button>
+            Sign Up
           </a>
-        </div>
-      </header>
-    </div>
+        </li>
+      </ul>
+    </nav>
     <section
-      className="sc-AxiKw bOTXee"
+      className="sc-AxheI fniENP"
     >
       <section
-        className="sc-AxhCb jsaiQY"
+        className="sc-Axmtr eKSxtS"
       >
         <p
-          className="sc-AxirZ eqtHGB"
+          className="sc-AxgMl gEzBoH"
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Qualis ista philosophia est, quae non interitum afferat pravitatis, sed sit contenta mediocritate vitiorum? Sed id ne cogitari quidem potest quale sit, ut non repugnet ipsum sibi. Scripta sane et multa et polita, sed nescio quo pacto auctoritatem oratio non habet. Quoniam, si dis placet, ab Epicuro loqui discimus. Duo Reges: constructio interrete.
         </p>
@@ -122,16 +97,16 @@ exports[`Snapshot test renders the correct ui 1`] = `
         </button>
       </section>
       <section
-        className="sc-AxhUy ghvgsN"
+        className="sc-AxmLO jTCqqO"
       >
         <section
-          className="sc-fzozJi jzubSN"
+          className="sc-fznyAO lpgIsG"
         >
           <section
-            className="sc-Axmtr fkNrdF"
+            className="sc-fzpans iKCUrv"
           >
             <h1
-              className="sc-AxgMl bPsToZ"
+              className="sc-fzozJi fRjzZc"
             >
               Step 1:
             </h1>
@@ -141,23 +116,23 @@ exports[`Snapshot test renders the correct ui 1`] = `
           </section>
           <img
             alt="step1"
-            className="sc-AxmLO cmToeC"
+            className="sc-fzplWN iHNLyY"
             src="step1.svg"
           />
         </section>
         <section
-          className="sc-fzozJi jzubSN"
+          className="sc-fznyAO lpgIsG"
         >
           <img
             alt="step2"
-            className="sc-AxmLO cmToeC"
+            className="sc-fzplWN iHNLyY"
             src="step2.svg"
           />
           <section
-            className="sc-Axmtr fkNrdF"
+            className="sc-fzpans iKCUrv"
           >
             <h1
-              className="sc-AxgMl bPsToZ"
+              className="sc-fzozJi fRjzZc"
             >
               Step 2:
             </h1>
@@ -167,13 +142,13 @@ exports[`Snapshot test renders the correct ui 1`] = `
           </section>
         </section>
         <section
-          className="sc-fzozJi jzubSN"
+          className="sc-fznyAO lpgIsG"
         >
           <section
-            className="sc-Axmtr fkNrdF"
+            className="sc-fzpans iKCUrv"
           >
             <h1
-              className="sc-AxgMl bPsToZ"
+              className="sc-fzozJi fRjzZc"
             >
               Step 3:
             </h1>
@@ -183,23 +158,23 @@ exports[`Snapshot test renders the correct ui 1`] = `
           </section>
           <img
             alt="step3"
-            className="sc-AxmLO cmToeC"
+            className="sc-fzplWN iHNLyY"
             src="step3.svg"
           />
         </section>
         <section
-          className="sc-fzozJi jzubSN"
+          className="sc-fznyAO lpgIsG"
         >
           <img
             alt="step4"
-            className="sc-AxmLO cmToeC"
+            className="sc-fzplWN iHNLyY"
             src="step4.svg"
           />
           <section
-            className="sc-Axmtr fkNrdF"
+            className="sc-fzpans iKCUrv"
           >
             <h1
-              className="sc-AxgMl bPsToZ"
+              className="sc-fzozJi fRjzZc"
             >
               Step 4:
             </h1>

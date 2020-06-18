@@ -25,6 +25,10 @@ const useStyles = makeStyles({
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "white",
+		margin: "1rem",
+	},
+	button: {
+		width: "30%",
 	},
 });
 
@@ -41,7 +45,7 @@ const ApplyPage = () => {
 		court_name: "",
 		case_stage: "",
 		status_id: ["recHOTyA7teTAoYHc"],
-		user_id: [user.id],
+		user_email: [user.id],
 		application_merit: "",
 		application_impact: "",
 	});
@@ -56,7 +60,7 @@ const ApplyPage = () => {
 	}, [token]);
 
 	React.useEffect(() => {
-		updateForm({ ...form, user_id: [user.id] });
+		updateForm({ ...form, user_email: [user.id] });
 	}, [user]);
 
 	const beginUpload = () => {
@@ -129,7 +133,7 @@ const ApplyPage = () => {
 		<>
 			<NavbarLoggedIn />
 
-			<Form onSubmit={handleSubmit}>
+			<Form data-cy="apply-form" onSubmit={handleSubmit}>
 				<MobileStepper
 					variant="dots"
 					steps={5}
@@ -159,24 +163,34 @@ const ApplyPage = () => {
 					)}
 					{activeStep === 4 && (
 						<Apply4
+							docsUploaded={docsUploaded}
 							handleInputChange={handleInputChange}
 							form={form}
 							beginUpload={beginUpload}></Apply4>
 					)}
 					<ButtonList>
 						{activeStep !== 4 && (
-							<Button variant="contained" color="primary" onClick={handleNext}>
+							<Button
+								className={classes.button}
+								variant="contained"
+								color="primary"
+								onClick={handleNext}>
 								Next
 							</Button>
 						)}
 						{activeStep === 4 && (
-							<Button variant="contained" color="primary" type="submit">
-								{/* // onClick={(e) => uploadFileHandler(e)}> */}
+							<Button
+								className={classes.button}
+								variant="contained"
+								color="primary"
+								data-cy="apply-button"
+								type="submit">
 								Apply
 							</Button>
 						)}
 						{activeStep !== 0 && (
 							<Button
+								className={classes.button}
 								disabled={activeStep === 0}
 								variant="contained"
 								onClick={handleBack}>
@@ -184,7 +198,9 @@ const ApplyPage = () => {
 							</Button>
 						)}
 					</ButtonList>
-					<ErrorText>{errorMessage ? errorMessage : ""}</ErrorText>
+					<ErrorText data-cy="apply-error">
+						{errorMessage ? errorMessage : ""}
+					</ErrorText>
 				</FormSection>
 			</Form>
 		</>

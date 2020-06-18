@@ -4,11 +4,12 @@ const Form = styled.form`
 	display: flex;
 	height: 500px;
 	flex-direction: column;
-	max-width: 20rem;
+	max-width: 30rem;
 	margin: 8rem auto;
 	align-content: center;
 	align-items: center;
 	justify-content: center;
+	text-align: center;
 `;
 
 const ErrorText = styled.p`

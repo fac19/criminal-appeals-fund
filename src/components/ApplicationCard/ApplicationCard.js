@@ -182,7 +182,8 @@ const ApplicationCard = ({
 							className={classes.statusButton}
 							variant="contained"
 							color="primary"
-							onClick={handleClick}>
+							onClick={handleClick}
+							data-cy="upload-invoice">
 							Upload Invoice
 						</Button>
 						<button

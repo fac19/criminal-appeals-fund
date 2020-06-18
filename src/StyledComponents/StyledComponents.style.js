@@ -13,7 +13,12 @@ const Form = styled.form`
 `;
 
 const ErrorText = styled.p`
-	color: red;
+	color: #ff726f;
+	margin-top: 1rem;
+`;
+
+const UploadSuccess = styled.p`
+	color: #4bb543;
 	margin-bottom: 1rem;
 `;
 
@@ -36,4 +41,4 @@ const ButtonList = styled.ul`
 	margin: 0;
 `;
 
-export { Form, ErrorText, FormSection, ButtonList };
+export { Form, ErrorText, FormSection, ButtonList, UploadSuccess };

@@ -87,16 +87,15 @@ const ApplyPage = () => {
 			setErrorMessage("Please confirm you have understood the guidelines");
 		} else if (
 			activeStep === 2 &&
-			form.case_name === "" &&
-			form.solicitor_name === "" &&
-			form.court_name === "" &&
-			form.case_stage === ""
+			(form.case_name === "" ||
+				form.solicitor_name === "" ||
+				form.court_name === "" ||
+				form.case_stage === "")
 		) {
 			setErrorMessage("Please make sure the required fields are complete");
 		} else if (
 			activeStep === 3 &&
-			form.application_impact === "" &&
-			form.application_merit === ""
+			(form.application_impact === "" || form.application_merit === "")
 		) {
 			setErrorMessage("Please make sure the required fields are complete");
 		} else {

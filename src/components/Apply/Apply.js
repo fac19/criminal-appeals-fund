@@ -5,8 +5,8 @@ import {
 	ClusterInfoList,
 	ApplyTitle,
 	ApplySubtitle,
-	// UploadButton
 } from "./Apply.style";
+import { UploadSuccess } from "../../StyledComponents/StyledComponents.style";
 import {
 	FormControlLabel,
 	Checkbox,
@@ -229,9 +229,9 @@ const Apply4 = ({
 				Upload documents
 			</Button>
 			{docsUploaded && (
-				<p>
+				<UploadSuccess>
 					Documents successfully uploaded. Your application is ready to submit.
-				</p>
+				</UploadSuccess>
 			)}
 		</>
 	);

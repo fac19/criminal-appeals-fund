@@ -28,11 +28,29 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-// const NavbarNew.styled.div`
-// 	height: 5vh,
-// 	background-color: "grey",
+// const NavbarNew = styled.div`
+// 	height: 10vh;
+// 	background-color: grey;
+// 	width: 100vh;
 // `;
 
+// const NavbarNew = () => {
+// 		return (
+// 		<div>
+// 			<NavbarNew>
+// 					<Link to="/">
+// 						<h1 className={classes.heading}>Criminal Appeals Fund</h1>
+// 					</Link>
+// 					<Link to="/login">
+// 							Login
+// 					</Link>
+// 					<Link to="/signup">
+// 							Sign Up
+// 					</Link>
+// 			</NavbarNew>
+// 		</div>
+// 	);
+// }
 const Navbar = () => {
 	const classes = useStyles();
 

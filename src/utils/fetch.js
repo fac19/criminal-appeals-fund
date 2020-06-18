@@ -1,7 +1,5 @@
-import { responsiveFontSizes } from "@material-ui/core";
-
 const postAirtable = (method, table, request) => {
-	return fetch("/.netlify/functions/airtable?table=" + table, {
+	return fetch("/.netlify/functions/post?table=" + table, {
 		method: method,
 		headers: {
 			"Content-Type": "application/json",

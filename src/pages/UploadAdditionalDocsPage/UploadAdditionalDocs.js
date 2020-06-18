@@ -7,9 +7,9 @@ import { Button } from "@material-ui/core";
 import {
 	PageTitle,
 	ButtonWrapper,
-	SuccessfulStatus,
 	TextWrapper,
 } from "../../StyledComponents/AdditionalDocs.style";
+import { SuccessfulText } from "../../StyledComponents/StyledComponents.style";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -72,9 +72,9 @@ const UploadDocuments = () => {
 						Upload documents
 					</button>
 					{docsUploaded && (
-						<SuccessfulStatus>
+						<SuccessfulText>
 							Documents successfully uploaded, this is ready to submit.
-						</SuccessfulStatus>
+						</SuccessfulText>
 					)}
 					<Button onClick={handleClick} variant="outlined" color="primary">
 						{" "}
@@ -113,9 +113,9 @@ const UploadDocuments = () => {
 					</Button>
 
 					{docsUploaded && (
-						<SuccessfulStatus>
+						<SuccessfulText>
 							Documents successfully uploaded, this is ready to submit.
-						</SuccessfulStatus>
+						</SuccessfulText>
 					)}
 					<Button onClick={handleClick} variant="outlined" color="primary">
 						{" "}

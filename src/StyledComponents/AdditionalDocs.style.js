@@ -20,8 +20,4 @@ const ButtonWrapper = styled.section`
 	margin: 0 auto;
 `;
 
-const SuccessfulStatus = styled.p`
-	color: #238823;
-`;
-
-export { PageTitle, ButtonWrapper, SuccessfulStatus, TextWrapper };
+export { PageTitle, ButtonWrapper, TextWrapper };

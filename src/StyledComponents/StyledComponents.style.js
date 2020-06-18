@@ -39,4 +39,4 @@ const ButtonList = styled.ul`
 	margin: 0;
 `;
 
-export { Form, ErrorText, FormSection, ButtonList };
+export { Form, ErrorText, FormSection, ButtonList, SuccessfulText };

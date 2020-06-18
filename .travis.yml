@@ -3,5 +3,5 @@ node_js: 13
 install:
   - npm ci
 script:
-  - npm test
-  - npm run codecov
+  - npm run test
+after-script: bash <(curl -s https://codecov.io/bash)

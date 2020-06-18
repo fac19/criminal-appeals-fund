@@ -63,11 +63,13 @@ const StepWrapper = styled.section`
 	@media (min-width: 768px) {
 		display: grid;
 		&:nth-child(1),
-		&:nth-child(3) {
+		&:nth-child(3),
+		&:nth-child(5) {
 			grid-template-columns: 2fr 1fr;
 		}
 		&:nth-child(2),
-		&:nth-child(4) {
+		&:nth-child(4),
+		&:nth-child(6) {
 			grid-template-columns: 1fr 2fr;
 		}
 	}

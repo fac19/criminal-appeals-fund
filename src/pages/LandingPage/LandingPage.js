@@ -19,6 +19,8 @@ import step1 from "./assets/step1.svg";
 import step2 from "./assets/step2.svg";
 import step3 from "./assets/step3.svg";
 import step4 from "./assets/step4.svg";
+import step5 from "./assets/step5.svg";
+import step6 from "./assets/step6.svg";
 
 const useStyles = makeStyles((theme) => ({
 	landingButton: {
@@ -49,13 +51,15 @@ const LandingPage = () => {
 			<BodyWrapper>
 				<HeaderWrapper>
 					<HeaderText>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Qualis ista
-						philosophia est, quae non interitum afferat pravitatis, sed sit
-						contenta mediocritate vitiorum? Sed id ne cogitari quidem potest
-						quale sit, ut non repugnet ipsum sibi. Scripta sane et multa et
-						polita, sed nescio quo pacto auctoritatem oratio non habet. Quoniam,
-						si dis placet, ab Epicuro loqui discimus. Duo Reges: constructio
-						interrete.
+						The Criminal Appeals Fund was born out of a need to improve the
+						legal aid sector and overhaul the criminal justice field in the UK.
+						We are an organisation that provides a platform for legal
+						professionals to obtain funding for their cases. In doing so, our
+						aim is to provide a more streamlined process when other avenues have
+						been exhausted. Our screening process looks to find cases with merit
+						and the potential to transform the criminal justice field. We want
+						to provide those caught up in an unfair system the opportunity to
+						have a second chance.
 					</HeaderText>
 
 					<Button
@@ -68,7 +72,7 @@ const LandingPage = () => {
 				<StepsWrapper ref={ref}>
 					<StepWrapper>
 						<StepsText>
-							<StepHeading>Step 1:</StepHeading>
+							<StepHeading>Step 1</StepHeading>
 							<p>
 								Sign up for an account. We will need to verify your account
 								before you can start appyling for funding - this may take up to
@@ -81,7 +85,7 @@ const LandingPage = () => {
 					<StepWrapper>
 						<StepsImg src={step2} alt="step2" />
 						<StepsText>
-							<StepHeading>Step 2:</StepHeading>
+							<StepHeading>Step 2</StepHeading>
 							<p>
 								Once your account is verified you may apply for funding on a
 								case.
@@ -91,7 +95,7 @@ const LandingPage = () => {
 
 					<StepWrapper>
 						<StepsText>
-							<StepHeading>Step 3:</StepHeading>
+							<StepHeading>Step 3</StepHeading>
 							<p>
 								Your case will be assessed against a number of criteria and may
 								be approved for funding
@@ -103,10 +107,32 @@ const LandingPage = () => {
 					<StepWrapper>
 						<StepsImg src={step4} alt="step4" />
 						<StepsText>
-							<StepHeading>Step 4:</StepHeading>
+							<StepHeading>Step 4</StepHeading>
+							<p>
+								If your case is approved, you will be asked to provide
+								supporting documentation for the application
+							</p>
+						</StepsText>
+					</StepWrapper>
+
+					<StepWrapper>
+						<StepsText>
+							<StepHeading>Step 5</StepHeading>
 							<p>
 								If your case is approved, you will need to generate an invoice
 								to receive the funding
+							</p>
+						</StepsText>
+						<StepsImg src={step5} alt="step5" />
+					</StepWrapper>
+
+					<StepWrapper>
+						<StepsImg src={step6} alt="step6" />
+						<StepsText>
+							<StepHeading>Step 6</StepHeading>
+							<p>
+								Once we have all the required documents, funding will be
+								provided for your case
 							</p>
 						</StepsText>
 					</StepWrapper>

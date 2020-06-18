@@ -4,7 +4,19 @@ import { openUploadWidget } from "../../utils/cloudinary";
 import { useHistory } from "react-router-dom";
 import { updateAirtable } from "../../utils/fetch";
 import { Button } from "@material-ui/core";
+import {
+	PageTitle,
+	ButtonWrapper,
+	TextWrapper,
+} from "../../StyledComponents/AdditionalDocs.style";
+import { SuccessfulText } from "../../StyledComponents/StyledComponents.style";
+import { makeStyles } from "@material-ui/core/styles";
 
+const useStyles = makeStyles({
+	root: {
+		margin: "20px 0 20px 0",
+	},
+});
 const UploadDocuments = () => {
 	const [docsUploaded, setDocsUploaded] = React.useState(false);
 	const history = useHistory();
@@ -13,6 +25,7 @@ const UploadDocuments = () => {
 	const appId = localStorage.getItem("appId");
 	const email = localStorage.getItem("email");
 	const stageName = status === "Criteria met" ? "documentation" : "invoice";
+	const classes = useStyles();
 	const beginUpload = () => {
 		const uploadOptions = {
 			cloudName: "dgc9b8ti3",
@@ -46,46 +59,69 @@ const UploadDocuments = () => {
 		return (
 			<>
 				<NavbarLoggedIn />
-				{<h1>Upload your supporting documents</h1> && (
+				{<PageTitle> Supporting Documentation</PageTitle> && (
 					<p>
 						As part of the application, please upload supporting evidence on how
 						the case meets the criteria outlined by the Criminal Appeals Fund
 					</p>
 				)}
-				<button onClick={beginUpload} type="button">
-					{" "}
-					Upload documents
-				</button>
-				{docsUploaded && (
-					<p>Documents successfully uploaded, this is ready to submit.</p>
-				)}
-				<Button onClick={handleClick} variant="outlined" color="primary">
-					{" "}
-					Submit documentation
-				</Button>
+				s
+				<ButtonWrapper>
+					<button onClick={beginUpload} type="button">
+						{" "}
+						Upload documents
+					</button>
+					{docsUploaded && (
+						<SuccessfulText>
+							Documents successfully uploaded, this is ready to submit.
+						</SuccessfulText>
+					)}
+					<Button onClick={handleClick} variant="outlined" color="primary">
+						{" "}
+						Submit documentation
+					</Button>
+				</ButtonWrapper>
 			</>
 		);
 	} else {
 		return (
 			<>
 				<NavbarLoggedIn />
-				{<h1>Upload your invoice</h1> && (
+				<PageTitle> Upload your invoice</PageTitle>
+
+				<TextWrapper>
+					<p>Congratulations on securing funding!</p>
 					<p>
-						Congratulations on securing funding! Please upload your invoice here
-						so that we can process this as quickly as posisible.
+						Upload your invoice here so that we can process this as quickly as
+						possible.
 					</p>
-				)}
-				<button onClick={beginUpload} type="button">
-					{" "}
-					Upload documents
-				</button>
-				{docsUploaded && (
-					<p>Documents successfully uploaded, this is ready to submit.</p>
-				)}
-				<Button onClick={handleClick} variant="outlined" color="primary">
-					{" "}
-					Submit documentation
-				</Button>
+					<p>
+						Please ensure your it is in one of the following formats: pdf, docx
+						or doc.
+					</p>
+				</TextWrapper>
+
+				<ButtonWrapper>
+					<Button
+						onClick={beginUpload}
+						variant="outlined"
+						color="primary"
+						type="button"
+						className={classes.root}>
+						{" "}
+						Upload documents
+					</Button>
+
+					{docsUploaded && (
+						<SuccessfulText>
+							Documents successfully uploaded, this is ready to submit.
+						</SuccessfulText>
+					)}
+					<Button onClick={handleClick} variant="outlined" color="primary">
+						{" "}
+						Submit documentation
+					</Button>
+				</ButtonWrapper>
 			</>
 		);
 	}

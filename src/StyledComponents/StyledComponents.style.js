@@ -23,6 +23,10 @@ const UploadSuccess = styled.p`
 	margin-bottom: 1rem;
 `;
 
+const SuccessfulText = styled.p`
+	color: #238823;
+`;
+
 const FormSection = styled.section`
 	min-height: 80%;
 	width: 100%;
@@ -42,4 +46,11 @@ const ButtonList = styled.ul`
 	margin: 0;
 `;
 
-export { Form, ErrorText, FormSection, ButtonList, UploadSuccess };
+export {
+	Form,
+	ErrorText,
+	FormSection,
+	ButtonList,
+	UploadSuccess,
+	SuccessfulText,
+};

@@ -45,13 +45,15 @@ const LandingPage = () => {
 			<BodyWrapper>
 				<HeaderWrapper>
 					<HeaderText>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Qualis ista
-						philosophia est, quae non interitum afferat pravitatis, sed sit
-						contenta mediocritate vitiorum? Sed id ne cogitari quidem potest
-						quale sit, ut non repugnet ipsum sibi. Scripta sane et multa et
-						polita, sed nescio quo pacto auctoritatem oratio non habet. Quoniam,
-						si dis placet, ab Epicuro loqui discimus. Duo Reges: constructio
-						interrete.
+						The Criminal Appeals Fund was born out of a need to improve the
+						legal aid sector and overhaul the criminal justice field in the UK.
+						We are an organisation that provides a platform for legal
+						professionals to obtain funding for their cases. In doing so, our
+						aim is to provide a more streamlined process when other avenues have
+						been exhausted. Our screening process looks to find cases with merit
+						and the potential to transform the criminal justice field. We want
+						to provide those caught up in an unfair system the opportunity to
+						have a second chance.
 					</HeaderText>
 
 					<Button

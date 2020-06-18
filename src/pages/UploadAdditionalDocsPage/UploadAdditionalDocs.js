@@ -7,9 +7,9 @@ import { UserContext } from "../../Context";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
-const UploadDocuments = ({ case_name }) => {
+const UploadDocuments = ({ case_name, status }) => {
 	console.log(case_name);
-	const [user, setUser] = React.useState(UserContext);
+	const [user, setUser] = React.useState({});
 	const [docsUploaded, setDocsUploaded] = React.useState(false);
 	const history = useHistory();
 	const beginUpload = () => {
@@ -39,6 +39,7 @@ const UploadDocuments = ({ case_name }) => {
 	};
 
 	return (
+		// if status = 2 upload docs, =4 upload invoice
 		<>
 			<NavbarLoggedIn />
 			<h1>Upload you supporting documents</h1>

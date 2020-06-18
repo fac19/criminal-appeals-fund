@@ -3,8 +3,8 @@ import { NavbarLoggedIn } from "../../components/Navbar/Navbar";
 import { ApplicationCard } from "../../components/ApplicationCard/ApplicationCard";
 import { UserContext } from "../../Context";
 import { Button, makeStyles } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { getAirtable } from "../../utils/fetch";
+import { Link, useHistory, Redirect } from "react-router-dom";
+import { getAirtable, updateAirtable } from "../../utils/fetch";
 import {
 	ApplicationSection,
 	ApplicationPageHeader,
@@ -15,24 +15,34 @@ import {
 const useStyles = makeStyles((theme) => {});
 
 const ProfilePage = () => {
+	const history = useHistory();
 	const classes = useStyles();
 	const token = localStorage.getItem("user");
-	const [user, setUser] = React.useState(UserContext);
+	const [user, setUser] = React.useState({});
+	const [withdraw, setWithdraw] = React.useState(false);
 	const [applicationsObject, setApplicationsObject] = React.useState([]);
 	const [applicationMessage, setApplicationMessage] = React.useState(
 		"Loading..."
 	);
-	// const dummyUser = { id: ["recazQW1JnmB6CxAy"] }
 
-	const makeApplicationCard = (applicationsObject) => {
-		return applicationsObject.map((application) => {
-			return <ApplicationCard key={application.id} {...application} />;
+	const handleWithdraw = (event) => {
+		const applicationId = event.target.id;
+		updateAirtable("PUT", "applications", applicationId).then(() => {
+			setWithdraw(!withdraw);
 		});
 	};
 
-	// const handleWithdraw = () => {
-	// 	updateAirtable('PUT')
-	// }
+	const makeApplicationCard = (applicationsObject) => {
+		return applicationsObject.map((application) => {
+			return (
+				<ApplicationCard
+					handleWithdraw={handleWithdraw}
+					key={application.id}
+					{...application}
+				/>
+			);
+		});
+	};
 
 	React.useEffect(() => {
 		getAirtable("GET", "applications", token).then((data) => {
@@ -44,7 +54,7 @@ const ProfilePage = () => {
 				setApplicationsObject(data.response);
 			}
 		});
-	}, [token]);
+	}, [token, withdraw]);
 
 	React.useEffect(() => {
 		getAirtable("GET", "applicants", token).then((data) => {

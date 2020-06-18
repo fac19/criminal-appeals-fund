@@ -88,13 +88,12 @@ const UploadDocuments = () => {
 			<>
 				<NavbarLoggedIn />
 				<PageTitle> Upload your invoice</PageTitle>
-				{<h1>Upload your invoice</h1> && (
-					<p>Congratulations on securing funding!</p>
-				)}
+
 				<TextWrapper>
+					<p>Congratulations on securing funding!</p>
 					<p>
 						Upload your invoice here so that we can process this as quickly as
-						posisible.
+						possible.
 					</p>
 					<p>
 						Please ensure your it is in one of the following formats: pdf, docx

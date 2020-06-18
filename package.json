@@ -24,9 +24,9 @@
 	"scripts": {
 		"test": "react-scripts test -u --coverage --watchAll=false",
 		"test-watch": "react-scripts test -u --coverage --watchAll",
-		"start": "react-scripts start",
 		"build": "CI=false react-scripts build",
-		"cypress:open": "cypress open"
+		"cypress": "cypress open",
+		"start": "react-scripts -r @cypress/instrument-cra start"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -45,11 +45,13 @@
 	},
 	"devDependencies": {
 		"@cypress/code-coverage": "^3.8.1",
+		"@cypress/instrument-cra": "^1.1.1",
 		"codecov": "^3.7.0",
 		"cypress": "^4.8.0",
 		"husky": "^4.2.5",
 		"jest-fetch-mock": "^3.0.3",
 		"netlify-cli": "^2.54.0",
+		"nyc": "^15.1.0",
 		"prettier": "^2.0.5",
 		"pretty-quick": "^2.0.1",
 		"react-test-renderer": "^16.13.1"
@@ -58,5 +60,8 @@
 		"hooks": {
 			"pre-commit": "pretty-quick --staged"
 		}
+	},
+	"nyc": {
+		"report-dir": "coverage/cypress-coverage"
 	}
 }

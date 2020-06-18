@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 const Form = styled.form`
 	display: flex;
-	height: 500px;
+	min-height: 500px;
 	flex-direction: column;
 	max-width: 30rem;
 	margin: 8rem auto;
 	align-content: center;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-evenly;
 	text-align: center;
 `;
 
@@ -24,7 +24,7 @@ const FormSection = styled.section`
 	margin-bottom: 1rem;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
+	justify-content: center;
 `;
 
 const ButtonList = styled.ul`

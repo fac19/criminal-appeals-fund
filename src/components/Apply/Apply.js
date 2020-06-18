@@ -16,7 +16,8 @@ import {
 
 const useStyles = makeStyles({
 	checkbox: {
-		margin: "1rem auto",
+		margin: "0rem auto",
+		marginBottom: "1rem",
 	},
 	input: {
 		marginBottom: "1rem",

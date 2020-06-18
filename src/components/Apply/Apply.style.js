@@ -27,6 +27,11 @@ const ApplyInfoListItem = styled.li`
 	margin-bottom: 1rem;
 	box-sizing: border-box;
 	font-size: 1.1rem;
+	box-shadow: 0 0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
+	transition: 0.3s;
+	&:hover {
+		box-shadow: 0 0.4em 0.4em 0 rgba(0, 0, 0, 0.3);
+	}
 `;
 
 const ApplyTitle = styled.h2`
@@ -34,6 +39,7 @@ const ApplyTitle = styled.h2`
 `;
 
 const ApplySubtitle = styled.h4`
+	margin-top: 1rem;
 	font-size: 1.1rem;
 	opacity: 0.9;
 	font-weight: 400;

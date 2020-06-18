@@ -16,7 +16,7 @@ exports.handler = async (request, context) => {
 	let view = "";
 	let userId = "";
 	if (table === "applications") {
-		view = "All Cases";
+		view = "full_view";
 		userId = "user_id";
 	} else {
 		view = "full_view";

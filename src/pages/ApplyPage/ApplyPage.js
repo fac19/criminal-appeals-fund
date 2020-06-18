@@ -25,7 +25,6 @@ const useStyles = makeStyles({
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "white",
-		margin: "1rem",
 	},
 	button: {
 		width: "30%",
@@ -85,9 +84,7 @@ const ApplyPage = () => {
 
 	const handleNext = (event) => {
 		if (activeStep === 1 && checked === false) {
-			setErrorMessage(
-				"Please confirm you have understood the funding guidelines"
-			);
+			setErrorMessage("Please confirm you have understood the guidelines");
 		} else if (
 			activeStep === 2 &&
 			form.case_name === "" &&

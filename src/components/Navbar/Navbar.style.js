@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Nav = styled.nav`
-	min-height: 4rem;
+	max-height: 7rem;
 	background-color: #f1f3f4;
 	position: fixed;
 	width: 100%;

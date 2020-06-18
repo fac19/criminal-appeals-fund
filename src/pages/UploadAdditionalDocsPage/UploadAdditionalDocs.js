@@ -3,19 +3,21 @@ import { NavbarLoggedIn } from "../../components/Navbar/Navbar";
 import { openUploadWidget } from "../../utils/cloudinary";
 import { useHistory } from "react-router-dom";
 import { updateAirtable } from "../../utils/fetch";
-import { UserContext } from "../../Context";
-import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
-const UploadDocuments = ({ case_name, status }) => {
-	console.log(case_name);
-	const [user, setUser] = React.useState({});
+const UploadDocuments = () => {
 	const [docsUploaded, setDocsUploaded] = React.useState(false);
 	const history = useHistory();
+	const case_name = localStorage.getItem("case");
+	const status = localStorage.getItem("status");
+	const appId = localStorage.getItem("appId");
+	const email = localStorage.getItem("email");
+	console.log("case", case_name, "status", status, "id", appId);
 	const beginUpload = () => {
 		const uploadOptions = {
 			cloudName: "dgc9b8ti3",
-			folder: user.email + "-" + case_name,
+			folder: email + "-" + case_name,
+			use_filename: "true",
 			uploadPreset: "upload",
 		};
 
@@ -34,6 +36,11 @@ const UploadDocuments = ({ case_name, status }) => {
 		if (!docsUploaded) {
 			// add error message
 		} else {
+			updateAirtable("PUT", "applications", appId, status);
+			localStorage.removeItem("case");
+			localStorage.removeItem("status");
+			localStorage.removeItem("appId");
+			localStorage.removeItem("email");
 			history.push("/profile");
 		}
 	};

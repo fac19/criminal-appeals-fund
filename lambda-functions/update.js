@@ -6,18 +6,24 @@ exports.handler = async (request, context) => {
 	const table = request.queryStringParameters.table; //e.g. "Applications%20for%20funding"
 	// what we sent from front end
 	const id = request.queryStringParameters.applicationId;
-	const withdraw = "recFO2XAO0lavb6Bl";
+	const status = request.queryStringParameters.status;
+	const statusToUpdate =
+		status === "Criteria met"
+			? "recsRFqoiqbRXqS6Y"
+			: status === "Success"
+			? "reclNR9Tz81enCVKh"
+			: "recFO2XAO0lavb6Bl";
 	// update 3 Upload docs and 5 Invoice
 	const base = new Airtable({
 		apiKey: AIRTABLE_KEY, // secret on Netlify
 	}).base(`${AIRTABLE_BASE}`); // database
-
+	console.log("status", statusToUpdate);
 	await base(table)
 		.update([
 			{
 				id: id,
 				fields: {
-					status_id: [withdraw],
+					status_id: [statusToUpdate],
 				},
 			},
 		])

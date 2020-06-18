@@ -8,7 +8,7 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import {
 	ApplicationCardContainer,
@@ -37,12 +37,28 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ApplicationCard = ({ handleWithdraw, id, case_name, status_name }) => {
+const ApplicationCard = ({
+	handleWithdraw,
+	id,
+	case_name,
+	status_name,
+	userEmail,
+}) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [userAction, setUserAction] = React.useState(false);
 	const [isSuccessful, setIsSuccesful] = React.useState(false);
 	const steps = ["Stage 1", "Stage 2", "Stage 3", "Stage 4"];
+	const history = useHistory();
+
+	const handleClick = (event) => {
+		event.preventDefault();
+		localStorage.setItem("case", case_name);
+		localStorage.setItem("appId", id);
+		localStorage.setItem("status", status_name);
+		localStorage.setItem("email", userEmail);
+		history.push("/addinfo");
+	};
 
 	React.useEffect(() => {
 		const statusUpdater = () => {
@@ -145,14 +161,14 @@ const ApplicationCard = ({ handleWithdraw, id, case_name, status_name }) => {
 
 				{activeStep === 1 && userAction && (
 					<>
-						<Link to="/addinfo">
-							<Button
-								className={classes.statusButton}
-								variant="contained"
-								color="primary">
-								Upload supporting documents
-							</Button>
-						</Link>
+						<Button
+							className={classes.statusButton}
+							variant="contained"
+							color="primary"
+							id={id}
+							onClick={handleClick}>
+							Upload supporting documents
+						</Button>
 						<button
 							onClick={handleWithdraw}
 							className={classes.statusButton}
@@ -177,7 +193,8 @@ const ApplicationCard = ({ handleWithdraw, id, case_name, status_name }) => {
 						<Button
 							className={classes.statusButton}
 							variant="contained"
-							color="primary">
+							color="primary"
+							onClick={handleClick}>
 							Upload Invoice
 						</Button>
 						<button

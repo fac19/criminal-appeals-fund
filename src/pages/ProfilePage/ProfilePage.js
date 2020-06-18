@@ -27,9 +27,11 @@ const ProfilePage = () => {
 
 	const handleWithdraw = (event) => {
 		const applicationId = event.target.id;
-		updateAirtable("PUT", "applications", applicationId).then(() => {
-			setWithdraw(!withdraw);
-		});
+		updateAirtable("PUT", "applications", applicationId, "Withdrawn").then(
+			() => {
+				setWithdraw(!withdraw);
+			}
+		);
 	};
 
 	const makeApplicationCard = (applicationsObject) => {
@@ -38,6 +40,7 @@ const ProfilePage = () => {
 				<ApplicationCard
 					handleWithdraw={handleWithdraw}
 					key={application.id}
+					userEmail={user.email}
 					{...application}
 				/>
 			);

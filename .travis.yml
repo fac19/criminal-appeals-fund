@@ -4,4 +4,6 @@ install:
   - npm ci
 script:
   - npm run test
-after-script: bash <(curl -s https://codecov.io/bash) -t token
+after-script:
+  - bash <(curl -s https://codecov.io/bash) -t token -f coverage/coverage-final.json
+  - bash <(curl -s https://codecov.io/bash) -t token -f .nyc_output/out.json

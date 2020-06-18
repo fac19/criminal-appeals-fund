@@ -16,6 +16,7 @@ exports.handler = async (request, context) => {
 	let data = [];
 	if (requestMethod === "POST") {
 		const requestBody = JSON.parse(request.body);
+		console.log("hey", request.body.password);
 		if (requestBody.password) {
 			await bcrypt
 				.genSalt(10)

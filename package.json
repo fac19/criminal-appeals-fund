@@ -48,7 +48,9 @@
 		"@cypress/instrument-cra": "^1.1.1",
 		"codecov": "^3.7.0",
 		"cypress": "^4.8.0",
+		"cypress-file-upload": "^4.0.7",
 		"husky": "^4.2.5",
+		"istanbul-lib-coverage": "^3.0.0",
 		"jest-fetch-mock": "^3.0.3",
 		"netlify-cli": "^2.54.0",
 		"nyc": "^15.1.0",
@@ -60,8 +62,5 @@
 		"hooks": {
 			"pre-commit": "pretty-quick --staged"
 		}
-	},
-	"nyc": {
-		"report-dir": "coverage/cypress-coverage"
 	}
 }

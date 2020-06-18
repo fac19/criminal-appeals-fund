@@ -1,4 +1,4 @@
-// User Story 1.
+// User Story 1. User should be able to log in to their account
 describe("User should be able to log in to their account", () => {
 	it("should display Criminal Appeals Fund website", () => {
 		cy.viewport("macbook-15");
@@ -11,7 +11,8 @@ describe("User should be able to log in to their account", () => {
 		cy.contains("Login").click();
 		cy.url().should("include", "/login");
 	});
-	it("should throw the error message if the password doesn't match", () => {
+
+	it("should throw an error message if the password doesn't match", () => {
 		cy.get("#email").type("itsina96@gmail.com");
 		cy.get("#password").type("123");
 		cy.get("[data-cy=submit]").click();
@@ -23,8 +24,9 @@ describe("User should be able to log in to their account", () => {
 
 	it("should be able to render profile page after user successfully logged in", () => {
 		cy.visit("/login");
-		cy.get("#email").type("campbellsofitsidocherty@gmail.com");
-		cy.get("#password").type("12345678");
+		cy.get("#email").type("itsina96@gmail.com");
+		cy.get("#password").type("1234");
 		cy.get("[data-cy=submit]").click();
+		cy.url().should("include", "/profile");
 	});
 });

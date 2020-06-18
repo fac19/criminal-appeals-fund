@@ -1,4 +1,7 @@
-//As a user, I want to be able to create an account on the website to obtain funding for applications
+//User story 2. I want to be able to create an account on the website to obtain funding for applications
+
+import "cypress-file-upload";
+
 describe("Users should be able to create an account", () => {
 	it("Displays the signup button on the landing page", () => {
 		cy.visit("/");
@@ -31,6 +34,18 @@ describe("Users should be able to create an account", () => {
 	});
 
 	it("Users can upload proof of identity via the Cloudinary widget", () => {
+		const yourFixturePath = "data.json";
 		cy.get("[data-cy=upload-img]").contains("Upload Image").click();
+		cy.get("input[type='file']").click();
 	});
+
+	// it("Testing picture uploading", () => {
+	// 	cy.fixture("testPicture.png").then((fileContent) => {
+	// 		cy.get('input[type="file"]').upload({
+	// 			fileContent: fileContent.toString(),
+	// 			fileName: "testPicture.png",
+	// 			mimeType: "image/png",
+	// 		});
+	// 	});
+	// });
 });

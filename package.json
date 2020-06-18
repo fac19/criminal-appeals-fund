@@ -25,7 +25,7 @@
 		"test": "react-scripts test -u --coverage --watchAll=false",
 		"test-watch": "react-scripts test -u --coverage --watchAll",
 		"build": "CI=false react-scripts build",
-		"cypress": "cypress open",
+		"cypress:open": "cypress open",
 		"start": "react-scripts -r @cypress/instrument-cra start"
 	},
 	"eslintConfig": {

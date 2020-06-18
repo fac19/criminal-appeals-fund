@@ -72,7 +72,7 @@ const ProfilePage = () => {
 			<NavbarLoggedIn />
 			<ApplicationPageHeader>
 				<ApplicantInfo>
-					<ApplicantName>
+					<ApplicantName data-cy="applicant-name">
 						{user.length !== 0
 							? `Hello, ${user.first_name} ${user.last_name}`
 							: ""}
@@ -83,6 +83,7 @@ const ProfilePage = () => {
 								<Button
 									className={classes.applyButton}
 									variant="contained"
+									data-cy="funding"
 									color="primary">
 									Apply for funding
 								</Button>

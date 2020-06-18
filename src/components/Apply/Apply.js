@@ -35,6 +35,9 @@ const useStyles = makeStyles({
 		margin: "0 auto",
 		marginBottom: "2rem",
 		width: "50%",
+		textTransform: "none",
+		fontFamily: "IBM Plex Serif, serif",
+		fontSize: "1.1rem",
 	},
 });
 

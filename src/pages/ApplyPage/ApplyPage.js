@@ -28,6 +28,9 @@ const useStyles = makeStyles({
 	},
 	button: {
 		width: "30%",
+		textTransform: "none",
+		fontFamily: "IBM Plex Serif, serif",
+		fontSize: "1.1rem",
 	},
 });
 
@@ -117,7 +120,7 @@ const ApplyPage = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (!docsUploaded) {
-			setErrorMessage("Please upload documents");
+			setErrorMessage("Please upload the necessary documents");
 		} else {
 			postAirtable("POST", "applications", form).then((response) => {
 				history.push("/profile");

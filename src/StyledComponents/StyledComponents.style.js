@@ -14,7 +14,8 @@ const Form = styled.form`
 
 const ErrorText = styled.p`
 	color: #ff726f;
-	margin-top: 1rem;
+	margin-top: 2rem;
+	font-size: 1.1rem;
 `;
 
 const UploadSuccess = styled.p`

@@ -24,6 +24,9 @@ const useStyles = makeStyles({
 	},
 	signUpButton: {
 		width: "40%",
+		textDecoration: "none",
+		fontFamily: "IBM Plex Serif, serif",
+		fontSize: "1.1rem",
 	},
 	hiddenButton: {
 		visibility: "hidden",
@@ -58,6 +61,7 @@ const SignUpPage = () => {
 			if (!error) {
 				if (photos.event === "success") {
 					setDocsUploaded(true);
+					setErrorMessage("");
 				}
 			} else {
 				console.log(error);
@@ -122,21 +126,6 @@ const SignUpPage = () => {
 			setErrorMessage("Please upload a form of identification");
 		}
 	};
-
-	const nextOnEnter = (event) => {
-		if (event.keyCode === 13) {
-			if (activeStep === 2) {
-				handleSubmit();
-			} else {
-				handleNext();
-			}
-		}
-	};
-
-	React.useEffect(() => {
-		window.addEventListener("keyup", nextOnEnter);
-		return () => window.removeEventListener("keyup", nextOnEnter);
-	}, []);
 
 	return (
 		<>

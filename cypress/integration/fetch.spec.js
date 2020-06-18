@@ -1,17 +1,17 @@
-import { apiUrl } from "../../cypress";
+// import { apiUrl } from "../../cypress";
 
-describe("API testing with Cypress", () => {
-	beforeEach(() => {
-		cy.request(apiUrl);
-	});
+// describe("API testing with Cypress", () => {
+// 	beforeEach(() => {
+// 		cy.request(apiUrl);
+// 	});
 
-	it("Validate the header", () => {
-		cy.get("recQJCWRxSU4oqQBi")
-			.its("headers")
-			.its("content-type")
-			.should("include", "application/json");
-	});
-});
+// 	it("Validate the header", () => {
+// 		cy.get("recQJCWRxSU4oqQBi")
+// 			.its("headers")
+// 			.its("content-type")
+// 			.should("include", "application/json");
+// 	});
+// });
 
 // require("jest-fetch-mock").enableMocks();
 

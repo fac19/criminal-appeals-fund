@@ -131,7 +131,10 @@ const ApplyPage = () => {
 	return (
 		<>
 			<NavbarLoggedIn />
-			<Form onSubmit={handleSubmit} style={{ justifyContent: "space-evenly" }}>
+			<Form
+				data-cy="apply-form"
+				onSubmit={handleSubmit}
+				style={{ justifyContent: "space-evenly" }}>
 				<MobileStepper
 					variant="dots"
 					steps={5}
@@ -183,6 +186,7 @@ const ApplyPage = () => {
 								className={classes.button}
 								variant="contained"
 								color="primary"
+								data-cy="apply-button"
 								type="submit">
 								Apply
 							</Button>
@@ -197,7 +201,9 @@ const ApplyPage = () => {
 							</Button>
 						)}
 					</ButtonList>
-					<ErrorText>{errorMessage ? errorMessage : ""}</ErrorText>
+					<ErrorText data-cy="apply-error">
+						{errorMessage ? errorMessage : ""}
+					</ErrorText>
 				</FormSection>
 			</Form>
 		</>

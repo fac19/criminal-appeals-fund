@@ -90,7 +90,8 @@ const Apply1 = ({ checked, setChecked, errorMessage }) => {
 							color="primary"
 						/>
 					}
-					label="I understand the criteria and clusters"></FormControlLabel>
+					label="I understand the criteria and clusters"
+					data-cy="label-i-understand"></FormControlLabel>
 			</FormControl>
 		</>
 	);
@@ -183,6 +184,7 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 				required
 				autoFocus
 				className={classes.meritInput}
+				data-cy="apply-merits"
 			/>
 
 			<TextField
@@ -196,6 +198,7 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 				onChange={handleInputChange}
 				multiline
 				rowsMax={4}
+				data-cy="apply-impact"
 				required
 				className={classes.meritInput}
 			/>

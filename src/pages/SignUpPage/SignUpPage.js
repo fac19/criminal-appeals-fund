@@ -193,7 +193,9 @@ const SignUpPage = () => {
 						</Button>
 					)}
 				</ButtonList>
-				<ErrorText>{errorMessage ? errorMessage : ""}</ErrorText>
+				<ErrorText data-cy="signup-error">
+					{errorMessage ? errorMessage : ""}
+				</ErrorText>
 			</Form>
 		</>
 	);

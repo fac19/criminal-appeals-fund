@@ -88,10 +88,13 @@ const LogInPage = () => {
 					className={classes.logInButton}
 					variant="contained"
 					color="primary"
-					type="submit">
+					type="submit"
+					data-cy="submit">
 					Log In
 				</Button>
-				<ErrorText>{errorMessage ? errorMessage : ""}</ErrorText>
+				<ErrorText data-cy="login-form-error">
+					{errorMessage ? errorMessage : ""}
+				</ErrorText>
 			</Form>
 		</>
 	);

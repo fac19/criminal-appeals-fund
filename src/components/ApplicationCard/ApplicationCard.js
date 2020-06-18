@@ -138,7 +138,8 @@ const ApplicationCard = ({
 						<StatusButton
 							variant="contained"
 							color="primary"
-							onClick={handleClick}>
+							onClick={handleClick}
+							data-cy="upload-invoice">
 							Upload Invoice
 						</StatusButton>
 					</>

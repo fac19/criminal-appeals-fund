@@ -121,6 +121,7 @@ const SignUp1 = ({
 					variant="outlined"
 					onChange={handleOnChange}
 					type="Password"
+					data-cy="signup-password"
 					autoFocus
 					required
 				/>
@@ -138,6 +139,7 @@ const SignUp1 = ({
 					variant="outlined"
 					onChange={handleRepeatPasswordChange}
 					type="Password"
+					data-cy="signup-password-repeat"
 					required
 				/>
 			</FormSection>
@@ -166,7 +168,8 @@ const SignUp2 = ({ beginUpload, docsUploaded }) => {
 				<Button
 					className={classes.uploadButton}
 					variant="contained"
-					onClick={beginUpload}>
+					onClick={beginUpload}
+					data-cy="upload-img">
 					Upload verification
 				</Button>
 				{docsUploaded && (

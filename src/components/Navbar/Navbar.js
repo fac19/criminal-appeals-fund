@@ -33,7 +33,7 @@ const NavbarLoggedIn = () => {
 	};
 
 	return (
-		<Nav>
+		<Nav data-cy="nav-logged-in">
 			<Link to="/" style={{ textDecoration: "none" }}>
 				<NavbarTitle>Criminal Appeals Fund</NavbarTitle>
 			</Link>

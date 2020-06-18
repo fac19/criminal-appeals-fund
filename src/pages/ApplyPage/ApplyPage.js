@@ -41,7 +41,7 @@ const ApplyPage = () => {
 		court_name: "",
 		case_stage: "",
 		status_id: ["recHOTyA7teTAoYHc"],
-		user_id: [user.id],
+		user_email: [user.id],
 		application_merit: "",
 		application_impact: "",
 	});

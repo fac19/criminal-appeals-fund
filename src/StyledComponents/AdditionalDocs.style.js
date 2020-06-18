@@ -2,26 +2,22 @@ import styled from "styled-components";
 require("typeface-ibm-plex-serif");
 
 const PageTitle = styled.h1`
-	font: sans-serif;
-	font-size: 30px;
+	font: ibm-plex-serif;
+	font-size: 2em;
 	color: black;
 	text-align: center;
+	margin-top: 30px;
 `;
 
 const ButtonWrapper = styled.section`
 	display: grid;
 	flex-direction: column;
-	width: 200px;
+	width: 8.5rem;
 	margin: 0 auto;
 `;
 
-// const ButtonAlt = styled.button`
-//   color: palevioletred;
-//   font-size: 1em;
-//   margin: 1em;
-//   padding: 0.25em 1em;
-//   border: 2px solid palevioletred;
-//   border-radius: 3px;
-// `;
+const SuccessfulStatus = styled.p`
+	color: #238823;
+`;
 
-export { PageTitle, ButtonWrapper };
+export { PageTitle, ButtonWrapper, SuccessfulStatus };

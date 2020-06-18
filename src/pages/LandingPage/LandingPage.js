@@ -19,6 +19,8 @@ import step1 from "./assets/step1.svg";
 import step2 from "./assets/step2.svg";
 import step3 from "./assets/step3.svg";
 import step4 from "./assets/step4.svg";
+import step5 from "./assets/step5.svg";
+import step6 from "./assets/step6.svg";
 
 const useStyles = makeStyles((theme) => ({
 	landingButton: {
@@ -111,7 +113,7 @@ const LandingPage = () => {
 				</StepsWrapper>
 
 				<StepWrapper>
-					<StepsImg src={step4} alt="step5" />
+					<StepsImg src={step5} alt="step5" />
 					<StepsText>
 						<StepHeading>Step 5</StepHeading>
 						<p>
@@ -122,7 +124,7 @@ const LandingPage = () => {
 				</StepWrapper>
 
 				<StepWrapper>
-					<StepsImg src={step4} alt="step5" />
+					<StepsImg src={step6} alt="step6" />
 					<StepsText>
 						<StepHeading>Step 6</StepHeading>
 						<p>

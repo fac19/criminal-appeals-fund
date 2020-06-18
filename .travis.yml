@@ -5,5 +5,3 @@ install:
 script:
   - npm test
   - npm run codecov
-after-script:
-  - bash <(curl -s https://codecov.io/bash)

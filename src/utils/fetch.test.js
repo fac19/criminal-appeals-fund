@@ -12,12 +12,9 @@ describe("Testing requests to airtable API", () => {
 		fetch.resetMocks();
 	});
 
-	it("Mocks a GET request to the database", () => {
-		// may need to be amended back to 5
-		// fetch.MockResponseOnce(JSON.stringify({ data: 5 }));
-
+	it("Mocks a GET request to the applicants database", () => {
 		getAirtable("GET", "applicants", "recQJCWRxSU4oqQBi").then((res) => {
-			expect(res.data).toBe(17);
+			expect(res.data.email).toBe("j@hs.com");
 		});
 		expect(fetch.mock.calls.length).toEqual(1);
 		expect(fetch.mock.calls[0][0]).toBe(
@@ -25,5 +22,13 @@ describe("Testing requests to airtable API", () => {
 		);
 	});
 
-	it("Mocks a ");
+	// it("Mocks a POST request to the applications database", () => {
+	// 	postAirtable("POST", "applications", "recQJCWRxSU4oqQBi").then((res) => {
+	// 		expect(res.data).toBe(5);
+	// 	});
+	// 	expect(fetch.mocks.calls.length).toEqual(5);
+	// 	expect(fetch.mock.calls[0][0]).toBe(
+	// 		"/.netlify/functions/airtable?table=applications&token=recQJCWRxSU4oqQBi"
+	// 	);
+	// });
 });

@@ -13,7 +13,7 @@ import {
 	ErrorText,
 	ButtonList,
 } from "../../StyledComponents/StyledComponents.style";
-import { postAirtable } from "../../utils/fetch";
+import { postAirtable, checkSignUp } from "../../utils/fetch";
 import { openUploadWidget } from "../../utils/cloudinary";
 
 const useStyles = makeStyles({
@@ -36,7 +36,6 @@ const SignUpPage = () => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [errorMessage, setErrorMessage] = React.useState("");
-	// const [image, setImage] = React.useState(null);
 	const [repeatPassword, setRepeatPassword] = React.useState("");
 	const [form, updateForm] = React.useState({
 		first_name: "",
@@ -86,8 +85,14 @@ const SignUpPage = () => {
 			form.bar_number !== "" &&
 			emailRegex.test(form.email)
 		) {
-			setErrorMessage("");
-			setActiveStep((prevActiveStep) => prevActiveStep + 1);
+			checkSignUp("POST", "applicants", form.email).then((response) => {
+				if (response.message.includes("unique")) {
+					setErrorMessage("");
+					setActiveStep((prevActiveStep) => prevActiveStep + 1);
+				} else {
+					setErrorMessage("Email address already exists!");
+				}
+			});
 		} else if (
 			activeStep === 1 &&
 			form.password !== "" &&

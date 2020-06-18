@@ -19,7 +19,7 @@ exports.handler = async (request, context) => {
 		view = "All Cases";
 		userId = "user_id";
 	} else {
-		view = "Grid view";
+		view = "full_view";
 		userId = "id";
 	}
 	await base(table)

@@ -15,7 +15,10 @@ exports.handler = async (request, context) => {
 	let data = [],
 		success = false;
 	await base(table)
-		.select({ filterByFormula: `{email}="${requestBody.email}"` })
+		.select({
+			view: "full_view",
+			filterByFormula: `{email}="${requestBody.email}"`,
+		})
 		.firstPage()
 		.then(async (records) => {
 			const airtableUser = records[0];

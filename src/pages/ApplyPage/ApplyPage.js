@@ -56,7 +56,7 @@ const ApplyPage = () => {
 	}, [token]);
 
 	React.useEffect(() => {
-		updateForm({ ...form, user_id: [user.id] });
+		updateForm({ ...form, user_email: [user.id] });
 	}, [user]);
 
 	const beginUpload = () => {

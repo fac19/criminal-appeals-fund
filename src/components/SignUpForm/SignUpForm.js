@@ -132,9 +132,16 @@ const SignUp2 = ({ beginUpload, docsUploaded }) => {
 	return (
 		<>
 			<FormSection>
-				<h3>Please upload a photo of your passport or driver's license.</h3>
+				<h3>Please upload:</h3>
+				<ul>
+					<li>your practicing certificate</li>
+					<li>
+						a photo of you holding up official identification (e.g. passport,
+						driving licence).
+					</li>
+				</ul>
 				<Button variant="contained" onClick={beginUpload}>
-					Upload Image
+					Upload verification
 				</Button>
 				{docsUploaded && (
 					<p>Documents successfully uploaded. You are ready to sign up.</p>

@@ -186,8 +186,9 @@ const Apply4 = ({
 		<>
 			<h1>Please upload the following documentation</h1>
 			<ul>
-				<li> Signed waiver of legal privilege</li>
-				<li> Proof of financial means</li>
+				<li>Proof of litigation extension</li>
+				<li>Signed waiver of legal privilege</li>
+				<li>Proof of financial means</li>
 			</ul>
 			<button variant="contained" onClick={beginUpload} type="button">
 				Upload documents

@@ -7,10 +7,12 @@ describe("caf.spec", () => {
 
 	it("should render the correct url for log in", () => {
 		cy.visit("/");
-		cy.get("button").contains("LOGIN").click();
+		cy.contains("Login").click();
 		cy.url().should("include", "/login");
 	});
 });
+
+// make a test for each user story - user should be able to log in to their account
 
 // context("Login", () => {
 // 	beforeEach(() => {

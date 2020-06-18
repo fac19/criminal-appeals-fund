@@ -3,11 +3,8 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { Button, TextField, makeStyles } from "@material-ui/core";
 import { Form, ErrorText } from "../../StyledComponents/StyledComponents.style";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../../Context";
 
 import { loginAirtable } from "../../utils/fetch";
-
-// import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
 	logInButton: {
@@ -20,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LogInPage = () => {
-	const [user, setUser] = React.useContext(UserContext);
 	const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	const classes = useStyles();
 	const history = useHistory();
@@ -51,6 +47,8 @@ const LogInPage = () => {
 		}
 	};
 
+	// console.log(errorMessage && !emailRegex.test(form.email))
+
 	return (
 		<>
 			<Navbar />
@@ -66,9 +64,9 @@ const LogInPage = () => {
 					onChange={handleInputChange}
 					type="email"
 					required
-					error={errorMessage && !emailRegex.test(form.email)}
+					error={errorMessage.length !== 0 && !emailRegex.test(form.email)}
 					helperText={
-						errorMessage
+						errorMessage && !emailRegex.test(form.email)
 							? "Please fill out this field with a valid email address"
 							: ""
 					}
@@ -83,7 +81,7 @@ const LogInPage = () => {
 					variant="outlined"
 					onChange={handleInputChange}
 					required
-					error={errorMessage && form.password === ""}
+					error={errorMessage.length !== 0 && form.password === ""}
 				/>
 				<Button
 					className={classes.logInButton}

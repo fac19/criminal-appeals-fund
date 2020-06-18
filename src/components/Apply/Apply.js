@@ -71,8 +71,7 @@ const Apply1 = ({ checked, setChecked, errorMessage }) => {
 	return (
 		<>
 			<ApplySubtitle>
-				Secondly, read our funding guidelines and decide which cluster your case
-				fits into
+				Secondly, decide which cluster your case fits into
 			</ApplySubtitle>
 			<ClusterInfoList>
 				<ApplyInfoListItem>Children</ApplyInfoListItem>

@@ -13,13 +13,13 @@ const Form = styled.form`
 `;
 
 const ErrorText = styled.p`
-	color: #ff726f;
+	color: #d2222d;
 	margin-top: 2rem;
 	font-size: 1.1rem;
 `;
 
 const UploadSuccess = styled.p`
-	color: #4bb543;
+	color: #238823;
 	margin-bottom: 1rem;
 `;
 

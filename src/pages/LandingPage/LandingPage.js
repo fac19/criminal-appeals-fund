@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
 		width: "11rem",
 		height: "3rem",
 		backgroundColor: "#f1f3f4",
-		textDecoration: "none",
+		textTransform: "none",
 		fontFamily: "IBM Plex Serif, serif",
-		fontSize: "1.1rem",
+		fontSize: "1.2rem",
 	},
 }));
 

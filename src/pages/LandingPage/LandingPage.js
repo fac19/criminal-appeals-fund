@@ -66,7 +66,7 @@ const LandingPage = () => {
 				<StepsWrapper ref={ref}>
 					<StepWrapper>
 						<StepsText>
-							<StepHeading>Step 1:</StepHeading>
+							<StepHeading>Step 1</StepHeading>
 							<p>
 								Sign up for an account. We will need to verify your account
 								before you can start appyling for funding - this may take up to
@@ -79,7 +79,7 @@ const LandingPage = () => {
 					<StepWrapper>
 						<StepsImg src={step2} alt="step2" />
 						<StepsText>
-							<StepHeading>Step 2:</StepHeading>
+							<StepHeading>Step 2</StepHeading>
 							<p>
 								Once your account is verified you may apply for funding on a
 								case.
@@ -89,7 +89,7 @@ const LandingPage = () => {
 
 					<StepWrapper>
 						<StepsText>
-							<StepHeading>Step 3:</StepHeading>
+							<StepHeading>Step 3</StepHeading>
 							<p>
 								Your case will be assessed against a number of criteria and may
 								be approved for funding
@@ -101,14 +101,37 @@ const LandingPage = () => {
 					<StepWrapper>
 						<StepsImg src={step4} alt="step4" />
 						<StepsText>
-							<StepHeading>Step 4:</StepHeading>
+							<StepHeading>Step 4</StepHeading>
 							<p>
-								If your case is approved, you will need to generate an invoice
-								to receive the funding
+								If your case is approved, you will be asked to provide
+								supporting documentation for the application
 							</p>
 						</StepsText>
 					</StepWrapper>
 				</StepsWrapper>
+
+				<StepWrapper>
+					<StepsImg src={step4} alt="step5" />
+					<StepsText>
+						<StepHeading>Step 5</StepHeading>
+						<p>
+							If your case is approved, you will need to generate an invoice to
+							receive the funding
+						</p>
+					</StepsText>
+				</StepWrapper>
+
+				<StepWrapper>
+					<StepsImg src={step4} alt="step5" />
+					<StepsText>
+						<StepHeading>Step 6</StepHeading>
+						<p>
+							Once we have all the required documents, funding will be provided
+							for your case
+						</p>
+					</StepsText>
+				</StepWrapper>
+
 				<Link to="/signup">
 					<Button variant="contained" className={classes.landingButton}>
 						Sign Up

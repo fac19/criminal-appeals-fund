@@ -110,30 +110,29 @@ const LandingPage = () => {
 							</p>
 						</StepsText>
 					</StepWrapper>
+
+					<StepWrapper>
+						<StepsText>
+							<StepHeading>Step 5</StepHeading>
+							<p>
+								If your case is approved, you will need to generate an invoice
+								to receive the funding
+							</p>
+						</StepsText>
+						<StepsImg src={step5} alt="step5" />
+					</StepWrapper>
+
+					<StepWrapper>
+						<StepsImg src={step6} alt="step6" />
+						<StepsText>
+							<StepHeading>Step 6</StepHeading>
+							<p>
+								Once we have all the required documents, funding will be
+								provided for your case
+							</p>
+						</StepsText>
+					</StepWrapper>
 				</StepsWrapper>
-
-				<StepWrapper>
-					<StepsImg src={step5} alt="step5" />
-					<StepsText>
-						<StepHeading>Step 5</StepHeading>
-						<p>
-							If your case is approved, you will need to generate an invoice to
-							receive the funding
-						</p>
-					</StepsText>
-				</StepWrapper>
-
-				<StepWrapper>
-					<StepsImg src={step6} alt="step6" />
-					<StepsText>
-						<StepHeading>Step 6</StepHeading>
-						<p>
-							Once we have all the required documents, funding will be provided
-							for your case
-						</p>
-					</StepsText>
-				</StepWrapper>
-
 				<Link to="/signup">
 					<Button variant="contained" className={classes.landingButton}>
 						Sign Up

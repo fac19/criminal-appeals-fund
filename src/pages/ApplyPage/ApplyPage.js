@@ -25,6 +25,10 @@ const useStyles = makeStyles({
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "white",
+		margin: "1rem",
+	},
+	button: {
+		width: "30%",
 	},
 });
 
@@ -166,18 +170,27 @@ const ApplyPage = () => {
 					)}
 					<ButtonList>
 						{activeStep !== 4 && (
-							<Button variant="contained" color="primary" onClick={handleNext}>
+							<Button
+								className={classes.button}
+								variant="contained"
+								color="primary"
+								onClick={handleNext}>
 								Next
 							</Button>
 						)}
 						{activeStep === 4 && (
-							<Button variant="contained" color="primary" type="submit">
+							<Button
+								className={classes.button}
+								variant="contained"
+								color="primary"
+								type="submit">
 								{/* // onClick={(e) => uploadFileHandler(e)}> */}
 								Apply
 							</Button>
 						)}
 						{activeStep !== 0 && (
 							<Button
+								className={classes.button}
 								disabled={activeStep === 0}
 								variant="contained"
 								onClick={handleBack}>

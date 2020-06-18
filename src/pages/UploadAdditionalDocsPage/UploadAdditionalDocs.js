@@ -10,7 +10,7 @@ import {
 	SuccessfulStatus,
 	TextWrapper,
 } from "../../StyledComponents/AdditionalDocs.style";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
 	root: {

@@ -16,6 +16,7 @@ exports.handler = async (request, context) => {
 	let data = [];
 	if (requestMethod === "POST") {
 		const requestBody = JSON.parse(request.body);
+		console.log("hey", request.body.password);
 		if (requestBody.password) {
 			await bcrypt
 				.genSalt(10)
@@ -83,6 +84,7 @@ exports.handler = async (request, context) => {
 					data.push({
 						first_name: userData.first_name,
 						last_name: userData.last_name,
+						email: userData.email,
 						isVerified: userData.isVerified,
 						id: userData.id,
 					});

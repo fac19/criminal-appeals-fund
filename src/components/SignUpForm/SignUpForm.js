@@ -1,6 +1,5 @@
 import React from "react";
 import { TextField, Button, makeStyles } from "@material-ui/core";
-// import UploadFileHandler from "../../utils/cloudinary";
 
 import { FormSection } from "../../StyledComponents/StyledComponents.style";
 
@@ -20,7 +19,7 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 			<FormSection>
 				<TextField
 					className={classes.input}
-					error={errorMessage && form.first_name === ""}
+					error={errorMessage.length !== 0 && form.first_name === ""}
 					id="firstName"
 					name="first_name"
 					value={form.first_name}
@@ -33,7 +32,7 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 				/>
 				<TextField
 					className={classes.input}
-					error={errorMessage && form.last_name === ""}
+					error={errorMessage.length !== 0 && form.last_name === ""}
 					id="lastName"
 					name="last_name"
 					value={form.last_name}
@@ -46,7 +45,8 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 				<TextField
 					className={classes.input}
 					error={
-						errorMessage && (form.email === "" || !emailRegex.test(form.email))
+						errorMessage.length !== 0 &&
+						(form.email === "" || !emailRegex.test(form.email))
 					}
 					id="email"
 					name="email"
@@ -64,7 +64,7 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 				/>
 				<TextField
 					className={classes.input}
-					error={errorMessage && form.bar_number === ""}
+					error={errorMessage.length !== 0 && form.bar_number === ""}
 					id="barNumber"
 					name="bar_number"
 					value={form.bar_number}
@@ -94,7 +94,7 @@ const SignUp1 = ({
 				<TextField
 					className={classes.input}
 					error={
-						errorMessage &&
+						errorMessage.length !== 0 &&
 						(form.password === "" || form.password !== repeatPassword)
 					}
 					id="password"
@@ -104,6 +104,7 @@ const SignUp1 = ({
 					variant="outlined"
 					onChange={handleOnChange}
 					type="Password"
+					data-cy="signup-password"
 					autoFocus
 					required
 				/>
@@ -112,7 +113,7 @@ const SignUp1 = ({
 					id="repeatPassword"
 					name="repeat_password"
 					error={
-						errorMessage &&
+						errorMessage.length !== 0 &&
 						(repeatPassword === "" || form.password !== repeatPassword)
 					}
 					helperText={errorMessage ? "Please make sure passwords match" : ""}
@@ -121,6 +122,7 @@ const SignUp1 = ({
 					variant="outlined"
 					onChange={handleRepeatPasswordChange}
 					type="Password"
+					data-cy="signup-password-repeat"
 					required
 				/>
 			</FormSection>
@@ -132,7 +134,10 @@ const SignUp2 = ({ beginUpload }) => {
 	return (
 		<>
 			<FormSection>
-				<Button variant="contained" onClick={() => beginUpload()}>
+				<Button
+					variant="contained"
+					data-cy="upload-img"
+					onClick={() => beginUpload()}>
 					Upload Image
 				</Button>
 			</FormSection>

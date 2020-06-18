@@ -11,7 +11,6 @@ const postAirtable = (method, table, request) => {
 };
 
 const getAirtable = (method, table, token) => {
-	console.log("Hey");
 	return fetch(
 		"/.netlify/functions/airtable?table=" + table + "&token=" + token,
 		{
@@ -33,12 +32,15 @@ const loginAirtable = (method, table, request) => {
 	}).then((response) => response.json());
 };
 
-const updateAirtable = (method, table, applicationId) => {
+// need to add options to update 3 Upload documents and 5 Invoice
+const updateAirtable = (method, table, applicationId, status) => {
 	return fetch(
 		"/.netlify/functions/update?table=" +
 			table +
 			"&applicationId=" +
-			applicationId,
+			applicationId +
+			"&status=" +
+			status,
 		{
 			method: method,
 			headers: {

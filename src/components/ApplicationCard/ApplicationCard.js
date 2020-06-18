@@ -150,14 +150,14 @@ const ApplicationCard = ({
 				)}
 				{activeStep === 3 && (
 					<>
-						<ApplicationStatus style={{ color: "#4BB543" }}>
+						<ApplicationStatus style={{ color: "#238823" }}>
 							Application successful
 						</ApplicationStatus>
 					</>
 				)}
 				{activeStep === -1 && (
 					<>
-						<ApplicationStatus style={{ color: "#ff726f" }}>
+						<ApplicationStatus style={{ color: "#d2222d" }}>
 							Application unsuccessful
 						</ApplicationStatus>
 					</>

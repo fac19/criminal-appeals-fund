@@ -34,7 +34,9 @@ const NavbarLoggedIn = () => {
 
 	return (
 		<Nav>
-			<NavbarTitle>Criminal Appeals Fund</NavbarTitle>
+			<Link to="/" style={{ textDecoration: "none" }}>
+				<NavbarTitle>Criminal Appeals Fund</NavbarTitle>
+			</Link>
 			<NavbarLinks>
 				<NavbarLink>
 					<Link to="/profile" style={{ textDecoration: "none" }}>

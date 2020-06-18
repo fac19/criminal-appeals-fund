@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const ApplicationCardContainer = styled.article`
-	border-radius: 1.5rem;
+	border-radius: 0.5rem;
 	width: 95%;
 	background-color: white;
 	box-shadow: 0 0.5em 1em 0 rgba(0, 0, 0, 0.3);
@@ -30,18 +30,20 @@ const ApplicationInfo = styled.div`
 
 const WithdrawButton = styled.button`
 	background-color: white;
-	color: #ff726f;
-	border: 1.3px solid #ff726f;
-	border-radius: 8px;
+	color: #d2222d;
+	border: 1.3px solid #d2222d;
+	border-radius: 0.5rem;
 	cursor: pointer;
-	width: 11rem;
-	height: 3rem;
+	max-width: 13rem;
+	white-space: nowrap;
+	min-height: 3rem;
 	margin: 2rem;
 	font-family: "IBM Plex Serif", serif;
 	font-size: 1.1rem;
 	transition: 0.3s;
 	&:hover {
-		opacity: 0.9;
+		background-color: #d2222d;
+		color: #f1f3f4;
 	}
 `;
 
@@ -52,18 +54,18 @@ const ApplicationStatus = styled.h3`
 
 const StatusButton = styled.button`
 	background-color: white;
-	color: #2096ee;
-	border: 1.3px solid #2096ee;
-	border-radius: 8px;
-	width: 13rem;
-	height: 3rem;
+	color: #2a7886;
+	border: 1.3px solid #2a7886;
+	border-radius: 0.5rem;
+	max-width: 13rem;
+	min-height: 3rem;
 	font-family: "IBM Plex Serif", serif;
-	margin: 2rem;
 	font-size: 1.1rem;
 	cursor: pointer;
 	transition: 0.3s;
 	&:hover {
-		opacity: 0.9;
+		background-color: #2a7886;
+		color: #f1f3f4;
 	}
 `;
 

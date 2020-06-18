@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 	},
 	signUpButton: {
 		width: "40%",
-		textDecoration: "none",
+		textTransform: "none",
 		fontFamily: "IBM Plex Serif, serif",
 		fontSize: "1.1rem",
 	},

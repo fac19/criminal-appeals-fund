@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import { Navbar } from "../../components/Navbar/Navbar";
+import { Navbar, NavbarLoggedIn } from "../../components/Navbar/Navbar";
 import { Button, makeStyles } from "@material-ui/core";
 import {
 	HeaderWrapper,
@@ -25,12 +25,16 @@ const useStyles = makeStyles((theme) => ({
 		width: "11rem",
 		height: "3rem",
 		backgroundColor: "#f1f3f4",
+		textDecoration: "none",
+		fontFamily: "IBM Plex Serif, serif",
+		fontSize: "1.1rem",
 	},
 }));
 
 const LandingPage = () => {
 	const classes = useStyles();
 	const ref = useRef();
+	const token = localStorage.getItem("user");
 
 	const executeScroll = () =>
 		ref.current.scrollIntoView({
@@ -41,7 +45,7 @@ const LandingPage = () => {
 	return (
 		<StyledLanding>
 			<GlobalStyle />
-			<Navbar />
+			{token ? <NavbarLoggedIn /> : <Navbar />}
 			<BodyWrapper>
 				<HeaderWrapper>
 					<HeaderText>
@@ -107,7 +111,7 @@ const LandingPage = () => {
 						</StepsText>
 					</StepWrapper>
 				</StepsWrapper>
-				<Link to="/signup">
+				<Link style={{ textDecoration: "none" }} to="/signup">
 					<Button variant="contained" className={classes.landingButton}>
 						Sign Up
 					</Button>

@@ -19,7 +19,7 @@ function App() {
 	const SiteRoute = ({ path, component }) => {
 		const token = localStorage.getItem("user");
 		if (token) {
-			if (path === "/signup" || path === "/login") {
+			if (path === "/signup" || path === "/login" || path === "*") {
 				return <Redirect to="/profile" />;
 			} else {
 				return <Route path={path}>{component}</Route>;
@@ -45,6 +45,7 @@ function App() {
 					<SiteRoute path="/apply" component={<ApplyPage />} />
 					<SiteRoute path="/addinfo" component={<UploadDocuments />} />
 					<SiteRoute exact path="/" component={<LandingPage />} />
+					<SiteRoute path="*" component={<LandingPage />} />
 				</Switch>
 			</Router>
 		</MainWrapper>

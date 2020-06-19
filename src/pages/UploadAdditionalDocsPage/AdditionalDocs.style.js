@@ -6,9 +6,10 @@ const PageTitle = styled.h1`
 	font-size: 2em;
 	color: #0e0c0b;
 	text-align: center;
-	// margin: 2em;
+	padding: 6rem;
 `;
 
+const AdditionalWrapper = styled.section``;
 const TextWrapper = styled.section`
 	margin: 0 3em;
 `;
@@ -20,4 +21,4 @@ const ButtonWrapper = styled.section`
 	margin: 1em auto 2em;
 `;
 
-export { PageTitle, ButtonWrapper, TextWrapper };
+export { PageTitle, ButtonWrapper, TextWrapper, AdditionalWrapper };

@@ -4,7 +4,12 @@ import { openUploadWidget } from "../../utils/cloudinary";
 import { useHistory } from "react-router-dom";
 import { updateAirtable } from "../../utils/fetch";
 import { Button } from "@material-ui/core";
-import { PageTitle, ButtonWrapper, TextWrapper } from "./AdditionalDocs.style";
+import {
+	PageTitle,
+	ButtonWrapper,
+	TextWrapper,
+	AdditionalWrapper,
+} from "./AdditionalDocs.style";
 import { SuccessfulText } from "../../StyledComponents/StyledComponents.style";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -57,32 +62,33 @@ const UploadDocuments = () => {
 		return (
 			<>
 				<NavbarLoggedIn />
-				<PageTitle> Supporting Documentation</PageTitle>
-				<p>
-					As part of the application, please upload supporting evidence on how
-					the case meets the criteria outlined by the Criminal Appeals Fund
-				</p>
+				<AdditionalWrapper>
+					<PageTitle> Supporting Documentation</PageTitle>
+					<p>
+						As part of the application, please upload supporting evidence on how
+						the case meets the criteria outlined by the Criminal Appeals Fund
+					</p>
 
-				<ButtonWrapper>
-					<Button
-						onClick={beginUpload}
-						type="button"
-						variant="outlined"
-						color="primary"
-						className={classes.root}>
-						{" "}
-						Upload documents
-					</Button>
-					{docsUploaded && (
-						<SuccessfulText>
-							Documents successfully uploaded, this is ready to submit.
-						</SuccessfulText>
-					)}
-					<Button onClick={handleClick} variant="outlined" color="primary">
-						{" "}
-						Submit documentation
-					</Button>
-				</ButtonWrapper>
+					<ButtonWrapper>
+						<Button
+							onClick={beginUpload}
+							type="button"
+							variant="outlined"
+							color="primary"
+							className={classes.root}>
+							{" "}
+							Upload documents
+						</Button>
+						{docsUploaded && (
+							<SuccessfulText>
+								Documents successfully uploaded, this is ready to submit.
+							</SuccessfulText>
+						)}
+						<Button onClick={handleClick} variant="outlined" color="primary">
+							Submit documentation
+						</Button>
+					</ButtonWrapper>
+				</AdditionalWrapper>
 			</>
 		);
 	} else {
@@ -110,7 +116,6 @@ const UploadDocuments = () => {
 						color="primary"
 						type="button"
 						className={classes.root}>
-						{" "}
 						Upload invoice
 					</Button>
 
@@ -120,7 +125,6 @@ const UploadDocuments = () => {
 						</SuccessfulText>
 					)}
 					<Button onClick={handleClick} variant="outlined" color="primary">
-						{" "}
 						Submit documentation
 					</Button>
 				</ButtonWrapper>

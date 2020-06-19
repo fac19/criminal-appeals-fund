@@ -3,7 +3,6 @@ import styled from "styled-components";
 const Nav = styled.nav`
 	max-height: 4rem;
 	background-color: hsl(216, 10%, 10%);
-	// background-color: hsl(216, 1%, 16%);
 	color: white;
 	position: fixed;
 	width: 100%;

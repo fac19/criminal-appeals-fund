@@ -12,7 +12,9 @@ const ApplicationSection = styled.section`
 	box-shadow: inset 0px 1px 11px -3px rgba(0, 0, 0, 0.75);
 `;
 
-const ApplicationPageHeader = styled.section``;
+const ApplicationPageHeader = styled.section`
+	margin-top: 6rem;
+`;
 
 const ApplicantName = styled.h2`
 	font-size: 2.5rem;

@@ -18,8 +18,11 @@ import { MainWrapper } from "./StyledComponents/PageStyles.style";
 function App() {
 	const SiteRoute = ({ path, component }) => {
 		const token = localStorage.getItem("user");
+		const verified = sessionStorage.getItem("verified");
 		if (token) {
 			if (path === "/signup" || path === "/login" || path === "*") {
+				return <Redirect to="/profile" />;
+			} else if (!verified && (path === "/apply" || path === "/addinfo")) {
 				return <Redirect to="/profile" />;
 			} else {
 				return <Route path={path}>{component}</Route>;

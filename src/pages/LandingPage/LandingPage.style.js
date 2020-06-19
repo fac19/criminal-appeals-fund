@@ -17,8 +17,9 @@ const StyledLanding = styled.section`
 
 const HeaderText = styled.p`
 	font-size: 2rem;
-	padding: 0 10rem;
 	line-height: 3rem;
+	margin-top: 0.5rem;
+	width: 80%;
 `;
 const BodyWrapper = styled.section``;
 

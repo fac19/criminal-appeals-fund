@@ -80,6 +80,9 @@ const ProfilePage = () => {
 	React.useEffect(() => {
 		getAirtable("GET", "applicants", token).then((data) => {
 			setUser(data.response[0]);
+			if (data.response[0].isVerified) {
+				sessionStorage.setItem("verified", true);
+			}
 		});
 	}, [token]);
 

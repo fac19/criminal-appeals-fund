@@ -37,10 +37,10 @@ const ApplicationStageList = styled.ul`
 const ApplicantDiv = styled.div`
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
-	padding-left: 3rem;
-	padding-right: 3rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
 	margin: 2rem;
 `;
 

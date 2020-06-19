@@ -48,8 +48,6 @@ const LogInPage = () => {
 		}
 	};
 
-	// console.log(errorMessage && !emailRegex.test(form.email))
-
 	return (
 		<>
 			<Navbar />

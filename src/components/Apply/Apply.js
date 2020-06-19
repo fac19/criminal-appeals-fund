@@ -206,14 +206,7 @@ const Apply3 = ({ errorMessage, handleInputChange, form }) => {
 	);
 };
 
-const Apply4 = ({
-	handleUpload,
-	errorMessage,
-	form,
-	handleInputChange,
-	beginUpload,
-	docsUploaded,
-}) => {
+const Apply4 = ({ errorMessage, beginUpload, docsUploaded }) => {
 	const classes = useStyles();
 
 	return (

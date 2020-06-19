@@ -1,5 +1,8 @@
 import React from "react";
-import { NavbarLoggedIn } from "../../components/Navbar/Navbar";
+import {
+	NavbarLoggedIn,
+	NavbarUnverified,
+} from "../../components/Navbar/Navbar";
 import { ApplicationCard } from "../../components/ApplicationCard/ApplicationCard";
 import { Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -10,6 +13,7 @@ import {
 	ApplicantName,
 	ApplicationStageList,
 	ApplicantDiv,
+	ApplicantSubtitle,
 } from "./ProfilePage.style";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
 const ProfilePage = () => {
 	const classes = useStyles();
 	const token = localStorage.getItem("user");
-	localStorage.removeItem("case");
-	localStorage.removeItem("status");
-	localStorage.removeItem("appId");
-	localStorage.removeItem("email");
+	sessionStorage.removeItem("case");
+	sessionStorage.removeItem("status");
+	sessionStorage.removeItem("appId");
+	sessionStorage.removeItem("email");
 	const [user, setUser] = React.useState([]);
 	const [withdraw, setWithdraw] = React.useState(false);
 	const [applicationsObject, setApplicationsObject] = React.useState([]);
@@ -81,7 +85,7 @@ const ProfilePage = () => {
 
 	return (
 		<div>
-			<NavbarLoggedIn />
+			{user.isVerified ? <NavbarLoggedIn /> : <NavbarUnverified />}
 			<ApplicationPageHeader data-cy="applicant-infos">
 				<ApplicantName data-cy="applicant-name">
 					{user.length !== 0
@@ -109,9 +113,9 @@ const ProfilePage = () => {
 							</Link>
 						</ApplicantDiv>
 					) : (
-						<h3>
+						<ApplicantSubtitle>
 							Your account is currently unverified, please check back in 24hrs!
-						</h3>
+						</ApplicantSubtitle>
 					)
 				) : (
 					""

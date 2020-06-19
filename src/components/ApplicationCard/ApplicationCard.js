@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 	stepper: {
 		borderRadius: "1.5rem",
 		marginBottom: "1.5rem",
+		backgroundColor: "#fafafa",
 		zIndex: "-1",
 	},
 	backButton: {
@@ -57,10 +58,10 @@ const ApplicationCard = ({
 
 	const handleClick = (event) => {
 		event.preventDefault();
-		localStorage.setItem("case", case_name);
-		localStorage.setItem("appId", id);
-		localStorage.setItem("status", status_name);
-		localStorage.setItem("email", userEmail);
+		sessionStorage.setItem("case", case_name);
+		sessionStorage.setItem("appId", id);
+		sessionStorage.setItem("status", status_name);
+		sessionStorage.setItem("email", userEmail);
 		history.push("/addinfo");
 	};
 

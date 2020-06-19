@@ -12,16 +12,18 @@ const GlobalStyle = createGlobalStyle`
 const StyledLanding = styled.section`
 	font-family: "ibm plex serif";
 	text-decoration: none;
+	margin-bottom: 4rem;
 `;
 
 const HeaderText = styled.p`
 	font-size: 2rem;
-	padding: 0 2rem 4rem;
+	padding: 0 10rem;
+	line-height: 3rem;
 `;
 const BodyWrapper = styled.section``;
 
 const HeaderWrapper = styled.section`
-	margin-top: -8rem;
+	/* margin-top: -8rem; */
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;

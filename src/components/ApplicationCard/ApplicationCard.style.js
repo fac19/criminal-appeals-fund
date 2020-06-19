@@ -3,7 +3,7 @@ import styled from "styled-components";
 const ApplicationCardContainer = styled.article`
 	border-radius: 0.5rem;
 	width: 95%;
-	background-color: #f1f3f4;
+	background-color: #fafafa;
 	box-shadow: 0 0.5em 1em 0 rgba(0, 0, 0, 0.3);
 	transition: 0.3s;
 	&:hover {
@@ -29,7 +29,7 @@ const ApplicationInfo = styled.div`
 `;
 
 const WithdrawButton = styled.button`
-	background-color: #f1f3f4;
+	background-color: #fafafa;
 	color: #d2222d;
 	border: 1.3px solid #d2222d;
 	border-radius: 0.5rem;
@@ -43,7 +43,7 @@ const WithdrawButton = styled.button`
 	transition: 0.3s;
 	&:hover {
 		background-color: #d2222d;
-		color: #f1f3f4;
+		color: #fafafa;
 	}
 `;
 
@@ -53,7 +53,7 @@ const ApplicationStatus = styled.h3`
 `;
 
 const StatusButton = styled.button`
-	background-color: #f1f3f4;
+	background-color: #fafafa;
 	color: #2a7886;
 	border: 1.3px solid #2a7886;
 	border-radius: 0.5rem;
@@ -65,7 +65,7 @@ const StatusButton = styled.button`
 	transition: 0.3s;
 	&:hover {
 		background-color: #2a7886;
-		color: #f1f3f4;
+		color: #fafafa;
 	}
 `;
 

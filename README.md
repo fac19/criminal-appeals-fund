@@ -1,8 +1,5 @@
 # Criminal Appeals Fund
 
-[![codecov](https://codecov.io/gh/fac19/criminal-appeals-fund/branch/master/graph/badge.svg)](https://codecov.io/gh/fac19/criminal-appeals-fund) :microscope:
-(For our code review team, there was a problem occurred yesterday and failed to integrate cypress using nyc, so this coverage is only coming from react testing 😬)
-
 ![](https://travis-ci.org/fac19/criminal-appeals-fund.svg?branch=master&status=passed) :construction_worker_woman:
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/6f240a7b-1593-4f83-97d5-97b4d2618b9d/deploy-status)](https://app.netlify.com/sites/criminal-appeals-fund/deploys) :small_airplane:

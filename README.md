@@ -34,7 +34,9 @@ The best way to navigate this project once you've run `npm install` (and got our
 - `netlify login` from the terminal in the project root
 - `netlify dev` will build and run a local server with the Netlify environment (i.e. where the Airtable secret key is :shushing_face:)
 
-We also have a [style guide](https://github.com/fac19/criminal-appeals-fund/issues/27).
+We have a [style guide](https://github.com/fac19/criminal-appeals-fund/issues/27).
+
+It might be of interest to read [our admin handbook](https://github.com/fac19/criminal-appeals-fund/files/4803471/CAF.Handbook.pdf).
 
 ---
 

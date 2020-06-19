@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Nav, NavbarLinks, NavbarLink, NavbarTitle } from "./Navbar.style";
 
 const Navbar = () => {
@@ -9,27 +9,21 @@ const Navbar = () => {
 				<NavbarTitle>Criminal Appeals Fund</NavbarTitle>
 			</Link>
 			<NavbarLinks>
-				<NavbarLink>
-					<Link to="/login" style={{ textDecoration: "none" }}>
-						Login
-					</Link>
-				</NavbarLink>
-				<NavbarLink>
-					<Link to="signup" style={{ textDecoration: "none" }}>
-						Sign Up
-					</Link>
-				</NavbarLink>
+				<Link to="/login" style={{ textDecoration: "none" }}>
+					<NavbarLink>Login</NavbarLink>
+				</Link>
+				<Link to="signup" style={{ textDecoration: "none" }}>
+					<NavbarLink>Sign Up</NavbarLink>
+				</Link>
 			</NavbarLinks>
 		</Nav>
 	);
 };
 
 const NavbarLoggedIn = () => {
-	const history = useHistory();
-
 	const handleSignOut = () => {
 		localStorage.clear();
-		history.push("/");
+		window.location.reload(false);
 	};
 
 	return (
@@ -38,16 +32,12 @@ const NavbarLoggedIn = () => {
 				<NavbarTitle>Criminal Appeals Fund</NavbarTitle>
 			</Link>
 			<NavbarLinks>
-				<NavbarLink>
-					<Link to="/profile" style={{ textDecoration: "none" }}>
-						My Applications
-					</Link>
-				</NavbarLink>
-				<NavbarLink>
-					<Link to="/apply" style={{ textDecoration: "none" }}>
-						Apply
-					</Link>
-				</NavbarLink>
+				<Link to="/profile" style={{ textDecoration: "none" }}>
+					<NavbarLink>My Applications</NavbarLink>
+				</Link>
+				<Link to="/apply" style={{ textDecoration: "none" }}>
+					<NavbarLink>Apply</NavbarLink>
+				</Link>
 				<NavbarLink onClick={handleSignOut}>Sign Out</NavbarLink>
 			</NavbarLinks>
 		</Nav>
@@ -55,11 +45,9 @@ const NavbarLoggedIn = () => {
 };
 
 const NavbarUnverified = () => {
-	const history = useHistory();
-
 	const handleSignOut = () => {
 		localStorage.clear();
-		history.push("/");
+		window.location.reload(false);
 	};
 
 	return (

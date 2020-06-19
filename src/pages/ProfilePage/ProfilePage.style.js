@@ -4,9 +4,12 @@ const ApplicationSection = styled.section`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: #79bac1;
+	background-color: hsl(216, 50%, 90%);
 	width: 100%;
-	border-top: 2px solid darkgray;
+	flex: 1;
+	-webkit-box-shadow: inset 0px 1px 11px -3px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: inset 0px 1px 11px -3px rgba(0, 0, 0, 0.75);
+	box-shadow: inset 0px 1px 11px -3px rgba(0, 0, 0, 0.75);
 `;
 
 const ApplicationPageHeader = styled.section``;

@@ -32,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
 const ProfilePage = () => {
 	const classes = useStyles();
 	const token = localStorage.getItem("user");
-	localStorage.removeItem("case");
-	localStorage.removeItem("status");
-	localStorage.removeItem("appId");
-	localStorage.removeItem("email");
+	sessionStorage.removeItem("case");
+	sessionStorage.removeItem("status");
+	sessionStorage.removeItem("appId");
+	sessionStorage.removeItem("email");
 	const [user, setUser] = React.useState([]);
 	const [withdraw, setWithdraw] = React.useState(false);
 	const [applicationsObject, setApplicationsObject] = React.useState([]);

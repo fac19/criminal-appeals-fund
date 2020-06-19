@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 const Nav = styled.nav`
-	max-height: 7rem;
-	background-color: #f1f3f4;
+	max-height: 4rem;
+	background-color: hsl(216, 10%, 10%);
+	// background-color: hsl(216, 1%, 16%);
+	color: white;
 	position: fixed;
 	width: 100%;
 	top: 0;
@@ -22,21 +24,21 @@ const NavbarLinks = styled.ul`
 	list-style: none;
 	margin-right: 2rem;
 	padding: 0;
-	color: black;
+	color: #0e0c0b;
 	text-decoration: none;
 `;
 
 const NavbarTitle = styled.h1`
 	margin: 0;
+	letter-spacing: 0.01rem;
 	padding: 0.8rem;
-	padding-left: 1rem;
-	font-size: 2rem;
+	padding-left: 2rem;
+	font-size: 1.5rem;
 	text-decoration: none;
-	color: black;
+	color: white;
 	text-decoration: none;
 	&:hover {
-		color: #512b58;
-		text-decoration: underline;
+		color: hsl(216, 50%, 90%);
 	}
 `;
 
@@ -44,13 +46,14 @@ const NavbarLink = styled.li`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	color: white;
+	font-weight: lighter;
 	padding: 1rem;
 	font-size: 1.3rem;
 	text-decoration: none;
 	cursor: pointer;
 	&:hover {
-		color: #512b58;
-		text-decoration: underline;
+		color: hsl(216, 50%, 90%);
 	}
 `;
 

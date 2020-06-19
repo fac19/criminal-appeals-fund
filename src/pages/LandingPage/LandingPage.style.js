@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
 const StyledLanding = styled.section`
 	font-family: "ibm plex serif";
 	text-decoration: none;
+	margin-bottom: 4rem;
 `;
 
 const HeaderText = styled.p`

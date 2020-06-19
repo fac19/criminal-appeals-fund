@@ -4,7 +4,7 @@ const ApplicationSection = styled.section`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: hsl(0, 0%, 93%);
+	background-color: #79bac1;
 	width: 100%;
 	border-top: 2px solid darkgray;
 `;

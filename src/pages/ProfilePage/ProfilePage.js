@@ -1,5 +1,8 @@
 import React from "react";
-import { NavbarLoggedIn } from "../../components/Navbar/Navbar";
+import {
+	NavbarLoggedIn,
+	NavbarUnverified,
+} from "../../components/Navbar/Navbar";
 import { ApplicationCard } from "../../components/ApplicationCard/ApplicationCard";
 import { Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -10,6 +13,7 @@ import {
 	ApplicantName,
 	ApplicationStageList,
 	ApplicantDiv,
+	ApplicantSubtitle,
 } from "./ProfilePage.style";
 
 const useStyles = makeStyles((theme) => ({
@@ -81,7 +85,7 @@ const ProfilePage = () => {
 
 	return (
 		<div>
-			<NavbarLoggedIn />
+			{user.isVerified ? <NavbarLoggedIn /> : <NavbarUnverified />}
 			<ApplicationPageHeader data-cy="applicant-infos">
 				<ApplicantName data-cy="applicant-name">
 					{user.length !== 0
@@ -109,9 +113,9 @@ const ProfilePage = () => {
 							</Link>
 						</ApplicantDiv>
 					) : (
-						<h3>
+						<ApplicantSubtitle>
 							Your account is currently unverified, please check back in 24hrs!
-						</h3>
+						</ApplicantSubtitle>
 					)
 				) : (
 					""

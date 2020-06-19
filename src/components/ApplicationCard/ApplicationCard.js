@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 	stepper: {
 		borderRadius: "1.5rem",
 		marginBottom: "1.5rem",
+		backgroundColor: "#f1f3f4",
 		zIndex: "-1",
 	},
 	backButton: {

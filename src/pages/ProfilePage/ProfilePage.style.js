@@ -7,9 +7,6 @@ const ApplicationSection = styled.section`
 	background-color: hsl(0, 0%, 93%);
 	width: 100%;
 	border-top: 2px solid darkgray;
-	/* -webkit-box-shadow: inset 0px 7px 3px -3px rgba(0, 0, 0, 0.68);
-	-moz-box-shadow: inset 0px 7px 3px -3px rgba(0, 0, 0, 0.68);
-	box-shadow: inset 0px 7px 3px -3px rgba(0, 0, 0, 0.68); */
 `;
 
 const ApplicationPageHeader = styled.section``;
@@ -42,10 +39,20 @@ const ApplicantDiv = styled.div`
 	margin: 2rem;
 `;
 
+const ApplicantSubtitle = styled.h3`
+	font-size: 1.8rem;
+	padding-left: 3rem;
+	padding-right: 3rem;
+	margin-left: 2rem;
+	text-align: left;
+	font-weight: 400;
+`;
+
 export {
 	ApplicationSection,
 	ApplicationPageHeader,
 	ApplicantName,
 	ApplicationStageList,
 	ApplicantDiv,
+	ApplicantSubtitle,
 };

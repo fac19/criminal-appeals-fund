@@ -5,10 +5,6 @@ const ApplicationCardContainer = styled.article`
 	width: 95%;
 	background-color: #fafafa;
 	box-shadow: 0 0.5em 1em 0 rgba(0, 0, 0, 0.3);
-	transition: 0.3s;
-	&:hover {
-		box-shadow: 0 1em 2em 0 rgba(0, 0, 0, 0.3);
-	}
 	margin: 1rem;
 `;
 

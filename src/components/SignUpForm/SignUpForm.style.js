@@ -19,10 +19,6 @@ const VerificationInfoListItem = styled.li`
 	box-sizing: border-box;
 	font-size: 1.1rem;
 	box-shadow: 0 0.2em 0.2em 0 rgba(0, 0, 0, 0.3);
-	transition: 0.3s;
-	&:hover {
-		box-shadow: 0 0.4em 0.4em 0 rgba(0, 0, 0, 0.3);
-	}
 `;
 
 const VerificationSubtitle = styled.h3`

@@ -64,6 +64,9 @@ const SignUpPage = () => {
 					setErrorMessage("");
 				}
 			} else {
+				setErrorMessage(
+					"Error uploading documents, please refresh the page and try again."
+				);
 				console.log(error);
 			}
 		});

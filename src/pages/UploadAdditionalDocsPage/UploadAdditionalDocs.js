@@ -9,8 +9,12 @@ import {
 	ButtonWrapper,
 	TextWrapper,
 	AdditionalWrapper,
+	AddInfoSubtitle,
 } from "./AdditionalDocs.style";
-import { SuccessfulText } from "../../StyledComponents/StyledComponents.style";
+import {
+	SuccessfulText,
+	ErrorText,
+} from "../../StyledComponents/StyledComponents.style";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -23,6 +27,7 @@ const useStyles = makeStyles({
 });
 const UploadDocuments = () => {
 	const [docsUploaded, setDocsUploaded] = React.useState(false);
+	const [errorMessage, setErrorMessage] = React.useState("");
 	const history = useHistory();
 	const case_name = sessionStorage.getItem("case");
 	const status = sessionStorage.getItem("status");
@@ -30,6 +35,7 @@ const UploadDocuments = () => {
 	const email = sessionStorage.getItem("email");
 	const stageName = status === "Criteria met" ? "documentation" : "invoice";
 	const classes = useStyles();
+
 	const beginUpload = () => {
 		const uploadOptions = {
 			cloudName: "dgc9b8ti3",
@@ -45,15 +51,19 @@ const UploadDocuments = () => {
 				}
 			} else {
 				console.log(error);
+				setErrorMessage(
+					"Error uploading documents, please refresh the page and try again."
+				);
 			}
 		});
 	};
 
 	const handleClick = () => {
 		if (!docsUploaded) {
-			// add error message
+			setErrorMessage("Please upload documentation using the button above.");
 		} else {
 			updateAirtable("PUT", "applications", appId, status);
+			setErrorMessage("");
 			history.push("/profile");
 		}
 	};
@@ -64,10 +74,10 @@ const UploadDocuments = () => {
 				<NavbarLoggedIn />
 				<AdditionalWrapper>
 					<PageTitle> Supporting Documentation</PageTitle>
-					<p>
+					<AddInfoSubtitle>
 						As part of the application, please upload supporting evidence on how
 						the case meets the criteria outlined by the Criminal Appeals Fund
-					</p>
+					</AddInfoSubtitle>
 
 					<ButtonWrapper>
 						<Button
@@ -76,18 +86,18 @@ const UploadDocuments = () => {
 							variant="outlined"
 							color="primary"
 							className={classes.root}>
-							{" "}
 							Upload documents
+						</Button>
+						<Button onClick={handleClick} variant="contained" color="primary">
+							Submit documentation
 						</Button>
 						{docsUploaded && (
 							<SuccessfulText>
 								Documents successfully uploaded, this is ready to submit.
 							</SuccessfulText>
 						)}
-						<Button onClick={handleClick} variant="outlined" color="primary">
-							Submit documentation
-						</Button>
 					</ButtonWrapper>
+					<ErrorText>{errorMessage ? errorMessage : ""}</ErrorText>
 				</AdditionalWrapper>
 			</>
 		);
@@ -95,39 +105,44 @@ const UploadDocuments = () => {
 		return (
 			<>
 				<NavbarLoggedIn />
-				<PageTitle> Upload your invoice</PageTitle>
+				<AdditionalWrapper>
+					<PageTitle> Upload your invoice</PageTitle>
 
-				<TextWrapper>
-					<p>Congratulations on securing funding!</p>
-					<p>
-						Upload your invoice here so that we can process this as quickly as
-						possible.
-					</p>
-					<p>
-						Please ensure your it is in one of the following formats: pdf, docx
-						or doc.
-					</p>
-				</TextWrapper>
+					<TextWrapper>
+						<AddInfoSubtitle>
+							Congratulations on securing funding!
+						</AddInfoSubtitle>
+						<AddInfoSubtitle>
+							Upload your invoice here so that we can process this as quickly as
+							possible.
+						</AddInfoSubtitle>
+						<AddInfoSubtitle>
+							Please ensure your it is in one of the following formats: pdf,
+							docx or doc.
+						</AddInfoSubtitle>
+					</TextWrapper>
 
-				<ButtonWrapper>
-					<Button
-						onClick={beginUpload}
-						variant="outlined"
-						color="primary"
-						type="button"
-						className={classes.root}>
-						Upload invoice
-					</Button>
+					<ButtonWrapper>
+						<Button
+							onClick={beginUpload}
+							variant="outlined"
+							color="primary"
+							type="button"
+							className={classes.root}>
+							Upload invoice
+						</Button>
 
-					{docsUploaded && (
-						<SuccessfulText>
-							Documents successfully uploaded, this is ready to submit.
-						</SuccessfulText>
-					)}
-					<Button onClick={handleClick} variant="outlined" color="primary">
-						Submit documentation
-					</Button>
-				</ButtonWrapper>
+						<Button onClick={handleClick} variant="contained" color="primary">
+							Submit documentation
+						</Button>
+						{docsUploaded && (
+							<SuccessfulText>
+								Documents successfully uploaded, this is ready to submit.
+							</SuccessfulText>
+						)}
+					</ButtonWrapper>
+					<ErrorText>{errorMessage ? errorMessage : ""}</ErrorText>
+				</AdditionalWrapper>
 			</>
 		);
 	}

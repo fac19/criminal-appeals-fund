@@ -1,7 +1,7 @@
 # Criminal Appeals Fund
 
 [![codecov](https://codecov.io/gh/fac19/criminal-appeals-fund/branch/master/graph/badge.svg)](https://codecov.io/gh/fac19/criminal-appeals-fund) :microscope:
-(↑ for our code review team, there was a problem occurred yesterday and failed to integrate cypress using nyc, so this code coverage is only coming from react testing 😬)
+(For our code review team, there was a problem occurred yesterday and failed to integrate cypress using nyc, so this code coverage is only coming from react testing 😬)
 
 ![](https://travis-ci.org/fac19/criminal-appeals-fund.svg?branch=master&status=passed) :construction_worker_woman:
 

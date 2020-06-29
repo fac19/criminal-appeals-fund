@@ -72,7 +72,10 @@ const ProfilePage = () => {
 					"You currently have no applications under review"
 				);
 			} else {
-				setApplicationsObject(data.response);
+				const liveApplications = data.response.filter(
+					(app) => app.status_id && app.status_id[0] !== "recWSbyldggg7zIXZ"
+				);
+				setApplicationsObject(liveApplications);
 			}
 		});
 	}, [token, withdraw]);

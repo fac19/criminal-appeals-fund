@@ -101,7 +101,9 @@ const ApplicationCard = ({
 					setUserAction(false);
 					break;
 				default:
-					setActiveStep(-1);
+					setActiveStep(-2);
+					setUserAction(false);
+					break;
 			}
 		};
 		statusUpdater();

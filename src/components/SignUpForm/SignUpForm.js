@@ -79,18 +79,6 @@ const SignUp0 = ({ handleOnChange, form, errorMessage }) => {
 					type="email"
 					required
 				/>
-				<TextField
-					className={classes.input}
-					error={errorMessage.length !== 0 && form.bar_number === ""}
-					id="barNumber"
-					name="bar_number"
-					value={form.bar_number}
-					label="Bar Number"
-					variant="outlined"
-					onChange={handleOnChange}
-					type="number"
-					required
-				/>
 			</FormSection>
 		</>
 	);

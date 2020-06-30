@@ -74,10 +74,13 @@ const Apply1 = ({ checked, setChecked, errorMessage }) => {
 				Secondly, decide which cluster your case fits into
 			</ApplySubtitle>
 			<ClusterInfoList>
-				<ApplyInfoListItem>Children</ApplyInfoListItem>
-				<ApplyInfoListItem>Excessive Sentence</ApplyInfoListItem>
-				<ApplyInfoListItem>Families</ApplyInfoListItem>
-				<ApplyInfoListItem>Discrimination</ApplyInfoListItem>
+				<ApplyInfoListItem>Fresh evidence</ApplyInfoListItem>
+				<ApplyInfoListItem>Human Rights</ApplyInfoListItem>
+				<ApplyInfoListItem>Sentencing</ApplyInfoListItem>
+				<ApplyInfoListItem>Defendants who are also victims</ApplyInfoListItem>
+				<ApplyInfoListItem>
+					Child defendants and vulnerable defendants
+				</ApplyInfoListItem>
 			</ClusterInfoList>
 			<FormControl required>
 				<FormControlLabel

@@ -44,7 +44,6 @@ const SignUpPage = () => {
 		first_name: "",
 		last_name: "",
 		email: "",
-		bar_number: "",
 		isVerified: false,
 		password: "",
 	});
